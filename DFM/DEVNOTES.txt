@@ -7,9 +7,26 @@ Intended code structure summary (as of 14 March, 2018):
 	general way regardless of the original file extension, 2) combine the data
 	in a way predetermined by user input (e.g. via CheckBoxes).
 
+--------------------------------------------------------------------------------
 Dailyish Notes:
 
 14 March, 2018 - First draft of GUI layout completed. Several non-functional 
 	controls are placed just to give an idea of the desired final product. 
 	Working on DataObject class to handle a few different types of data file
 	formats (.csv, .txt, .rtf, and .xlsx for now). 
+
+--------------------------------------------------------------------------------
+To-Do List:
+- Generalize file input to accept any number of files, whether via group
+	selection or otherwise. DO BEFORE THINGS GET TOO MESSY.
+- Utilize a dictionary or custom class to create list of tuples of filenames and
+	their associated read-only Streams. 
+
+--------------------------------------------------------------------------------
+Maybe-Do List:
+- Remove the Data File Type ComboBox. When file-specific plotting is done, it 
+	may not be necessary to flag files as "XRF", "FWS", etc
+
+--------------------------------------------------------------------------------
+Did List:
+

@@ -16,7 +16,10 @@ namespace DFM
     /// </summary>
     public partial class MainForm : Form
     {
-        // Class variables
+        /* Class Variables */
+        Stream fileStream; // eventually make this a list for multiple files
+        string filename; // """"""""
+        Dictionary<string, Stream> myFiles = new Dictionary<string, Stream>();
         
 
         /// <summary>
@@ -38,27 +41,32 @@ namespace DFM
             Stream myStream = null;
 
             // Displays the file selection window and stores the result
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-
-            // Set initial parameters for our OpenFileDialog
-            openFileDialog.InitialDirectory = "C:\\";
-            openFileDialog.Filter = "txt files (*.txt)|*.txt|csv files " +
-                "(*.csv)|*.csv|xlsx files (*.xlsx)|.xlsx|All files (*.*)|*.*";
-            openFileDialog.FilterIndex = 1;
-            openFileDialog.RestoreDirectory = true; 
+            OpenFileDialog openFileDialog = new OpenFileDialog()
+            {
+                // Set initial parameters for our OpenFileDialog
+                InitialDirectory = "C:\\",
+                Filter = "txt files (*.txt)|*.txt|csv files " +
+                "(*.csv)|*.csv|xlsx files (*.xlsx)|.xlsx|All files (*.*)|*.*",
+                FilterIndex = 1,
+                RestoreDirectory = true
+            };
 
             // Try to open the file selection dialog
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 try
                 {
-                    // Check if the selected is null
+                    // Check if the selected file is null
                     if ((myStream = openFileDialog.OpenFile()) != null)
                     {
                         using (myStream)
                         {
                             // Display the name of the selected file
                             FilenameTBox.Text = openFileDialog.SafeFileName;
+
+                            //Locally store the read-only file contents
+                            fileStream = openFileDialog.OpenFile();
+                            filename = openFileDialog.SafeFileName;
                         }
                     }
                 }
@@ -118,8 +126,8 @@ namespace DFM
             // certificate; plotting stuff; etc. then save the output to 
             // the specified directory. 
 
-            //TODO: put check boxes in MainForm to select what processing tasks
-            // to perform
+            // Test the DataObject class
+            DataObject dataObj = new DataObject(fileStream, filename);
         }
     }
 }
