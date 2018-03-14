@@ -1,0 +1,15 @@
+﻿** DEVELOPER NOTES AND TODO LIST **
+	
+Intended code structure summary (as of 14 March, 2018): 
+	Windows Form (MainForm) to handle user input. Backend handles user input and
+	and has two primary functions: 1) Convert user-selected data files into 
+	objects (via DataObject class) whose attributes can then be manipulated in a
+	general way regardless of the original file extension, 2) combine the data
+	in a way predetermined by user input (e.g. via CheckBoxes).
+
+Dailyish Notes:
+
+14 March, 2018 - First draft of GUI layout completed. Several non-functional 
+	controls are placed just to give an idea of the desired final product. 
+	Working on DataObject class to handle a few different types of data file
+	formats (.csv, .txt, .rtf, and .xlsx for now). 
