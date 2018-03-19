@@ -39,7 +39,7 @@ namespace DFM
         private void AddFileButton_Click(object sender, EventArgs e)
         {
             // Initialize a Stream to read in data from files
-            Stream myStream = null;
+            Stream fileStream = null;
 
             // Displays the file selection window and stores the result
             OpenFileDialog openFileDialog = new OpenFileDialog()
@@ -66,16 +66,19 @@ namespace DFM
                             filename = openFileDialog.SafeFileName;
 
                             // Add the filename to FileTextBox in the GUI
-                            FilesTextBox.AppendLine(filename);
+                            //FilesTextBox.AppendLine(filename);
 
                             // Add the selected file to the dictionary
-                            myFiles.Add(filename, fileStream);
+                            //myFiles.Add(filename, fileStream);
+
+                            // Add filename to FileListBox
+                            FileListBox.Items.Add(filename);
                         }
- 
+                        
                         if (DEBUG)
                         {
-                            Debug.WriteLine("Last added:(?) " + 
-                                myFiles.Values.Last().ToString());
+                            //Debug.WriteLine("Last added:(?) " + 
+                              //  myFiles.Values.Last().ToString());
                         }
                     }
                 }
@@ -146,29 +149,26 @@ namespace DFM
         /// <param name="e"></param>
         private void RemoveFileButton_Click(object sender, EventArgs e)
         {
-            string text;
-            if ((text = FilesTextBox.SelectedText) != null)
+            var selection = FileListBox.SelectedItems;
+            if (selection != null)
             {
-                int[] indices = { };
-                
-
-                // Iterate through myFiles to see if the selectio
-                foreach(var file in myFiles)
+                try
                 {
+                    // Iterate through myFiles to see if the selectio
+                    foreach (var item in selection)
+                    {
+                        myFiles.Remove(item.ToString());
+                    }
 
+                    // Clear the selected items
+                    selection.Clear();
                 }
-
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: Key not found" + ex.Message);
+                }
             }
-        }
-
-        /// <summary>
-        /// Handles FilesTextBox click event.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void FilesTextBox_Click(object sender, EventArgs e)
-        {
-           
         }
     }
 }
+    

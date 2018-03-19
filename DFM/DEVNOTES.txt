@@ -33,4 +33,5 @@ Maybe-Do List:
 --------------------------------------------------------------------------------
 Did List:
 - Make FilesTextBox and SaveDirTextBox read-only.
+- Replaced FilesTextBox with FileListBox
 

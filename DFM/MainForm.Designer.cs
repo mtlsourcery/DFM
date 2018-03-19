@@ -30,7 +30,6 @@
         {
             this.FileLabel = new System.Windows.Forms.Label();
             this.AddFileButton = new System.Windows.Forms.Button();
-            this.FilesTextBox = new System.Windows.Forms.TextBox();
             this.SaveDirTextBox = new System.Windows.Forms.TextBox();
             this.SaveDirButton = new System.Windows.Forms.Button();
             this.SaveDirLabel = new System.Windows.Forms.Label();
@@ -42,6 +41,7 @@
             this.TypeLabel = new System.Windows.Forms.Label();
             this.FiletypeCBox = new System.Windows.Forms.ComboBox();
             this.RemoveFileButton = new System.Windows.Forms.Button();
+            this.FileListBox = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
             // FileLabel
@@ -64,24 +64,11 @@
             this.AddFileButton.UseVisualStyleBackColor = true;
             this.AddFileButton.Click += new System.EventHandler(this.AddFileButton_Click);
             // 
-            // FilesTextBox
-            // 
-            this.FilesTextBox.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.FilesTextBox.HideSelection = false;
-            this.FilesTextBox.Location = new System.Drawing.Point(179, 34);
-            this.FilesTextBox.MaxLength = 400;
-            this.FilesTextBox.Multiline = true;
-            this.FilesTextBox.Name = "FilesTextBox";
-            this.FilesTextBox.ReadOnly = true;
-            this.FilesTextBox.Size = new System.Drawing.Size(249, 122);
-            this.FilesTextBox.TabIndex = 5;
-            this.FilesTextBox.Click += new System.EventHandler(this.FilesTextBox_Click);
-            // 
             // SaveDirTextBox
             // 
             this.SaveDirTextBox.ForeColor = System.Drawing.SystemColors.ControlText;
             this.SaveDirTextBox.HideSelection = false;
-            this.SaveDirTextBox.Location = new System.Drawing.Point(179, 180);
+            this.SaveDirTextBox.Location = new System.Drawing.Point(179, 405);
             this.SaveDirTextBox.MaxLength = 40;
             this.SaveDirTextBox.Name = "SaveDirTextBox";
             this.SaveDirTextBox.ReadOnly = true;
@@ -91,7 +78,7 @@
             // 
             // SaveDirButton
             // 
-            this.SaveDirButton.Location = new System.Drawing.Point(434, 180);
+            this.SaveDirButton.Location = new System.Drawing.Point(434, 405);
             this.SaveDirButton.Name = "SaveDirButton";
             this.SaveDirButton.Size = new System.Drawing.Size(106, 24);
             this.SaveDirButton.TabIndex = 7;
@@ -103,7 +90,7 @@
             // 
             this.SaveDirLabel.AutoSize = true;
             this.SaveDirLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SaveDirLabel.Location = new System.Drawing.Point(176, 161);
+            this.SaveDirLabel.Location = new System.Drawing.Point(176, 386);
             this.SaveDirLabel.Name = "SaveDirLabel";
             this.SaveDirLabel.Size = new System.Drawing.Size(119, 16);
             this.SaveDirLabel.TabIndex = 8;
@@ -113,7 +100,7 @@
             // 
             this.ProcessLabel.AutoSize = true;
             this.ProcessLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ProcessLabel.Location = new System.Drawing.Point(9, 204);
+            this.ProcessLabel.Location = new System.Drawing.Point(9, 429);
             this.ProcessLabel.Name = "ProcessLabel";
             this.ProcessLabel.Size = new System.Drawing.Size(147, 16);
             this.ProcessLabel.TabIndex = 9;
@@ -122,7 +109,7 @@
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(12, 234);
+            this.checkBox1.Location = new System.Drawing.Point(12, 459);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(179, 20);
             this.checkBox1.TabIndex = 10;
@@ -132,7 +119,7 @@
             // checkBox2
             // 
             this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(12, 260);
+            this.checkBox2.Location = new System.Drawing.Point(12, 485);
             this.checkBox2.Name = "checkBox2";
             this.checkBox2.Size = new System.Drawing.Size(156, 20);
             this.checkBox2.TabIndex = 11;
@@ -142,7 +129,7 @@
             // checkBox3
             // 
             this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(12, 286);
+            this.checkBox3.Location = new System.Drawing.Point(12, 511);
             this.checkBox3.Name = "checkBox3";
             this.checkBox3.Size = new System.Drawing.Size(237, 20);
             this.checkBox3.TabIndex = 12;
@@ -151,7 +138,7 @@
             // 
             // ProcessButton
             // 
-            this.ProcessButton.Location = new System.Drawing.Point(363, 286);
+            this.ProcessButton.Location = new System.Drawing.Point(363, 511);
             this.ProcessButton.Name = "ProcessButton";
             this.ProcessButton.Size = new System.Drawing.Size(177, 24);
             this.ProcessButton.TabIndex = 13;
@@ -191,11 +178,23 @@
             this.RemoveFileButton.UseVisualStyleBackColor = true;
             this.RemoveFileButton.Click += new System.EventHandler(this.RemoveFileButton_Click);
             // 
+            // FileListBox
+            // 
+            this.FileListBox.FormattingEnabled = true;
+            this.FileListBox.ItemHeight = 16;
+            this.FileListBox.Location = new System.Drawing.Point(179, 32);
+            this.FileListBox.Name = "FileListBox";
+            this.FileListBox.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
+            this.FileListBox.Size = new System.Drawing.Size(249, 148);
+            this.FileListBox.TabIndex = 15;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(552, 318);
+            this.AutoScroll = true;
+            this.ClientSize = new System.Drawing.Size(552, 547);
+            this.Controls.Add(this.FileListBox);
             this.Controls.Add(this.RemoveFileButton);
             this.Controls.Add(this.ProcessButton);
             this.Controls.Add(this.checkBox3);
@@ -205,7 +204,6 @@
             this.Controls.Add(this.SaveDirLabel);
             this.Controls.Add(this.SaveDirButton);
             this.Controls.Add(this.SaveDirTextBox);
-            this.Controls.Add(this.FilesTextBox);
             this.Controls.Add(this.AddFileButton);
             this.Controls.Add(this.FiletypeCBox);
             this.Controls.Add(this.TypeLabel);
@@ -221,7 +219,6 @@
 
         private System.Windows.Forms.Label FileLabel;
         private System.Windows.Forms.Button AddFileButton;
-        private System.Windows.Forms.TextBox FilesTextBox;
         private System.Windows.Forms.TextBox SaveDirTextBox;
         private System.Windows.Forms.Button SaveDirButton;
         private System.Windows.Forms.Label SaveDirLabel;
@@ -233,6 +230,7 @@
         private System.Windows.Forms.Label TypeLabel;
         private System.Windows.Forms.ComboBox FiletypeCBox;
         private System.Windows.Forms.Button RemoveFileButton;
+        private System.Windows.Forms.ListBox FileListBox;
     }
 }
 
