@@ -10,6 +10,8 @@ Intended code structure summary (as of 14 March, 2018):
 --------------------------------------------------------------------------------
 Dailyish Notes:
 
+19 March, 2018 - 
+
 14 March, 2018 - First draft of GUI layout completed. Several non-functional 
 	controls are placed just to give an idea of the desired final product. 
 	Working on DataObject class to handle a few different types of data file
@@ -25,8 +27,10 @@ To-Do List:
 --------------------------------------------------------------------------------
 Maybe-Do List:
 - Remove the Data File Type ComboBox. When file-specific plotting is done, it 
-	may not be necessary to flag files as "XRF", "FWS", etc
+	may not be necessary to flag files as "XRF", "FWS", etc.
+- Add "Preview" button to the GUI for viewing selected files before processing.
 
 --------------------------------------------------------------------------------
 Did List:
+- Make FilesTextBox and SaveDirTextBox read-only.
 

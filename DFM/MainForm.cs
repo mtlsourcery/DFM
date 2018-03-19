@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
 using System.Windows.Forms;
 
 namespace DFM
@@ -20,7 +21,7 @@ namespace DFM
         Stream fileStream; // eventually make this a list for multiple files
         string filename; // """"""""
         Dictionary<string, Stream> myFiles = new Dictionary<string, Stream>();
-        
+        const bool DEBUG = true;
 
         /// <summary>
         /// The constructor for MainForm.
@@ -31,11 +32,11 @@ namespace DFM
         }
 
         /// <summary>
-        /// Handles FileOpenButton click event.
+        /// Handles AddFileButton click event.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void FileOpenButton_Click(object sender, EventArgs e)
+        private void AddFileButton_Click(object sender, EventArgs e)
         {
             // Initialize a Stream to read in data from files
             Stream myStream = null;
@@ -57,16 +58,24 @@ namespace DFM
                 try
                 {
                     // Check if the selected file is null
-                    if ((myStream = openFileDialog.OpenFile()) != null)
+                    if ((fileStream = openFileDialog.OpenFile()) != null)
                     {
-                        using (myStream)
+                        using (fileStream) // fileStream holds the file contents
                         {
-                            // Display the name of the selected file
-                            FilenameTBox.Text = openFileDialog.SafeFileName;
-
-                            //Locally store the read-only file contents
-                            fileStream = openFileDialog.OpenFile();
+                            // Get the filename
                             filename = openFileDialog.SafeFileName;
+
+                            // Add the filename to FileTextBox in the GUI
+                            FilesTextBox.AppendLine(filename);
+
+                            // Add the selected file to the dictionary
+                            myFiles.Add(filename, fileStream);
+                        }
+ 
+                        if (DEBUG)
+                        {
+                            Debug.WriteLine("Last added:(?) " + 
+                                myFiles.Values.Last().ToString());
                         }
                     }
                 }
@@ -103,7 +112,7 @@ namespace DFM
                     if (folderBrowserDialog.SelectedPath != null)
                     {
                         // Display the name of the selected directory
-                        SaveDirTBox.Text = folderBrowserDialog.SelectedPath;
+                        SaveDirTextBox.Text = folderBrowserDialog.SelectedPath;
                     }
                 }
                 catch (Exception ex)
@@ -128,6 +137,38 @@ namespace DFM
 
             // Test the DataObject class
             DataObject dataObj = new DataObject(fileStream, filename);
+        }
+
+        /// <summary>
+        /// Handles RemoveFileButton click event.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void RemoveFileButton_Click(object sender, EventArgs e)
+        {
+            string text;
+            if ((text = FilesTextBox.SelectedText) != null)
+            {
+                int[] indices = { };
+                
+
+                // Iterate through myFiles to see if the selectio
+                foreach(var file in myFiles)
+                {
+
+                }
+
+            }
+        }
+
+        /// <summary>
+        /// Handles FilesTextBox click event.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void FilesTextBox_Click(object sender, EventArgs e)
+        {
+           
         }
     }
 }

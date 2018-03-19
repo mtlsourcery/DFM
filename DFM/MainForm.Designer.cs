@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.FileLabel = new System.Windows.Forms.Label();
-            this.FileOpenButton = new System.Windows.Forms.Button();
-            this.FilenameTBox = new System.Windows.Forms.TextBox();
-            this.SaveDirTBox = new System.Windows.Forms.TextBox();
+            this.AddFileButton = new System.Windows.Forms.Button();
+            this.FilesTextBox = new System.Windows.Forms.TextBox();
+            this.SaveDirTextBox = new System.Windows.Forms.TextBox();
             this.SaveDirButton = new System.Windows.Forms.Button();
             this.SaveDirLabel = new System.Windows.Forms.Label();
             this.ProcessLabel = new System.Windows.Forms.Label();
@@ -41,6 +41,7 @@
             this.ProcessButton = new System.Windows.Forms.Button();
             this.TypeLabel = new System.Windows.Forms.Label();
             this.FiletypeCBox = new System.Windows.Forms.ComboBox();
+            this.RemoveFileButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // FileLabel
@@ -49,47 +50,50 @@
             this.FileLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FileLabel.Location = new System.Drawing.Point(176, 13);
             this.FileLabel.Name = "FileLabel";
-            this.FileLabel.Size = new System.Drawing.Size(42, 16);
+            this.FileLabel.Size = new System.Drawing.Size(60, 16);
             this.FileLabel.TabIndex = 0;
-            this.FileLabel.Text = "File: ";
+            this.FileLabel.Text = "File(s): ";
             // 
-            // FileOpenButton
+            // AddFileButton
             // 
-            this.FileOpenButton.Location = new System.Drawing.Point(443, 34);
-            this.FileOpenButton.Name = "FileOpenButton";
-            this.FileOpenButton.Size = new System.Drawing.Size(97, 24);
-            this.FileOpenButton.TabIndex = 4;
-            this.FileOpenButton.Text = "Select Files";
-            this.FileOpenButton.UseVisualStyleBackColor = true;
-            this.FileOpenButton.Click += new System.EventHandler(this.FileOpenButton_Click);
+            this.AddFileButton.Location = new System.Drawing.Point(434, 34);
+            this.AddFileButton.Name = "AddFileButton";
+            this.AddFileButton.Size = new System.Drawing.Size(106, 24);
+            this.AddFileButton.TabIndex = 4;
+            this.AddFileButton.Text = "Add Files";
+            this.AddFileButton.UseVisualStyleBackColor = true;
+            this.AddFileButton.Click += new System.EventHandler(this.AddFileButton_Click);
             // 
-            // FilenameTBox
+            // FilesTextBox
             // 
-            this.FilenameTBox.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.FilenameTBox.HideSelection = false;
-            this.FilenameTBox.Location = new System.Drawing.Point(179, 34);
-            this.FilenameTBox.MaxLength = 40;
-            this.FilenameTBox.Name = "FilenameTBox";
-            this.FilenameTBox.Size = new System.Drawing.Size(249, 22);
-            this.FilenameTBox.TabIndex = 5;
-            this.FilenameTBox.Text = "No file selected";
+            this.FilesTextBox.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.FilesTextBox.HideSelection = false;
+            this.FilesTextBox.Location = new System.Drawing.Point(179, 34);
+            this.FilesTextBox.MaxLength = 400;
+            this.FilesTextBox.Multiline = true;
+            this.FilesTextBox.Name = "FilesTextBox";
+            this.FilesTextBox.ReadOnly = true;
+            this.FilesTextBox.Size = new System.Drawing.Size(249, 122);
+            this.FilesTextBox.TabIndex = 5;
+            this.FilesTextBox.Click += new System.EventHandler(this.FilesTextBox_Click);
             // 
-            // SaveDirTBox
+            // SaveDirTextBox
             // 
-            this.SaveDirTBox.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.SaveDirTBox.HideSelection = false;
-            this.SaveDirTBox.Location = new System.Drawing.Point(179, 171);
-            this.SaveDirTBox.MaxLength = 40;
-            this.SaveDirTBox.Name = "SaveDirTBox";
-            this.SaveDirTBox.Size = new System.Drawing.Size(249, 22);
-            this.SaveDirTBox.TabIndex = 6;
-            this.SaveDirTBox.Text = "No folder selected";
+            this.SaveDirTextBox.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.SaveDirTextBox.HideSelection = false;
+            this.SaveDirTextBox.Location = new System.Drawing.Point(179, 180);
+            this.SaveDirTextBox.MaxLength = 40;
+            this.SaveDirTextBox.Name = "SaveDirTextBox";
+            this.SaveDirTextBox.ReadOnly = true;
+            this.SaveDirTextBox.Size = new System.Drawing.Size(249, 22);
+            this.SaveDirTextBox.TabIndex = 6;
+            this.SaveDirTextBox.Text = "No folder selected";
             // 
             // SaveDirButton
             // 
-            this.SaveDirButton.Location = new System.Drawing.Point(443, 171);
+            this.SaveDirButton.Location = new System.Drawing.Point(434, 180);
             this.SaveDirButton.Name = "SaveDirButton";
-            this.SaveDirButton.Size = new System.Drawing.Size(97, 24);
+            this.SaveDirButton.Size = new System.Drawing.Size(106, 24);
             this.SaveDirButton.TabIndex = 7;
             this.SaveDirButton.Text = "Select Folder";
             this.SaveDirButton.UseVisualStyleBackColor = true;
@@ -99,7 +103,7 @@
             // 
             this.SaveDirLabel.AutoSize = true;
             this.SaveDirLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SaveDirLabel.Location = new System.Drawing.Point(176, 152);
+            this.SaveDirLabel.Location = new System.Drawing.Point(176, 161);
             this.SaveDirLabel.Name = "SaveDirLabel";
             this.SaveDirLabel.Size = new System.Drawing.Size(119, 16);
             this.SaveDirLabel.TabIndex = 8;
@@ -177,11 +181,22 @@
             this.FiletypeCBox.Size = new System.Drawing.Size(155, 24);
             this.FiletypeCBox.TabIndex = 2;
             // 
+            // RemoveFileButton
+            // 
+            this.RemoveFileButton.Location = new System.Drawing.Point(434, 64);
+            this.RemoveFileButton.Name = "RemoveFileButton";
+            this.RemoveFileButton.Size = new System.Drawing.Size(106, 24);
+            this.RemoveFileButton.TabIndex = 14;
+            this.RemoveFileButton.Text = "Remove Files";
+            this.RemoveFileButton.UseVisualStyleBackColor = true;
+            this.RemoveFileButton.Click += new System.EventHandler(this.RemoveFileButton_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(552, 318);
+            this.Controls.Add(this.RemoveFileButton);
             this.Controls.Add(this.ProcessButton);
             this.Controls.Add(this.checkBox3);
             this.Controls.Add(this.checkBox2);
@@ -189,9 +204,9 @@
             this.Controls.Add(this.ProcessLabel);
             this.Controls.Add(this.SaveDirLabel);
             this.Controls.Add(this.SaveDirButton);
-            this.Controls.Add(this.SaveDirTBox);
-            this.Controls.Add(this.FilenameTBox);
-            this.Controls.Add(this.FileOpenButton);
+            this.Controls.Add(this.SaveDirTextBox);
+            this.Controls.Add(this.FilesTextBox);
+            this.Controls.Add(this.AddFileButton);
             this.Controls.Add(this.FiletypeCBox);
             this.Controls.Add(this.TypeLabel);
             this.Controls.Add(this.FileLabel);
@@ -205,9 +220,9 @@
         #endregion
 
         private System.Windows.Forms.Label FileLabel;
-        private System.Windows.Forms.Button FileOpenButton;
-        private System.Windows.Forms.TextBox FilenameTBox;
-        private System.Windows.Forms.TextBox SaveDirTBox;
+        private System.Windows.Forms.Button AddFileButton;
+        private System.Windows.Forms.TextBox FilesTextBox;
+        private System.Windows.Forms.TextBox SaveDirTextBox;
         private System.Windows.Forms.Button SaveDirButton;
         private System.Windows.Forms.Label SaveDirLabel;
         private System.Windows.Forms.Label ProcessLabel;
@@ -217,6 +232,7 @@
         private System.Windows.Forms.Button ProcessButton;
         private System.Windows.Forms.Label TypeLabel;
         private System.Windows.Forms.ComboBox FiletypeCBox;
+        private System.Windows.Forms.Button RemoveFileButton;
     }
 }
 
