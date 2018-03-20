@@ -10,7 +10,8 @@ Intended code structure summary (as of 14 March, 2018):
 --------------------------------------------------------------------------------
 Dailyish Notes:
 
-19 March, 2018 - 
+19 March, 2018 - The Remove Files button is not working, at least not enough to 
+	remove the selected items in FileListBox. Need to fix this. 
 
 14 March, 2018 - First draft of GUI layout completed. Several non-functional 
 	controls are placed just to give an idea of the desired final product. 

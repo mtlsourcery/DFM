@@ -65,11 +65,8 @@ namespace DFM
                             // Get the filename
                             filename = openFileDialog.SafeFileName;
 
-                            // Add the filename to FileTextBox in the GUI
-                            //FilesTextBox.AppendLine(filename);
-
                             // Add the selected file to the dictionary
-                            //myFiles.Add(filename, fileStream);
+                            myFiles.Add(filename, fileStream);
 
                             // Add filename to FileListBox
                             FileListBox.Items.Add(filename);
@@ -77,15 +74,13 @@ namespace DFM
                         
                         if (DEBUG)
                         {
-                            //Debug.WriteLine("Last added:(?) " + 
-                              //  myFiles.Values.Last().ToString());
+                            PrintDictionary();
                         }
                     }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error: Could not read file from disk. " +
-                        "Original error: " + ex.Message);
+                    MessageBox.Show("Error: " + ex.Message);
                 }
             }
         }
@@ -154,20 +149,43 @@ namespace DFM
             {
                 try
                 {
-                    // Iterate through myFiles to see if the selectio
+                    // Remove the selection from myFiles
                     foreach (var item in selection)
-                    {
+                    {   // Remove the entry by its key
                         myFiles.Remove(item.ToString());
                     }
 
-                    // Clear the selected items
-                    selection.Clear();
+                    // Remove the selected items from FileListBox
+                    while (selection.Count != 0)
+                    {   // We can't iterate through the enumerated list of items
+                        // because we're removing values as we go, so just 
+                        // remove the zeroth element until 'selection' is empty
+                        FileListBox.Items.Remove(selection[0]);
+                    }
+
+                    if (DEBUG)
+                    {
+                        PrintDictionary();
+                    }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error: Key not found" + ex.Message);
+                    MessageBox.Show("Error: " + ex.Message);
                 }
             }
+        }
+
+        private void PrintDictionary()
+        {
+            StringBuilder str = new StringBuilder();
+            str.Append("(");
+
+            foreach (var file in myFiles)
+            {
+                str.Append(file.Key);
+            }
+            str.Append(")");
+            Console.WriteLine(str.ToString());
         }
     }
 }
