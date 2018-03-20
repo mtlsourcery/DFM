@@ -42,6 +42,7 @@
             this.FiletypeCBox = new System.Windows.Forms.ComboBox();
             this.RemoveFileButton = new System.Windows.Forms.Button();
             this.FileListBox = new System.Windows.Forms.ListBox();
+            this.PreviewFileButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // FileLabel
@@ -56,7 +57,7 @@
             // 
             // AddFileButton
             // 
-            this.AddFileButton.Location = new System.Drawing.Point(434, 34);
+            this.AddFileButton.Location = new System.Drawing.Point(434, 31);
             this.AddFileButton.Name = "AddFileButton";
             this.AddFileButton.Size = new System.Drawing.Size(106, 24);
             this.AddFileButton.TabIndex = 4;
@@ -78,7 +79,7 @@
             // 
             // SaveDirButton
             // 
-            this.SaveDirButton.Location = new System.Drawing.Point(434, 215);
+            this.SaveDirButton.Location = new System.Drawing.Point(434, 213);
             this.SaveDirButton.Name = "SaveDirButton";
             this.SaveDirButton.Size = new System.Drawing.Size(106, 24);
             this.SaveDirButton.TabIndex = 7;
@@ -100,7 +101,7 @@
             // 
             this.ProcessLabel.AutoSize = true;
             this.ProcessLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ProcessLabel.Location = new System.Drawing.Point(9, 239);
+            this.ProcessLabel.Location = new System.Drawing.Point(9, 250);
             this.ProcessLabel.Name = "ProcessLabel";
             this.ProcessLabel.Size = new System.Drawing.Size(147, 16);
             this.ProcessLabel.TabIndex = 9;
@@ -170,7 +171,7 @@
             // 
             // RemoveFileButton
             // 
-            this.RemoveFileButton.Location = new System.Drawing.Point(434, 64);
+            this.RemoveFileButton.Location = new System.Drawing.Point(434, 61);
             this.RemoveFileButton.Name = "RemoveFileButton";
             this.RemoveFileButton.Size = new System.Drawing.Size(106, 24);
             this.RemoveFileButton.TabIndex = 14;
@@ -188,12 +189,23 @@
             this.FileListBox.Size = new System.Drawing.Size(249, 148);
             this.FileListBox.TabIndex = 15;
             // 
+            // PreviewFileButton
+            // 
+            this.PreviewFileButton.Location = new System.Drawing.Point(434, 91);
+            this.PreviewFileButton.Name = "PreviewFileButton";
+            this.PreviewFileButton.Size = new System.Drawing.Size(106, 24);
+            this.PreviewFileButton.TabIndex = 16;
+            this.PreviewFileButton.Text = "Preview Files";
+            this.PreviewFileButton.UseVisualStyleBackColor = true;
+            this.PreviewFileButton.Click += new System.EventHandler(this.PreviewFileButton_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(552, 353);
+            this.Controls.Add(this.PreviewFileButton);
             this.Controls.Add(this.FileListBox);
             this.Controls.Add(this.RemoveFileButton);
             this.Controls.Add(this.ProcessButton);
@@ -231,6 +243,7 @@
         private System.Windows.Forms.ComboBox FiletypeCBox;
         private System.Windows.Forms.Button RemoveFileButton;
         private System.Windows.Forms.ListBox FileListBox;
+        private System.Windows.Forms.Button PreviewFileButton;
     }
 }
 

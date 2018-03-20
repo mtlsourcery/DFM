@@ -9,10 +9,10 @@ Intended code structure summary (as of 14 March, 2018):
 
 --------------------------------------------------------------------------------
 Dailyish Notes:
-
+20 March, 2018 - Adding/removing files functionality works as intended. Files can
+	now be previewed as readonly in a seperate Windows Form.
 19 March, 2018 - The Remove Files button is not working, at least not enough to 
 	remove the selected items in FileListBox. Need to fix this. 
-
 14 March, 2018 - First draft of GUI layout completed. Several non-functional 
 	controls are placed just to give an idea of the desired final product. 
 	Working on DataObject class to handle a few different types of data file
@@ -20,19 +20,22 @@ Dailyish Notes:
 
 --------------------------------------------------------------------------------
 To-Do List:
-- Generalize file input to accept any number of files, whether via group
-	selection or otherwise. DO BEFORE THINGS GET TOO MESSY.
-- Utilize a dictionary or custom class to create list of tuples of filenames and
-	their associated read-only Streams. 
+- Add Messages to alert user of improper use of controls, e.g. clicking 
+RemoveFileButton without selecting any files to remove.
+- Add functionality to PreviewFileButton
 
 --------------------------------------------------------------------------------
 Maybe-Do List:
 - Remove the Data File Type ComboBox. When file-specific plotting is done, it 
 	may not be necessary to flag files as "XRF", "FWS", etc.
-- Add "Preview" button to the GUI for viewing selected files before processing.
 
 --------------------------------------------------------------------------------
 Did List:
 - Make FilesTextBox and SaveDirTextBox read-only.
 - Replaced FilesTextBox with FileListBox
-
+- Fixed RemoveFileButton
+- Utilize a dictionary or custom class to create list of tuples of filenames and
+	their associated read-only Streams. 
+- Generalize file input to accept any number of files, whether via group
+	selection or otherwise. DO BEFORE THINGS GET TOO MESSY.
+- Add "Preview" button to the GUI for viewing selected files before processing.

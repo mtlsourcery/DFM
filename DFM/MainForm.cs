@@ -18,11 +18,13 @@ namespace DFM
     public partial class MainForm : Form
     {
         /* Class Variables */
-        Stream fileStream; // eventually make this a list for multiple files
+     
         string filename; // """"""""
         Dictionary<string, Stream> myFiles = new Dictionary<string, Stream>();
         const bool DEBUG = true;
 
+        /* Class Methods */ 
+        
         /// <summary>
         /// The constructor for MainForm.
         /// </summary>
@@ -30,6 +32,38 @@ namespace DFM
         {
             InitializeComponent();
         }
+        
+        /// <summary>
+        /// Prints the keys in myFiles to the Output Console. Used for debugging
+        /// purposes only.
+        /// </summary>
+        private void PrintDictionary()
+        {
+            StringBuilder str = new StringBuilder();
+            str.Append("(");
+
+            foreach (var file in myFiles)
+            {
+                str.Append(file.Key);
+            }
+            str.Append(")");
+            Console.WriteLine(str.ToString());
+        }
+
+        /// <summary>
+        /// Returns the text contained in a Stream stream. TODO: amend this to 
+        /// handle RTF, CSV, XLSX, etc Streams.
+        /// </summary>
+        /// <param name="stream"></param>
+        /// <returns></returns>
+        private string StringFromStream(Stream stream)
+        {
+            StreamReader streamReader = new StreamReader(stream);
+            string text = streamReader.ReadToEnd();
+            return text;
+        }
+
+        /* Class Event Handlers */
 
         /// <summary>
         /// Handles AddFileButton click event.
@@ -39,13 +73,13 @@ namespace DFM
         private void AddFileButton_Click(object sender, EventArgs e)
         {
             // Initialize a Stream to read in data from files
-            Stream fileStream = null;
+            Stream fileStream;
 
             // Displays the file selection window and stores the result
             OpenFileDialog openFileDialog = new OpenFileDialog()
             {
                 // Set initial parameters for our OpenFileDialog
-                InitialDirectory = "C:\\",
+                InitialDirectory = "C:\\Users\\Preston Huft\\Documents",
                 Filter = "txt files (*.txt)|*.txt|csv files " +
                 "(*.csv)|*.csv|xlsx files (*.xlsx)|.xlsx|All files (*.*)|*.*",
                 FilterIndex = 1,
@@ -60,17 +94,14 @@ namespace DFM
                     // Check if the selected file is null
                     if ((fileStream = openFileDialog.OpenFile()) != null)
                     {
-                        using (fileStream) // fileStream holds the file contents
-                        {
-                            // Get the filename
-                            filename = openFileDialog.SafeFileName;
+                        // Get the filename
+                        filename = openFileDialog.SafeFileName;
 
-                            // Add the selected file to the dictionary
-                            myFiles.Add(filename, fileStream);
+                        // Add the selected file to the dictionary
+                        myFiles.Add(filename, fileStream);
 
-                            // Add filename to FileListBox
-                            FileListBox.Items.Add(filename);
-                        }
+                        // Add filename to FileListBox
+                        FileListBox.Items.Add(filename);
                         
                         if (DEBUG)
                         {
@@ -134,7 +165,7 @@ namespace DFM
             // the specified directory. 
 
             // Test the DataObject class
-            DataObject dataObj = new DataObject(fileStream, filename);
+            //DataObject dataObj = new DataObject(fileStream, filename);
         }
 
         /// <summary>
@@ -145,7 +176,7 @@ namespace DFM
         private void RemoveFileButton_Click(object sender, EventArgs e)
         {
             var selection = FileListBox.SelectedItems;
-            if (selection != null)
+            if (selection.Count != 0)
             {
                 try
                 {
@@ -173,19 +204,50 @@ namespace DFM
                     MessageBox.Show("Error: " + ex.Message);
                 }
             }
+            else { /* display a message here */ }
         }
 
-        private void PrintDictionary()
+        /// <summary>
+        /// Handles PreviewFileButton click event. 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void PreviewFileButton_Click(object sender, EventArgs e)
         {
-            StringBuilder str = new StringBuilder();
-            str.Append("(");
-
-            foreach (var file in myFiles)
+            var selection = FileListBox.SelectedItems;
+            if (selection.Count != 0)
             {
-                str.Append(file.Key);
+                try
+                {
+                    // Remove the selection from myFiles
+                    foreach (var item in selection)
+                    {
+                        // Get the file content associated with item.ToString()
+                        string contentString = StringFromStream(
+                            myFiles[item.ToString()]);
+                        // Instantiate a FilePreviewForm
+                        FilePreviewForm filePreviewForm = new FilePreviewForm(
+                            contentString)
+                        {
+                            // Set the form's upper-lefthand corner text
+                            Text = "Preview - " + item.ToString(),
+                        };
+                        // Show the form
+                        filePreviewForm.Show();
+                    }   
+                    
+                    if (DEBUG)
+                    {
+                        // Debugging statement
+                        Console.WriteLine("FilePreviewForm opened");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message);
+                }
             }
-            str.Append(")");
-            Console.WriteLine(str.ToString());
+            else { /* display a message here */ }
         }
     }
 }
