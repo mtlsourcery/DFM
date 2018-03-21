@@ -160,12 +160,29 @@ namespace DFM
         private void ProcessButton_Click(object sender, EventArgs e)
         {
             // Do the processing of selected file (extracting csv rows, cols,
-            // and putting into a "nicer" file; populating a lab analysis 
+            // and putting into a "nicer" file; e.g. populating a lab analysis
             // certificate; plotting stuff; etc. then save the output to 
             // the specified directory. 
 
-            // Test the DataObject class
+            // Test the DataObject class 
+            var selection = FileListBox.SelectedItems;
+            if (selection.Count == 1)
+            {
+                try
+                {
+                    DataObject dataObj = new DataObject(
+                        myFiles[selection[0].ToString()],selection[0].ToString());
+                    string dataStr = dataObj.DataString;
+                    FilePreviewForm dataForm = new FilePreviewForm(dataStr);
+                    dataForm.Show();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message);
+                }
+            }
             //DataObject dataObj = new DataObject(fileStream, filename);
+
         }
 
         /// <summary>
@@ -204,7 +221,7 @@ namespace DFM
                     MessageBox.Show("Error: " + ex.Message);
                 }
             }
-            else { /* display a message here */ }
+            else { MessageBox.Show("Please select a file."); }
         }
 
         /// <summary>
@@ -247,7 +264,7 @@ namespace DFM
                     MessageBox.Show("Error: " + ex.Message);
                 }
             }
-            else { /* display a message here */ }
+            else { MessageBox.Show("Please select a file."); }
         }
     }
 }

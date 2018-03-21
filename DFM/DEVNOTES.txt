@@ -8,7 +8,9 @@ Intended code structure summary (as of 14 March, 2018):
 	in a way predetermined by user input (e.g. via CheckBoxes).
 
 --------------------------------------------------------------------------------
-Dailyish Notes:
+Dailyish Notes
+21 March, 2018 - 
+
 20 March, 2018 - Adding/removing files functionality works as intended. Files can
 	now be previewed as readonly in a seperate Windows Form.
 19 March, 2018 - The Remove Files button is not working, at least not enough to 
@@ -20,17 +22,22 @@ Dailyish Notes:
 
 --------------------------------------------------------------------------------
 To-Do List:
-- Add Messages to alert user of improper use of controls, e.g. clicking 
-RemoveFileButton without selecting any files to remove.
-- Add functionality to PreviewFileButton
+- Add functionality to DataObject class to look for columns of data in selected
+	files.
 
 --------------------------------------------------------------------------------
 Maybe-Do List:
 - Remove the Data File Type ComboBox. When file-specific plotting is done, it 
 	may not be necessary to flag files as "XRF", "FWS", etc.
+- Display error messages with a specialized form (not MessageBox) whose 
+	background is a cat image or gif pulled from an API. 
+- Store file text rather than its Stream in the dictionary myFiles.
 
 --------------------------------------------------------------------------------
 Did List:
+- Add Messages to alert user of improper use of controls, e.g. clicking 
+	RemoveFileButton without selecting any files to remove.
+- Add functionality to PreviewFileButton
 - Make FilesTextBox and SaveDirTextBox read-only.
 - Replaced FilesTextBox with FileListBox
 - Fixed RemoveFileButton
