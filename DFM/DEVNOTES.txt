@@ -9,13 +9,23 @@ Intended code structure summary (as of 14 March, 2018):
 
 --------------------------------------------------------------------------------
 Dailyish Notes
-21 March, 2018 - 
+26 March, 2018 - 
+	Currently getting "Index and length must refer to an
+	index within the string" error, System.ArgumentOutOfRangeException in 
+	mscorlib.dll. 
 
-20 March, 2018 - Adding/removing files functionality works as intended. Files can
+	DataObject.GetDataMatrix: Foreach body in a try/catch statement. Process
+	Output button w/ selected file opens FilePreviewForm w/ no text. Subsequent
+	attempts yeild "Stream unreadable" messages. 
+
+20 March, 2018 - 
+	Adding/removing files functionality works as intended. Files can
 	now be previewed as readonly in a seperate Windows Form.
-19 March, 2018 - The Remove Files button is not working, at least not enough to 
+19 March, 2018 - 
+	The Remove Files button is not working, at least not enough to 
 	remove the selected items in FileListBox. Need to fix this. 
-14 March, 2018 - First draft of GUI layout completed. Several non-functional 
+14 March, 2018 - 
+	First draft of GUI layout completed. Several non-functional 
 	controls are placed just to give an idea of the desired final product. 
 	Working on DataObject class to handle a few different types of data file
 	formats (.csv, .txt, .rtf, and .xlsx for now). 

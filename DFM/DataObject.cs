@@ -19,6 +19,7 @@ namespace DFM
         string fnameStr;
         Stream fStream;
         List<char> delimiters = new List<char> { ',', ' ', '\t' };
+        const bool DEBUG = true;
 
         // This is capitalized to stick with convention for public propertiers
         public List<List<string>> Columns = new List<List<string>>();
@@ -33,12 +34,13 @@ namespace DFM
         /// <param name="extensionStr"> The input file's extenstion.</param>
         /// <param name="fileStream"> The stream representing the input
         /// file's content. </param>
-        public DataObject(Stream fileStream, string filename)
+        public DataObject(string filename, Stream fileStream)
         {
             // Initialize the class variables
             fnameStr = filename;
             fStream = fileStream;
-            DataString = GetDataString(GetDataMatrix(fStream,','),0);
+            DataString = GetDataString(GetDataMatrix(fStream,
+                delimiters[0]),0);
         }
 
         /// <summary>
@@ -71,38 +73,53 @@ namespace DFM
             char delimiter)
         {
             // cellMatrix[i][j][k] specifies a cell k in line j in group i
-            List<List<List<string>>> cellMatrix =
+            List<List<List<string>>> cellMatrix3D =
                 new List<List<List<string>>>();
+            List<List<string>> cellMatrix2D = new List<List<string>>();
+            List<string> cellRow = new List<string>();
             string line;
 
             using (StreamReader streamer = new StreamReader(stream))
             {
+                // Build cellMatrix3D
+                int charIter = 1;// so substring length is never 0
+                int lastIndex = 0;
+
                 while ((line = streamer.ReadLine()) != null)
                 {
-                    int i = 0; // The group of lines
-                    int j = 0; // The line (group of cells)
-                    int k = 0; // The cell (group of chars)
-
-                    int charIter = 0;
-
-                    int lastIndex = 0;
                     foreach (char c in line)
                     {
-                        // Store each substring between delimiter pairs
-                        if (c == delimiter || c == '\n')
+                        try
                         {
-                            // Store the k^th cell
-                            cellMatrix[i][j][k] = line.Substring(lastIndex,
-                                charIter - lastIndex);
-                            lastIndex = charIter;
-                            k++;
+                            // Store each substring between delimiter pairs
+                            if (c == delimiter || c == '\n')
+                            {
+                                cellRow.Add(line.Substring(lastIndex,
+                                    charIter - lastIndex));
+                                lastIndex = charIter;
+                            }
+                            charIter++;
                         }
-                        charIter++;
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine("Woah, error: " + ex);
+                        }
                     }
-                    j++;
+                    // Add the line of cells to the 2D matrix, reset cellRow
+                    cellMatrix2D.Add(cellRow);
+                    cellRow.Clear();
                 }
+                // Add the layer of rows to the 3D matrix, reset cellMatrix2D
+                cellMatrix3D.Add(cellMatrix2D);
+                //cellMatrix2D.Clear();
             }
-            return cellMatrix;
+            if (DEBUG)
+            {
+                string lines = (cellMatrix2D.ToArray()).Count().ToString();
+                Console.WriteLine("Lines in output: " + lines);
+            }
+
+            return cellMatrix3D;
         }
 
         /// <summary>

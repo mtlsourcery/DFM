@@ -164,14 +164,14 @@ namespace DFM
             // certificate; plotting stuff; etc. then save the output to 
             // the specified directory. 
 
-            // Test the DataObject class 
+            // Test the DataObject class
             var selection = FileListBox.SelectedItems;
-            if (selection.Count == 1)
+            if (selection.Count == 1)// later: if(Count > 0){foreach(item in selection)...
             {
                 try
                 {
-                    DataObject dataObj = new DataObject(
-                        myFiles[selection[0].ToString()],selection[0].ToString());
+                    DataObject dataObj = new DataObject(selection[0].ToString(),
+                        myFiles[selection[0].ToString()]);
                     string dataStr = dataObj.DataString;
                     FilePreviewForm dataForm = new FilePreviewForm(dataStr);
                     dataForm.Show();
@@ -182,7 +182,6 @@ namespace DFM
                 }
             }
             //DataObject dataObj = new DataObject(fileStream, filename);
-
         }
 
         /// <summary>
