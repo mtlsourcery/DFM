@@ -9,6 +9,14 @@ Intended code structure summary (as of 14 March, 2018):
 
 --------------------------------------------------------------------------------
 Dailyish Notes
+27 March, 2018 -
+	DataObject.GetDataMatrix now correctly grabs the cells from the test file;
+	can enhance this for more complicated files in the future. 
+
+	Error in DataObject.GetDataMatrix clearing dataMatrix2D rows after appending
+	rows is now fixed. Moral: List.Add(x) points to x, rather than a copy. So if 
+	x is cleared, so that container in List is also emptied. DON'T DO THIS.
+	
 26 March, 2018 - 
 	Currently getting "Index and length must refer to an
 	index within the string" error, System.ArgumentOutOfRangeException in 
