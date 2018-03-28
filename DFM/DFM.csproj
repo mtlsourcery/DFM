@@ -92,6 +92,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="DEVNOTES.txt" />
+    <Content Include="DFM_DataTest.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

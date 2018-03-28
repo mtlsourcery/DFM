@@ -79,7 +79,13 @@ namespace DFM
             OpenFileDialog openFileDialog = new OpenFileDialog()
             {
                 // Set initial parameters for our OpenFileDialog
-                InitialDirectory = "C:\\Users\\Preston Huft\\Documents",
+                //InitialDirectory = "C:\\Users\\Preston Huft\\Documents",
+
+                // The @'s force the compiler to ignore escape sequences, so 
+                // '\' does not have to be typed '\\'
+                
+                InitialDirectory = @"C:\Users\Preston Huft\Documents\Visual " +
+                @"Studio 2017\Projects\DFM\DFM",
                 Filter = "txt files (*.txt)|*.txt|csv files " +
                 "(*.csv)|*.csv|xlsx files (*.xlsx)|.xlsx|All files (*.*)|*.*",
                 FilterIndex = 1,
@@ -164,7 +170,7 @@ namespace DFM
             // certificate; plotting stuff; etc. then save the output to 
             // the specified directory. 
 
-            // Test the DataObject class
+            // Test the DataObject class - REMOVE LATER 
             var selection = FileListBox.SelectedItems;
             if (selection.Count == 1)// later: if(Count > 0){foreach(item in selection)...
             {
@@ -174,14 +180,15 @@ namespace DFM
                         myFiles[selection[0].ToString()]);
                     string dataStr = dataObj.DataString;
                     FilePreviewForm dataForm = new FilePreviewForm(dataStr);
+                    Console.WriteLine("Test data output string: + " +
+                        Environment.NewLine + dataStr);
                     dataForm.Show();
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error: " + ex.Message);
+                    Console.WriteLine(ex.Source + ": " + ex.Message);
                 }
             }
-            //DataObject dataObj = new DataObject(fileStream, filename);
         }
 
         /// <summary>

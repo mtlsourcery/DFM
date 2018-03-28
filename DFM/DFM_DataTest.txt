@@ -1,0 +1,7 @@
+this,text,is,delimited,with,commas
+and,should,end,up,in,separate
+cells,which,are,delimited,by,spaces
+second,paragraph,of,text,has,more,delimiters
+per,line,than,the,previous,paragraph,did
+last,paragraph,has
+the,fewest,delimiters
