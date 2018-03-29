@@ -180,7 +180,7 @@ namespace DFM
                         myFiles[selection[0].ToString()]);
                     string dataStr = dataObj.DataString;
                     FilePreviewForm dataForm = new FilePreviewForm(dataStr);
-                    Console.WriteLine("Test data output string: + " +
+                    Console.WriteLine("Test data output string:" +
                         Environment.NewLine + dataStr);
                     dataForm.Show();
                 }

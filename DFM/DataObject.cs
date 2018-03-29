@@ -66,23 +66,29 @@ namespace DFM
              * data we want. 
              */
 
-            // cellMatrix[i][j][k] specifies a cell k in line j in group i
+            // cellMatrix3D[i][j][k] specifies a cell k in line j in group i
             List<List<List<string>>> cellMatrix3D =
                 new List<List<List<string>>>();
+            // cellMatrix2D is a layer or group i in cellMatrix3D
             List<List<string>> cellMatrix2D = new List<List<string>>();
-            string line;
+            List<string> cellRow = new List<string>();
             StreamReader streamer = new StreamReader(stream);
+            string line;
             int lineIter = 0;
-            int maxDelimiter = 0; // Stores max delimiters/line
+            int charIter = 1;// So that substring length is never 0
+            int lastCharIndex = 0; // 
+            int previousDelimiters = 0; // Current delimiter/line for group
+            int delimiters = 0; // Counts delimiters in a line
 
             // Build cellMatrix3D
             while ((line = streamer.ReadLine()) != null)
             {
-                List<string> cellRow = new List<string>();
-                int charIter = 1;// So that substring length is never 0
-                int lastCharIndex = 0; // 
-                int delimiters = 0; // Counts delimiters in a line
-
+                // Reinitialize these each iteration of while((line...
+                cellRow = new List<string>();
+                charIter = 1;// So that substring length is never 0
+                lastCharIndex = 0; // 
+                delimiters = 0; // Counts delimiters in a line
+                
                 // Get cells in line; Note: misses last cell if last char is
                 // not the specified delimiter
                 foreach (char c in line)
@@ -111,28 +117,33 @@ namespace DFM
                 {
                     string cell = line.Substring(lastCharIndex,
                                 charIter - lastCharIndex - 1);
-                    //if (DEBUG) { Console.WriteLine("Cell: "+cell); }
                     cellRow.Add(cell);
+                    //if (DEBUG) { Console.WriteLine("Cell: "+cell); }
                 }
-                // Add the line of cells to the 2D matrix, reset cellRow
-                cellMatrix2D.Add(cellRow);
-                // Check if we've exceeded the previous max delimiters/line
-                if (delimiters > maxDelimiter)
+
+                // Create new layer in the 3D matrix if delimiters/line changed
+                if (delimiters != previousDelimiters)
                 {
-                    if (maxDelimiter > 0) // No new layer on first iteration
+                    // Create a new layer, except on first iteration
+                    if (previousDelimiters > 0)
                     {
-                        // Clone cellMatrix2D so we don't lose it when we clear it
-                        var cellMatrix2DClone = new List<List<string>>(
-                            cellMatrix2D);
-                        cellMatrix3D.Add(cellMatrix2DClone); // store this layer
-                        cellMatrix2D = new List<List<string>>(); // reset layer
+                        cellMatrix3D.Add(new List<List<string>>(cellMatrix2D));
+                        cellMatrix2D = new List<List<string>>();
+                        cellMatrix2D.Add(cellRow);
                     }
-                    maxDelimiter = delimiters; // update the max
+                    else { cellMatrix2D.Add(cellRow);  }
+                    previousDelimiters = delimiters;
                 }
-                if (DEBUG)
-                { }
+                else
+                {
+                    // Add the line of cells to the 2D matrix, reset cellRow
+                    cellMatrix2D.Add(cellRow);
+                }
                 lineIter++;
             }
+            // The last 2D matrix has to be added to the 3D matrix here:
+            cellMatrix3D.Add(new List<List<string>>(cellMatrix2D));
+            cellMatrix2D.Clear();
 
             if (DEBUG)
             {

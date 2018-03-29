@@ -9,12 +9,18 @@ Intended code structure summary (as of 14 March, 2018):
 
 --------------------------------------------------------------------------------
 Dailyish Notes
+28 March, 2018 - 
+	DataObject.GetDataMatrix is now behaving as expected for the test file 
+	DFM_DataTest.txt.
+
 28 March, 2018 -
 	DataObject.GetDataMatrix now groups layers according to delimiters/line. 
 	The current method of cloning/storing/clearing the cellMatrix2D may lead to
 	vacant layers in cellMatrix3D though. 
 
-	First layer becomes split after first line when maxDelimiters exceeds zero.
+	First layer becomes split after first line when maxDelimiters exceeds zero;
+	groups are created with an offset of one line; e.g. each test paragraph gets
+	split up so the first line of a paragraph is the last line of a group.
 
 27 March, 2018 -
 	DataObject.GetDataMatrix now correctly grabs the cells from the test file;
