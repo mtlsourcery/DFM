@@ -51,10 +51,11 @@ Dailyish Notes
 
 --------------------------------------------------------------------------------
 To-Do List:
-- Find and return largest group of lines in DataObject.GetDataLines. Could avoid
-	maybe avoid calling StringFromMatrixLines foreach 2D matrix in 3D matrix.
 - Add functionality to DataObject class to look for columns of data in selected
 	files.
+- Add option to omit data rows for which at least one cell is empty. E.g. the 
+	row (Milk,2.50,,Target) would be omitted from your shopping list table. This
+	way, each column in a group will be the same length and have no vacant cells.
 
 --------------------------------------------------------------------------------
 Maybe-Do List:
@@ -68,6 +69,9 @@ Maybe-Do List:
 
 --------------------------------------------------------------------------------
 Did List:
+29 March, 2018 - Find and return largest group of lines in 
+	DataObject.GetDataLines. Could avoid maybe avoid calling 
+	StringFromMatrixLines foreach 2D matrix in 3D matrix.
 28 March, 2018 - Modify DataObject.GetDataMatrix to make different groups of 
 	lines based on delimiters per line. 
 27 March, 2018 - 

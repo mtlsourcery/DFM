@@ -1,6 +1,6 @@
 ﻿namespace DFM
 {
-    partial class FilePreviewForm
+    partial class ErrorHandlingForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,36 +28,35 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.PreviewTextBox = new System.Windows.Forms.TextBox();
+            this.ErrorLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // PreviewTextBox
+            // ErrorLabel
             // 
-            this.PreviewTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PreviewTextBox.Location = new System.Drawing.Point(0, 0);
-            this.PreviewTextBox.Multiline = true;
-            this.PreviewTextBox.Name = "PreviewTextBox";
-            this.PreviewTextBox.ReadOnly = true;
-            this.PreviewTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.PreviewTextBox.Size = new System.Drawing.Size(606, 516);
-            this.PreviewTextBox.TabIndex = 0;
+            this.ErrorLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ErrorLabel.AutoSize = true;
+            this.ErrorLabel.Location = new System.Drawing.Point(74, 160);
+            this.ErrorLabel.Name = "ErrorLabel";
+            this.ErrorLabel.Size = new System.Drawing.Size(45, 16);
+            this.ErrorLabel.TabIndex = 1;
+            this.ErrorLabel.Text = "label1";
             // 
-            // FilePreviewForm
+            // ErrorHandlingForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(606, 516);
-            this.Controls.Add(this.PreviewTextBox);
-            this.Name = "FilePreviewForm";
-            this.Text = "Preview - Filename.ext";
+            this.ClientSize = new System.Drawing.Size(203, 262);
+            this.Controls.Add(this.ErrorLabel);
+            this.Name = "ErrorHandlingForm";
+            this.Text = "ErrorHandlingForm";
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.TextBox PreviewTextBox;
+        private System.Windows.Forms.Label ErrorLabel;
     }
 }

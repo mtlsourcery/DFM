@@ -22,7 +22,7 @@ namespace DFM
         /// <summary>
         /// The constructor for FilePreviewForm.
         /// </summary>
-        /// <param name="fileString">The file content to be displayed.</param>
+        /// <param name="fileString"></param>
         public FilePreviewForm(string fileString)
         {
             InitializeComponent();

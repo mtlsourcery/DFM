@@ -18,7 +18,7 @@ namespace DFM
 
         string fnameStr;
         Stream fStream;
-        const int dataSelection = 0; // 0 (1) for all (largest) groups of data
+        const int dataOption = 1; // 0 (1) for all (largest) groups of data
                                      
         List<char> delimiters = new List<char> { ',', ' ', '\t' };
         const bool DEBUG = true;
@@ -44,7 +44,7 @@ namespace DFM
             fnameStr = filename;
             fStream = fileStream;
             DataString = GetDataString(GetDataMatrix(fStream,
-                delimiters[0]),dataSelection);
+                delimiters[0]),dataOption);
         }
 
         /// <summary>
@@ -58,14 +58,6 @@ namespace DFM
         private List<List<List<string>>> GetDataMatrix(Stream stream,
             char delimiter)
         {
-            /* TODO EVENTUALLY: keep track of delimiters per line. If a line
-             * has a different number of delimiters than the previous line, 
-             * create a new group (a new layer i in the cellMatrix3D). Also
-             * keep track of the largest group (number of lines j in in 
-             * layer i). This is the group that is most likely to be the 
-             * data we want. 
-             */
-
             // cellMatrix3D[i][j][k] specifies a cell k in line j in group i
             List<List<List<string>>> cellMatrix3D =
                 new List<List<List<string>>>();
@@ -120,7 +112,6 @@ namespace DFM
                     cellRow.Add(cell);
                     //if (DEBUG) { Console.WriteLine("Cell: "+cell); }
                 }
-
                 // Create new layer in the 3D matrix if delimiters/line changed
                 if (delimiters != previousDelimiters)
                 {
@@ -144,13 +135,11 @@ namespace DFM
             // The last 2D matrix has to be added to the 3D matrix here:
             cellMatrix3D.Add(new List<List<string>>(cellMatrix2D));
             cellMatrix2D.Clear();
-
             if (DEBUG)
             {
                 string lines = (cellMatrix2D.ToArray()).Count().ToString();
                 Console.WriteLine("Lines in output: " + lines);
             }
-
             return cellMatrix3D;
         }
 
@@ -161,7 +150,7 @@ namespace DFM
         /// <param name="cellMat2D"></param>
         /// <returns>String of lines of white space delimited cells from cellMat2D
         /// </returns>
-        private string StringFromMatrixLines(List<List<string>> cellMat2D)
+        private string StringFrom2DMatrix(List<List<string>> cellMat2D)
         {
             if (DEBUG)
             {
@@ -192,6 +181,28 @@ namespace DFM
         }
 
         /// <summary>
+        /// Returns the 2D matrix from the input 3D which contains lines of data
+        /// with the most lines. E.g., if layer 0 has 3 lines of 5 cells each, 
+        /// and layer 1 has 2 lines of 7 cells each, this would return layer 0.
+        /// </summary>
+        /// <param name="dataMat3D"></param>
+        /// <returns></returns>
+        private List<List<string>> GetDesired2DMatrix(List<List<List<string>>> 
+            dataMat3D)
+        {
+            // Assume that the group with the most lines is the data
+            // we're looking for #TheseAreTheDataYou'reLookingFor
+            int iMax = 0;
+            int lastMax = 0;
+            for (int i = 0; i < dataMat3D.Count(); i++)
+            {   // Count the lines in line 0 of group i
+                if (dataMat3D[i].Count() > lastMax)
+                { lastMax = dataMat3D[i].Count(); iMax = i; }
+            }
+            return dataMat3D[iMax];
+        }
+
+        /// <summary>
         /// Converts 3D data matrix dataMat3D into a multi-line string.
         /// Primarily used for debugging. 
         /// </summary>
@@ -202,30 +213,29 @@ namespace DFM
             int returnOption)
         {
             StringBuilder outputStrBldr = new StringBuilder();
-            // join groups i w/ lines separated by '\n' ...
             switch (returnOption)
             {
-                case 0: // ... for all groups i
-                    //string dims = dataMat3D[0].ToArray().Count().ToString();
-                    //Console.WriteLine("2D matrix dims: "+dims);
+                case 0: // return all groups i separated by '\n'
                     foreach (List<List<string>> dataMat2D in dataMat3D)
                     {
-                        string layer = StringFromMatrixLines(dataMat2D);
+                        string layer = StringFrom2DMatrix(dataMat2D);
                         outputStrBldr.Append(layer + Environment.NewLine);
                         if (DEBUG) { Console.WriteLine("Layer: "+layer); }
                     }
                     break;
-                case 1: // ... for only the largest group i
-                    // TODO: later replace '0' w/ largest index i
-                    outputStrBldr.Append(StringFromMatrixLines(
-                        dataMat3D[0]));
+                case 1: // return only the larget group
+                    outputStrBldr.Append(StringFrom2DMatrix(
+                        GetDesired2DMatrix(dataMat3D)));
                     break;
+                default:
+                    goto case 0;
             }
             return outputStrBldr.ToString();
         }
         
+        //TODO: fill the function body here
         private List<List<string>> GetDataColumns(List<List<List<string>>> 
-            cellMatrix)
+            cellMatrix, int returnOption)
         {
             List<List<string>> dataColumns = new List<List<string>>();
             // code to populate dataColumns here

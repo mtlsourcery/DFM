@@ -23,6 +23,9 @@ namespace DFM
         Dictionary<string, Stream> myFiles = new Dictionary<string, Stream>();
         const bool DEBUG = true;
 
+        // The error handler
+        ErrorHandlingForm errorHandler = new ErrorHandlingForm();
+
         /* Class Methods */ 
         
         /// <summary>
