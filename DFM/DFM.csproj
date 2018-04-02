@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataObject.cs" />
+    <Compile Include="ErrorHandler.cs" />
     <Compile Include="ErrorHandlingForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -102,6 +103,7 @@
   <ItemGroup>
     <Content Include="DEVNOTES.txt" />
     <Content Include="DFM_DataTest.txt" />
+    <Content Include="grumpycat.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

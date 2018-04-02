@@ -24,7 +24,7 @@ namespace DFM
         const bool DEBUG = true;
 
         // The error handler
-        ErrorHandlingForm errorHandler = new ErrorHandlingForm();
+        ErrorHandler errorHandler = new ErrorHandler();
 
         /* Class Methods */ 
         
@@ -273,7 +273,11 @@ namespace DFM
                     MessageBox.Show("Error: " + ex.Message);
                 }
             }
-            else { MessageBox.Show("Please select a file."); }
+            else
+            {
+                //MessageBox.Show("Please select a file.");
+                errorHandler.ShowMessage("Please select at least one file.");
+            }
         }
     }
 }

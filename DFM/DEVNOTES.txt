@@ -9,9 +9,23 @@ Intended code structure summary (as of 14 March, 2018):
 
 --------------------------------------------------------------------------------
 Dailyish Notes
+2 April, 2018 - 
+	ErrorHandling form will need to be instantiated everytime we launch one;
+	Disposing of the shown form destroys the object. Options: 1) instantiate an 
+	ErrorHandlingForm when we want one, and just one image is pulled for the 
+	occasion; 2) Change the error handling class to not extend Form. Just create
+	a new Form in the ShowMessage method. Can leave ErrorHandlingForm as the 
+	class that creates our form. Edit constructor to take image and message
+	as arguments. 
+
+	Image rendering in ErrorHandler is now working as intended.
+
 28 March, 2018 - 
 	DataObject.GetDataMatrix is now behaving as expected for the test file 
 	DFM_DataTest.txt.
+
+	Figure out how to properly extract an image from a data stream in error
+	handling form.
 
 28 March, 2018 -
 	DataObject.GetDataMatrix now groups layers according to delimiters/line. 
@@ -51,6 +65,8 @@ Dailyish Notes
 
 --------------------------------------------------------------------------------
 To-Do List:
+- Find a different cat image api... maybe a gif-only api. There are questionable
+	images that pop up in the current database.
 - Add functionality to DataObject class to look for columns of data in selected
 	files.
 - Add option to omit data rows for which at least one cell is empty. E.g. the 
@@ -60,7 +76,7 @@ To-Do List:
 --------------------------------------------------------------------------------
 Maybe-Do List:
 - Implement a function output the source of an exception and its message to the 
-	VS console. Through this in several functions?
+	VS console. Throw this in several functions?
 - Remove the Data File Type ComboBox. When file-specific plotting is done, it 
 	may not be necessary to flag files as "XRF", "FWS", etc.
 - Display error messages with a specialized form (not MessageBox) whose 
@@ -69,6 +85,10 @@ Maybe-Do List:
 
 --------------------------------------------------------------------------------
 Did List:
+- Pull a new image each time ErrorHandler.ShowMessage() is called, rather than
+	grab one at random from a pre-pulled list of urls. 
+2 April, 2018 - ErrorHandler pulls cat images from API XML data and displays a
+	randomly selected image in the error pop up, ErrorHandlingForm.
 29 March, 2018 - Find and return largest group of lines in 
 	DataObject.GetDataLines. Could avoid maybe avoid calling 
 	StringFromMatrixLines foreach 2D matrix in 3D matrix.
