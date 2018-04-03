@@ -25,6 +25,10 @@ namespace DFM
         const string DEFAULT_IMAGE_FILE = @"C:\Users\Preston Huft\Documents\" +
             @"Visual Studio 2017\Projects\DFM\DFM\grumpycat.jpg";
         const bool DEBUG = true;
+        const int side = 200;
+        Image defaultImage = ResizeImage(Image.FromFile(DEFAULT_IMAGE_FILE),
+            side, side);
+         
 
         /* Class Methods */
 
@@ -99,13 +103,13 @@ namespace DFM
         /// <param name="width">The width to resize to.</param>
         /// <param name="height">The height to resize to.</param>
         /// <returns>The resized image.</returns>
-
         public static Bitmap ResizeImage(Image image, int width, int height)
         {
             var destRect = new Rectangle(0, 0, width, height);
             var destImage = new Bitmap(width, height);
 
-            destImage.SetResolution(image.HorizontalResolution, image.VerticalResolution);
+            destImage.SetResolution(image.HorizontalResolution, 
+                image.VerticalResolution);
 
             using (var graphics = Graphics.FromImage(destImage))
             {
@@ -118,10 +122,10 @@ namespace DFM
                 using (var wrapMode = new ImageAttributes())
                 {
                     wrapMode.SetWrapMode(WrapMode.TileFlipXY);
-                    graphics.DrawImage(image, destRect, 0, 0, image.Width, image.Height, GraphicsUnit.Pixel, wrapMode);
+                    graphics.DrawImage(image, destRect, 0, 0, image.Width, 
+                        image.Height, GraphicsUnit.Pixel, wrapMode);
                 }
             }
-
             return destImage;
         }
 
@@ -129,31 +133,48 @@ namespace DFM
         /// Displays a MessageBox with the specified msg and/or exception. The
         /// label.Image property is assigned a random cat image. 
         /// </summary>
-        /// <param name="msg"></param>
-        /// <param name="exception"></param>
-        public void ShowMessage(string msg)
+        /// <param name="msg">The message to be displayed.</param>
+        /// <param name="option">Default image (0) or random image (1).</param>
+        public void ShowMessage(string msg, int option)
         {
             //string labelStr = "Oops! Something went wrong...";
-            Image image = Image.FromFile(DEFAULT_IMAGE_FILE);
-            if (DEBUG) {
+            Image image = defaultImage;
+            if (DEBUG)
+            {
                 Console.WriteLine("h=" + image.Height.ToString() +
                     ",w=" + image.Width.ToString());
             }
-
-            try // Create/show an ErrorHandlingForm
+            if (!(option == 0))
             {
-                Random rand = new Random();
-                int rInt = rand.Next(0, 19);
-                //Image randImage = GetImageFromURL(imageURLs[rInt]);
-                Image newImage = GetImageFromURL(GetImageURLs(URL_STRING, 1)[0]);
-                image = ResizeImage(newImage,420,420);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("ErrorHandler: " + ex.Message);
+                try // Create/show an ErrorHandlingForm
+                {
+                    Random rand = new Random();
+                    int rInt = rand.Next(0, 19);
+                    //Image randImage = GetImageFromURL(imageURLs[rInt]);
+                    Image newImage = GetImageFromURL(GetImageURLs(URL_STRING, 
+                        1)[0]);
+                    image = ResizeImage(newImage,side,side);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("ErrorHandler: " + ex.Message);
+                }
             }
             ErrorHandlingForm form = new ErrorHandlingForm(msg, image);
             form.Show();
+        }
+
+        /// <summary>
+        /// Calls ShowMessage with a string formed from the exception details. A
+        /// random image is specified rather the default one. Simplifies showing
+        /// exception messages.
+        /// </summary>
+        /// <param name="exception">The exception thrown.</param>
+        public void ShowException(Exception exception)
+        {
+            string errorStr = "Error: " + exception.Message + Environment.NewLine
+                + "from " + exception.Source;
+            ShowMessage(errorStr, 1); 
         }
     }
 }

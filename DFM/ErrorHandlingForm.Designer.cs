@@ -30,38 +30,52 @@
         {
             this.ErrorLabel = new System.Windows.Forms.Label();
             this.ImageBox = new System.Windows.Forms.PictureBox();
+            this.OKButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.ImageBox)).BeginInit();
             this.SuspendLayout();
             // 
             // ErrorLabel
             // 
-            this.ErrorLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.ErrorLabel.AutoSize = true;
-            this.ErrorLabel.Location = new System.Drawing.Point(74, 197);
+            this.ErrorLabel.Location = new System.Drawing.Point(24, 221);
             this.ErrorLabel.Name = "ErrorLabel";
             this.ErrorLabel.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.ErrorLabel.Size = new System.Drawing.Size(55, 16);
+            this.ErrorLabel.Size = new System.Drawing.Size(205, 16);
             this.ErrorLabel.TabIndex = 1;
-            this.ErrorLabel.Text = "label1";
+            this.ErrorLabel.Text = "Woah ow oof there was an error";
             // 
             // ImageBox
             // 
-            this.ImageBox.Location = new System.Drawing.Point(0, 1);
+            this.ImageBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ImageBox.Location = new System.Drawing.Point(0, 0);
+            this.ImageBox.Margin = new System.Windows.Forms.Padding(0);
             this.ImageBox.Name = "ImageBox";
-            this.ImageBox.Size = new System.Drawing.Size(203, 182);
+            this.ImageBox.Size = new System.Drawing.Size(256, 291);
             this.ImageBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.ImageBox.TabIndex = 2;
             this.ImageBox.TabStop = false;
             // 
+            // OKButton
+            // 
+            this.OKButton.Location = new System.Drawing.Point(89, 251);
+            this.OKButton.Name = "OKButton";
+            this.OKButton.Size = new System.Drawing.Size(75, 31);
+            this.OKButton.TabIndex = 3;
+            this.OKButton.Text = "OK";
+            this.OKButton.UseVisualStyleBackColor = true;
+            this.OKButton.Click += new System.EventHandler(this.OKButton_Click);
+            // 
             // ErrorHandlingForm
             // 
+            this.AcceptButton = this.OKButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(203, 262);
-            this.Controls.Add(this.ImageBox);
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.ClientSize = new System.Drawing.Size(256, 291);
+            this.Controls.Add(this.OKButton);
             this.Controls.Add(this.ErrorLabel);
+            this.Controls.Add(this.ImageBox);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "ErrorHandlingForm";
             this.Text = "Oops!";
@@ -72,7 +86,9 @@
         }
 
         #endregion
+
         private System.Windows.Forms.Label ErrorLabel;
         private System.Windows.Forms.PictureBox ImageBox;
+        private System.Windows.Forms.Button OKButton;
     }
 }

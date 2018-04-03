@@ -17,11 +17,19 @@ namespace DFM
     /// </summary>
     public partial class MainForm : Form
     {
-        /* Class Variables */
-     
-        string filename; // """"""""
-        Dictionary<string, Stream> myFiles = new Dictionary<string, Stream>();
+        /* Class Constants */
         const bool DEBUG = true;
+        const string DEFAULT_BROWSE_DIR = @"C:\";
+        const string DEFAULT_SAVE_DIR = @"C:\";
+
+        /* Class Variables */
+
+        string filename;
+        Dictionary<string, Stream> myFiles = new Dictionary<string, Stream>();
+
+        // The default browsing  and save directories saved in settings
+        string initialDir = Properties.Settings.Default.BrowseDirectory;
+        string saveDir = Properties.Settings.Default.SaveDirectory;
 
         // The error handler
         ErrorHandler errorHandler = new ErrorHandler();
@@ -86,9 +94,10 @@ namespace DFM
 
                 // The @'s force the compiler to ignore escape sequences, so 
                 // '\' does not have to be typed '\\'
-                
-                InitialDirectory = @"C:\Users\Preston Huft\Documents\Visual " +
-                @"Studio 2017\Projects\DFM\DFM",
+
+                //InitialDirectory = @"C:\Users\Preston Huft\Documents\Visual " +
+                //@"Studio 2017\Projects\DFM\DFM",
+                InitialDirectory = initialDir,
                 Filter = "txt files (*.txt)|*.txt|csv files " +
                 "(*.csv)|*.csv|xlsx files (*.xlsx)|.xlsx|All files (*.*)|*.*",
                 FilterIndex = 1,
@@ -147,16 +156,20 @@ namespace DFM
             {
                 try
                 {
-                    if (folderBrowserDialog.SelectedPath != null)
+                    var selectedDir = folderBrowserDialog.SelectedPath;
+                    if ( selectedDir != null)
                     {
                         // Display the name of the selected directory
-                        SaveDirTextBox.Text = folderBrowserDialog.SelectedPath;
+                        SaveDirTextBox.Text = selectedDir;
+
+                        // Update the save directory string and Settings.settings
+                        saveDir = "@"+selectedDir.ToString();
+                        Properties.Settings.Default.SaveDirectory = saveDir;
                     }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error: Could not read file from disk. " +
-                        "Original error: " + ex.Message);
+                    errorHandler.ShowException(ex);
                 }
             }
         }
@@ -189,7 +202,7 @@ namespace DFM
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine(ex.Source + ": " + ex.Message);
+                    errorHandler.ShowException(ex);
                 }
             }
         }
@@ -227,7 +240,7 @@ namespace DFM
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error: " + ex.Message);
+                    errorHandler.ShowException(ex);
                 }
             }
             else { MessageBox.Show("Please select a file."); }
@@ -240,7 +253,7 @@ namespace DFM
         /// <param name="e"></param>
         private void PreviewFileButton_Click(object sender, EventArgs e)
         {
-            var selection = FileListBox.SelectedItems;
+            var selection = this.FileListBox.SelectedItems;
             if (selection.Count != 0)
             {
                 try
@@ -270,15 +283,15 @@ namespace DFM
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error: " + ex.Message);
+                    errorHandler.ShowException(ex);
                 }
             }
             else
             {
                 //MessageBox.Show("Please select a file.");
-                errorHandler.ShowMessage("Please select at least one file.");
+                errorHandler.ShowMessage("Please select at least one file.",0);
             }
-        }
+        }        
     }
 }
     
