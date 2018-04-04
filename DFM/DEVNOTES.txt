@@ -10,8 +10,12 @@ Intended code structure summary (as of 14 March, 2018):
 --------------------------------------------------------------------------------
 Dailyish Notes
 3 April, 2018 - 
-	Layout of ErrorHandlingForm tuned, and method ErrorHandler.ShowException
-	added.
+	Layout of ErrorHandlingForm tuned, and method msgHandler.ShowException
+	added. 
+
+	Edit TwoButtonForm to have a second button which affirms some action. May
+	need to use some sort of delegate to pass selection to function that called
+	it. Look into this tomorrow. 
 2 April, 2018 - 
 	ErrorHandling form will need to be instantiated everytime we launch one;
 	Disposing of the shown form destroys the object. Options: 1) instantiate an 
@@ -21,7 +25,7 @@ Dailyish Notes
 	class that creates our form. Edit constructor to take image and message
 	as arguments. 
 
-	Image rendering in ErrorHandler is now working as intended.
+	Image rendering in msgHandler is now working as intended.
 28 March, 2018 - 
 	DataObject.GetDataMatrix is now behaving as expected for the test file 
 	DFM_DataTest.txt.
@@ -65,7 +69,7 @@ Dailyish Notes
 
 --------------------------------------------------------------------------------
 To-Do List:
-- Generalize the ErrorHandler class to handle other types of messages too: user
+- Generalize the msgHandler class to handle other types of messages too: user
 	choice prompts, etc.
 - Store settings such as save directory and browsing directory in Setting file.
 	These can be changed during run-time and read at start-up.
@@ -93,9 +97,9 @@ Maybe-Do List:
 --------------------------------------------------------------------------------
 Did List:
 3 April, 2018 - Get label and button to display under image on ErrorHandlingForm.
-2 April, 2018 - Pull a new image each time ErrorHandler.ShowMessage() is called, rather than
+2 April, 2018 - Pull a new image each time msgHandler.ShowMessage() is called, rather than
 	grab one at random from a pre-pulled list of urls. 
-2 April, 2018 - ErrorHandler pulls cat images from API XML data and displays a
+2 April, 2018 - msgHandler pulls cat images from API XML data and displays a
 	randomly selected image in the error pop up, ErrorHandlingForm.
 29 March, 2018 - Find and return largest group of lines in 
 	DataObject.GetDataLines. Could avoid maybe avoid calling 

@@ -13,7 +13,7 @@ using System.Windows.Forms;
 
 namespace DFM
 {
-    public partial class ErrorHandlingForm : Form
+    public partial class TwoButtonForm : Form
     {
         /* Class Variables */
 
@@ -25,7 +25,7 @@ namespace DFM
         /// <summary>
         /// The constructor.
         /// </summary>
-        public ErrorHandlingForm(string message, Image image)
+        public TwoButtonForm(string message, Image image)
         {
             InitializeComponent();
 
@@ -43,16 +43,21 @@ namespace DFM
             this.ImageBox.Height = image.Height;
 
             this.Width = this.ImageBox.Width + 2*padding;
-            this.Height = this.ImageBox.Height + OKButton.Height +
+            this.Height = this.ImageBox.Height + YesButton.Height +
                 ErrorLabel.Height;
 
             int labelx0 = (int)(.5 * (this.Width - ErrorLabel.Width)) - 2*padding;
-            int labely0 = ImageBox.Height - 10*padding;
+            int labely0 = ImageBox.Height - 15*padding;
             this.ErrorLabel.Location = new Point(labelx0, labely0);
 
-            int buttonx0 = (int)(.5 * (this.Width - OKButton.Width)) - 2*padding;
-            int buttony0 = labely0 + ErrorLabel.Height + 2*padding;
-            this.OKButton.Location = new Point(buttonx0, buttony0);
+            int yesButtonx0 = (int)(.5*this.Width - YesButton.Width
+                - padding) - 2*padding;
+            int yesButtony0 = labely0 + ErrorLabel.Height + 2*padding;
+            this.YesButton.Location = new Point(yesButtonx0, yesButtony0);
+
+            int noButtonx0 = yesButtonx0 + NoButton.Width + padding;
+            int noButtony0 = yesButtony0;
+            this.NoButton.Location = new Point(noButtonx0, noButtony0);
         }
 
         /// <summary>
@@ -62,9 +67,24 @@ namespace DFM
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void OKButton_Click(object sender, EventArgs e)
+        private void YesButton_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void NoButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        /// <summary>
+        /// Natural rounding to whole number. 
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public int Nint(double n)
+        {
+            return (int)(n + .5);
         }
     }
 }

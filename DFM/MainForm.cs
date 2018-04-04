@@ -31,8 +31,8 @@ namespace DFM
         string initialDir = Properties.Settings.Default.BrowseDirectory;
         string saveDir = Properties.Settings.Default.SaveDirectory;
 
-        // The error handler
-        ErrorHandler errorHandler = new ErrorHandler();
+        // The msg handler
+        MessageHandler msgHandler = new MessageHandler();
 
         /* Class Methods */ 
         
@@ -42,8 +42,9 @@ namespace DFM
         public MainForm()
         {
             InitializeComponent();
+            this.SaveDirTextBox.Text = saveDir;
         }
-        
+
         /// <summary>
         /// Prints the keys in myFiles to the Output Console. Used for debugging
         /// purposes only.
@@ -89,9 +90,6 @@ namespace DFM
             // Displays the file selection window and stores the result
             OpenFileDialog openFileDialog = new OpenFileDialog()
             {
-                // Set initial parameters for our OpenFileDialog
-                //InitialDirectory = "C:\\Users\\Preston Huft\\Documents",
-
                 // The @'s force the compiler to ignore escape sequences, so 
                 // '\' does not have to be typed '\\'
 
@@ -162,14 +160,21 @@ namespace DFM
                         // Display the name of the selected directory
                         SaveDirTextBox.Text = selectedDir;
 
-                        // Update the save directory string and Settings.settings
-                        saveDir = "@"+selectedDir.ToString();
-                        Properties.Settings.Default.SaveDirectory = saveDir;
+                        string msg = "Set " + selectedDir + 
+                            Environment.NewLine +
+                            " as the default save directory?";
+                        if(msgHandler.ShowBinaryOptions(msg) == DialogResult.Yes)
+                        {
+                            // Update the save directory string and Settings.settings
+                            saveDir = selectedDir.ToString();
+                            Properties.Settings.Default.SaveDirectory = saveDir;
+                            Properties.Settings.Default.Save();
+                        }
                     }
                 }
                 catch (Exception ex)
                 {
-                    errorHandler.ShowException(ex);
+                    msgHandler.ShowException(ex);
                 }
             }
         }
@@ -202,7 +207,7 @@ namespace DFM
                 }
                 catch (Exception ex)
                 {
-                    errorHandler.ShowException(ex);
+                    msgHandler.ShowException(ex);
                 }
             }
         }
@@ -240,7 +245,7 @@ namespace DFM
                 }
                 catch (Exception ex)
                 {
-                    errorHandler.ShowException(ex);
+                    msgHandler.ShowException(ex);
                 }
             }
             else { MessageBox.Show("Please select a file."); }
@@ -283,13 +288,13 @@ namespace DFM
                 }
                 catch (Exception ex)
                 {
-                    errorHandler.ShowException(ex);
+                    msgHandler.ShowException(ex);
                 }
             }
             else
             {
                 //MessageBox.Show("Please select a file.");
-                errorHandler.ShowMessage("Please select at least one file.",0);
+                msgHandler.ShowMessage("Please select at least one file.",0);
             }
         }        
     }

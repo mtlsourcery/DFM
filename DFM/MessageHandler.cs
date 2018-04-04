@@ -15,27 +15,41 @@ using System.Windows.Forms;
 
 namespace DFM
 {
-    class ErrorHandler
+    class MessageHandler
     {
-        /* Class Variables */
-
+        /* Class Constants */
+        const string IMAGE_DIR = @"C:\Users\Preston Huft\Documents\" +
+            @"Visual Studio 2017\Projects\DFM\DFM\Images\";
         const string URL_STRING =
             "http://thecatapi.com/api/images/get?format=xml&results_per_page=";
-        List<string> imageURLs = new List<string>();
-        const string DEFAULT_IMAGE_FILE = @"C:\Users\Preston Huft\Documents\" +
-            @"Visual Studio 2017\Projects\DFM\DFM\grumpycat.jpg";
+        const string GRUMPYCAT = IMAGE_DIR + "grumpycat.jpg";
+        const string CATBOX4 = IMAGE_DIR + "catbox4.jpg";
+        const string CATBOX3 = IMAGE_DIR + "catbox3.jpg";
+        const string CATBOX2 = IMAGE_DIR + "catbox2.jpg";
+        const string CATBOX1 = IMAGE_DIR + "catbox1.jpg";
         const bool DEBUG = true;
-        const int side = 200;
-        Image defaultImage = ResizeImage(Image.FromFile(DEFAULT_IMAGE_FILE),
+        const int side = 200; // length of side of an image
+
+        /* Class Variables */
+
+        List<string> imageURLs = new List<string>();
+        Image gcImage = ResizeImage(Image.FromFile(GRUMPYCAT),
             side, side);
-         
+        Image cb4Image = ResizeImage(Image.FromFile(CATBOX4),
+            side, side);
+        Image cb3Image = ResizeImage(Image.FromFile(CATBOX3),
+            side, side);
+        Image cb2Image = ResizeImage(Image.FromFile(CATBOX2),
+            side, side);
+        Image cb1Image = ResizeImage(Image.FromFile(CATBOX1),
+            side, side);
 
         /* Class Methods */
 
         /// <summary>
         /// The constructor.
         /// </summary>
-        public ErrorHandler()
+        public MessageHandler()
         {
             //imageURLs = GetImageURLs(URL_STRING,20);
         }
@@ -135,10 +149,10 @@ namespace DFM
         /// </summary>
         /// <param name="msg">The message to be displayed.</param>
         /// <param name="option">Default image (0) or random image (1).</param>
-        public void ShowMessage(string msg, int option)
+        public void ShowMessage(string message, int option)
         {
             //string labelStr = "Oops! Something went wrong...";
-            Image image = defaultImage;
+            Image image = gcImage;
             if (DEBUG)
             {
                 Console.WriteLine("h=" + image.Height.ToString() +
@@ -157,10 +171,10 @@ namespace DFM
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine("ErrorHandler: " + ex.Message);
+                    Console.WriteLine("msgHandler: " + ex.Message);
                 }
             }
-            ErrorHandlingForm form = new ErrorHandlingForm(msg, image);
+            OneButtonForm form = new OneButtonForm(message, image);
             form.Show();
         }
 
@@ -175,6 +189,19 @@ namespace DFM
             string errorStr = "Error: " + exception.Message + Environment.NewLine
                 + "from " + exception.Source;
             ShowMessage(errorStr, 1); 
+        }
+
+        /// <summary>
+        /// Displays a Form with two buttons, Yes and No, for a uses to make a 
+        /// binary decision. The decision (button click) is returned as a
+        /// Dialog result.
+        /// </summary>
+        /// <param name="prompt"></param>
+        /// <returns></returns>
+        public DialogResult ShowBinaryOptions(string prompt)
+        {
+            TwoButtonForm form = new TwoButtonForm(prompt, cb4Image);
+            return form.ShowDialog(); ;
         }
     }
 }
