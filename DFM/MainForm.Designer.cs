@@ -38,8 +38,6 @@
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.ProcessButton = new System.Windows.Forms.Button();
-            this.TypeLabel = new System.Windows.Forms.Label();
-            this.FiletypeCBox = new System.Windows.Forms.ComboBox();
             this.RemoveFileButton = new System.Windows.Forms.Button();
             this.FileListBox = new System.Windows.Forms.ListBox();
             this.PreviewFileButton = new System.Windows.Forms.Button();
@@ -49,7 +47,7 @@
             // 
             this.FileLabel.AutoSize = true;
             this.FileLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FileLabel.Location = new System.Drawing.Point(176, 13);
+            this.FileLabel.Location = new System.Drawing.Point(14, 13);
             this.FileLabel.Name = "FileLabel";
             this.FileLabel.Size = new System.Drawing.Size(60, 16);
             this.FileLabel.TabIndex = 0;
@@ -57,7 +55,7 @@
             // 
             // AddFileButton
             // 
-            this.AddFileButton.Location = new System.Drawing.Point(434, 31);
+            this.AddFileButton.Location = new System.Drawing.Point(272, 31);
             this.AddFileButton.Name = "AddFileButton";
             this.AddFileButton.Size = new System.Drawing.Size(106, 24);
             this.AddFileButton.TabIndex = 4;
@@ -69,7 +67,7 @@
             // 
             this.SaveDirTextBox.ForeColor = System.Drawing.SystemColors.ControlText;
             this.SaveDirTextBox.HideSelection = false;
-            this.SaveDirTextBox.Location = new System.Drawing.Point(179, 215);
+            this.SaveDirTextBox.Location = new System.Drawing.Point(17, 215);
             this.SaveDirTextBox.MaxLength = 40;
             this.SaveDirTextBox.Name = "SaveDirTextBox";
             this.SaveDirTextBox.ReadOnly = true;
@@ -79,7 +77,7 @@
             // 
             // SaveDirButton
             // 
-            this.SaveDirButton.Location = new System.Drawing.Point(434, 213);
+            this.SaveDirButton.Location = new System.Drawing.Point(272, 213);
             this.SaveDirButton.Name = "SaveDirButton";
             this.SaveDirButton.Size = new System.Drawing.Size(106, 24);
             this.SaveDirButton.TabIndex = 7;
@@ -91,7 +89,7 @@
             // 
             this.SaveDirLabel.AutoSize = true;
             this.SaveDirLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SaveDirLabel.Location = new System.Drawing.Point(176, 196);
+            this.SaveDirLabel.Location = new System.Drawing.Point(14, 196);
             this.SaveDirLabel.Name = "SaveDirLabel";
             this.SaveDirLabel.Size = new System.Drawing.Size(119, 16);
             this.SaveDirLabel.TabIndex = 8;
@@ -101,7 +99,7 @@
             // 
             this.ProcessLabel.AutoSize = true;
             this.ProcessLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ProcessLabel.Location = new System.Drawing.Point(9, 250);
+            this.ProcessLabel.Location = new System.Drawing.Point(14, 267);
             this.ProcessLabel.Name = "ProcessLabel";
             this.ProcessLabel.Size = new System.Drawing.Size(147, 16);
             this.ProcessLabel.TabIndex = 9;
@@ -110,7 +108,7 @@
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(12, 269);
+            this.checkBox1.Location = new System.Drawing.Point(17, 286);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(179, 20);
             this.checkBox1.TabIndex = 10;
@@ -120,7 +118,7 @@
             // checkBox2
             // 
             this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(12, 295);
+            this.checkBox2.Location = new System.Drawing.Point(17, 312);
             this.checkBox2.Name = "checkBox2";
             this.checkBox2.Size = new System.Drawing.Size(156, 20);
             this.checkBox2.TabIndex = 11;
@@ -130,7 +128,7 @@
             // checkBox3
             // 
             this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(12, 321);
+            this.checkBox3.Location = new System.Drawing.Point(17, 338);
             this.checkBox3.Name = "checkBox3";
             this.checkBox3.Size = new System.Drawing.Size(237, 20);
             this.checkBox3.TabIndex = 12;
@@ -139,7 +137,7 @@
             // 
             // ProcessButton
             // 
-            this.ProcessButton.Location = new System.Drawing.Point(363, 321);
+            this.ProcessButton.Location = new System.Drawing.Point(201, 386);
             this.ProcessButton.Name = "ProcessButton";
             this.ProcessButton.Size = new System.Drawing.Size(177, 24);
             this.ProcessButton.TabIndex = 13;
@@ -147,31 +145,9 @@
             this.ProcessButton.UseVisualStyleBackColor = true;
             this.ProcessButton.Click += new System.EventHandler(this.ProcessButton_Click);
             // 
-            // TypeLabel
-            // 
-            this.TypeLabel.AutoSize = true;
-            this.TypeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TypeLabel.Location = new System.Drawing.Point(12, 13);
-            this.TypeLabel.Name = "TypeLabel";
-            this.TypeLabel.Size = new System.Drawing.Size(115, 16);
-            this.TypeLabel.TabIndex = 1;
-            this.TypeLabel.Text = "Data File Type:";
-            // 
-            // FiletypeCBox
-            // 
-            this.FiletypeCBox.FormattingEnabled = true;
-            this.FiletypeCBox.Items.AddRange(new object[] {
-            "MicroPEM Data (.csv)",
-            "XRF Data (.rtf)",
-            "FWS Data (.xlsx)"});
-            this.FiletypeCBox.Location = new System.Drawing.Point(12, 32);
-            this.FiletypeCBox.Name = "FiletypeCBox";
-            this.FiletypeCBox.Size = new System.Drawing.Size(155, 24);
-            this.FiletypeCBox.TabIndex = 2;
-            // 
             // RemoveFileButton
             // 
-            this.RemoveFileButton.Location = new System.Drawing.Point(434, 61);
+            this.RemoveFileButton.Location = new System.Drawing.Point(272, 61);
             this.RemoveFileButton.Name = "RemoveFileButton";
             this.RemoveFileButton.Size = new System.Drawing.Size(106, 24);
             this.RemoveFileButton.TabIndex = 14;
@@ -183,7 +159,7 @@
             // 
             this.FileListBox.FormattingEnabled = true;
             this.FileListBox.ItemHeight = 16;
-            this.FileListBox.Location = new System.Drawing.Point(179, 32);
+            this.FileListBox.Location = new System.Drawing.Point(17, 32);
             this.FileListBox.Name = "FileListBox";
             this.FileListBox.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
             this.FileListBox.Size = new System.Drawing.Size(249, 148);
@@ -191,7 +167,7 @@
             // 
             // PreviewFileButton
             // 
-            this.PreviewFileButton.Location = new System.Drawing.Point(434, 91);
+            this.PreviewFileButton.Location = new System.Drawing.Point(272, 91);
             this.PreviewFileButton.Name = "PreviewFileButton";
             this.PreviewFileButton.Size = new System.Drawing.Size(106, 24);
             this.PreviewFileButton.TabIndex = 16;
@@ -204,7 +180,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(552, 353);
+            this.ClientSize = new System.Drawing.Size(397, 422);
             this.Controls.Add(this.PreviewFileButton);
             this.Controls.Add(this.FileListBox);
             this.Controls.Add(this.RemoveFileButton);
@@ -217,8 +193,6 @@
             this.Controls.Add(this.SaveDirButton);
             this.Controls.Add(this.SaveDirTextBox);
             this.Controls.Add(this.AddFileButton);
-            this.Controls.Add(this.FiletypeCBox);
-            this.Controls.Add(this.TypeLabel);
             this.Controls.Add(this.FileLabel);
             this.Name = "MainForm";
             this.Text = "MTL Data File Manager";
@@ -239,8 +213,6 @@
         private System.Windows.Forms.CheckBox checkBox2;
         private System.Windows.Forms.CheckBox checkBox3;
         private System.Windows.Forms.Button ProcessButton;
-        private System.Windows.Forms.Label TypeLabel;
-        private System.Windows.Forms.ComboBox FiletypeCBox;
         private System.Windows.Forms.Button RemoveFileButton;
         private System.Windows.Forms.ListBox FileListBox;
         private System.Windows.Forms.Button PreviewFileButton;

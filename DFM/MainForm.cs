@@ -25,13 +25,14 @@ namespace DFM
         /* Class Variables */
 
         string filename;
-        Dictionary<string, Stream> myFiles = new Dictionary<string, Stream>();
+        //Dictionary<string, Stream> myFiles = new Dictionary<string, Stream>();
+        Dictionary<string, DataObject> myFiles = new Dictionary<string, DataObject>();
 
         // The default browsing  and save directories saved in settings
         string initialDir = Properties.Settings.Default.BrowseDirectory;
         string saveDir = Properties.Settings.Default.SaveDirectory;
 
-        // The msg handler
+        // The message handler
         MessageHandler msgHandler = new MessageHandler();
 
         /* Class Methods */ 
@@ -56,9 +57,9 @@ namespace DFM
 
             foreach (var file in myFiles)
             {
-                str.Append(file.Key);
+                str.Append(" "+file.Key);
             }
-            str.Append(")");
+            str.Append(" )");
             Console.WriteLine(str.ToString());
         }
 
@@ -114,20 +115,19 @@ namespace DFM
                         filename = openFileDialog.SafeFileName;
 
                         // Add the selected file to the dictionary
-                        myFiles.Add(filename, fileStream);
+                        // and create its instance of DataObject
+                        myFiles.Add(filename, new DataObject(filename,
+                            fileStream));
 
                         // Add filename to FileListBox
                         FileListBox.Items.Add(filename);
                         
-                        if (DEBUG)
-                        {
-                            PrintDictionary();
-                        }
+                        if (DEBUG){ PrintDictionary(); }
                     }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error: " + ex.Message);
+                    msgHandler.ShowException(ex);
                 }
             }
         }
@@ -197,9 +197,10 @@ namespace DFM
             {
                 try
                 {
-                    DataObject dataObj = new DataObject(selection[0].ToString(),
-                        myFiles[selection[0].ToString()]);
-                    string dataStr = dataObj.DataString;
+                    //DataObject dataObj = new DataObject(selection[0].ToString(),
+                    //    myFiles[selection[0].ToString()]);
+                    //string dataStr = dataObj.DataString;
+                    string dataStr = myFiles[selection[0].ToString()].FileString;
                     FilePreviewForm dataForm = new FilePreviewForm(dataStr);
                     Console.WriteLine("Test data output string:" +
                         Environment.NewLine + dataStr);
@@ -237,18 +238,14 @@ namespace DFM
                         // remove the zeroth element until 'selection' is empty
                         FileListBox.Items.Remove(selection[0]);
                     }
-
-                    if (DEBUG)
-                    {
-                        PrintDictionary();
-                    }
+                    if (DEBUG){ PrintDictionary(); }
                 }
                 catch (Exception ex)
                 {
                     msgHandler.ShowException(ex);
                 }
             }
-            else { MessageBox.Show("Please select a file."); }
+            else { msgHandler.ShowMessage("Please select a file.",0); }
         }
 
         /// <summary>
@@ -267,8 +264,8 @@ namespace DFM
                     foreach (var item in selection)
                     {
                         // Get the file content associated with item.ToString()
-                        string contentString = StringFromStream(
-                            myFiles[item.ToString()]);
+                        string contentString = 
+                            myFiles[item.ToString()].FileString;
                         // Instantiate a FilePreviewForm
                         FilePreviewForm filePreviewForm = new FilePreviewForm(
                             contentString)
@@ -279,12 +276,7 @@ namespace DFM
                         // Show the form
                         filePreviewForm.Show();
                     }   
-                    
-                    if (DEBUG)
-                    {
-                        // Debugging statement
-                        Console.WriteLine("FilePreviewForm opened");
-                    }
+                    if (DEBUG){ Console.WriteLine("FilePreviewForm opened"); }
                 }
                 catch (Exception ex)
                 {
@@ -293,7 +285,6 @@ namespace DFM
             }
             else
             {
-                //MessageBox.Show("Please select a file.");
                 msgHandler.ShowMessage("Please select at least one file.",0);
             }
         }        

@@ -9,6 +9,8 @@ Intended code structure summary (as of 14 March, 2018):
 
 --------------------------------------------------------------------------------
 Dailyish Notes
+5 April, 2018 -
+	DataObject.FileString is returning an empty string. 
 3 April, 2018 - 
 	Layout of ErrorHandlingForm tuned, and method msgHandler.ShowException
 	added. 
@@ -69,38 +71,48 @@ Dailyish Notes
 
 --------------------------------------------------------------------------------
 To-Do List:
-- Generalize the msgHandler class to handle other types of messages too: user
-	choice prompts, etc.
-- Store settings such as save directory and browsing directory in Setting file.
-	These can be changed during run-time and read at start-up.
+- Add a way to view the primary outputs (cellmatrix, columns, etc) of files 
+	converted to dataObjects. This could be a ListBox that shows previewable/
+	saveable items such as 'exampledata.txt - columns'. 
 - If initial directory is not found when attempting to browse files, pop open a
 	dialogue asking for a new default directory (could store this in an ini 
 	file eventually).
-- Add functionality to DataObject class to look for columns of data in selected
-	files.
 - Add option to omit data rows for which at least one cell is empty. E.g. the 
 	row (Milk,2.50,,Target) would be omitted from your shopping list table. This
-	way, each column in a group will be the same length and have no vacant cells.
+	way, there will be no vacant cells.
 
 --------------------------------------------------------------------------------
 Maybe-Do List:
+- Add a SettingsForm to allow changing of settings. 
+- Add a toolbar at the top of MainForm to allow selection of options like 'help'
+	and 'settings'.
+- Add option to save file in PreviewFileForm.
 - Find a different cat image api... maybe a gif-only api. There are occasional
-	questionable images that pop up in the current database.
+	questionable images (nothing obscene, just a bit odd) that pop up in the 
+	current database.
 - Implement a function output the source of an exception and its message to the 
 	VS console. Throw this in several functions?
-- Remove the Data File Type ComboBox. When file-specific plotting is done, it 
-	may not be necessary to flag files as "XRF", "FWS", etc.
-- Display error messages with a specialized form (not MessageBox) whose 
-	background is a cat image or gif pulled from an API. 
-- Store file text rather than its Stream in the dictionary myFiles.
 
 --------------------------------------------------------------------------------
 Did List:
-3 April, 2018 - Get label and button to display under image on ErrorHandlingForm.
-2 April, 2018 - Pull a new image each time msgHandler.ShowMessage() is called, rather than
-	grab one at random from a pre-pulled list of urls. 
-2 April, 2018 - msgHandler pulls cat images from API XML data and displays a
+5 April, 2018 - Find a way to bind DataObjects to the dictionary. myFiles is now
+	of type Dictionary<string,DataObject> instead of Dictionary<string,Stream>.
+	- Add functionality to DataObject class to look for columns of data in 
+	selected files.
+	- Remove the Data File Type ComboBox. When file-specific plotting is done, 
+	it may not be necessary to flag files as "XRF", "FWS", etc.
+4 April, 2018 - Generalize the msgHandler class to handle other types of 
+	messages too: user choice prompts, etc.
+	- Store settings such as save directory and browsing directory in Setting 
+	file. These can be changed during run-time and read at start-up.
+3 April, 2018 - Get label and button to display under image on 
+	ErrorHandlingForm.
+2 April, 2018 - Pull a new image each time msgHandler.ShowMessage() is called, 
+	rather than grab one at random from a pre-pulled list of urls. 
+	- msgHandler pulls cat images from API XML data and displays a
 	randomly selected image in the error pop up, ErrorHandlingForm.
+	- Display error messages with a specialized form (not MessageBox) whose 
+	background is a cat image or gif pulled from an API. 
 29 March, 2018 - Find and return largest group of lines in 
 	DataObject.GetDataLines. Could avoid maybe avoid calling 
 	StringFromMatrixLines foreach 2D matrix in 3D matrix.
@@ -115,8 +127,9 @@ Did List:
 - Make FilesTextBox and SaveDirTextBox read-only.
 - Replaced FilesTextBox with FileListBox
 - Fixed RemoveFileButton
-- Utilize a dictionary or custom class to create list of tuples of filenames and
-	their associated read-only Streams. 
+- Utilize a dictionary or custom class to create list of tuples of filenames 
+	and their associated read-only Streams. 
 - Generalize file input to accept any number of files, whether via group
 	selection or otherwise. DO BEFORE THINGS GET TOO MESSY.
-- Add "Preview" button to the GUI for viewing selected files before processing.
+- Add "Preview" button to the GUI for viewing selected files before 
+	processing.

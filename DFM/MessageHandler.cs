@@ -18,6 +18,7 @@ namespace DFM
     class MessageHandler
     {
         /* Class Constants */
+
         const string IMAGE_DIR = @"C:\Users\Preston Huft\Documents\" +
             @"Visual Studio 2017\Projects\DFM\DFM\Images\";
         const string URL_STRING =
@@ -147,7 +148,7 @@ namespace DFM
         /// Displays a MessageBox with the specified msg and/or exception. The
         /// label.Image property is assigned a random cat image. 
         /// </summary>
-        /// <param name="msg">The message to be displayed.</param>
+        /// <param name="message">The message to be displayed.</param>
         /// <param name="option">Default image (0) or random image (1).</param>
         public void ShowMessage(string message, int option)
         {

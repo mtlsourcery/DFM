@@ -14,20 +14,25 @@ namespace DFM
     /// </summary>
     class DataObject // Should this extend the Stream abstract class?
     {
+        /* Class Constants */
+
+        const int dataOption = 0; // 0 (1) for largets (all) group(s) of data
+        const bool DEBUG = true;
+
         /* Class Variables - Private */
 
+        // Use one-hump camelFont by convention for private variables
         string fnameStr;
         Stream fStream;
-        const int dataOption = 1; // 0 (1) for all (largest) groups of data
-                                     
         List<char> delimiters = new List<char> { ',', ' ', '\t' };
-        const bool DEBUG = true;
+        List<List<List<string>>> cellMatrix = new List<List<List<string>>>();
 
         /* Class Variables - Public */
 
-        // These capitalized to stick with convention for public propertiers
-        public List<List<string>> Columns = new List<List<string>>();
-        public string DataString;
+        // Use two-hump CamelFont by convention for public variables
+        public string FileString; // The verbatim contents of the file
+        public string DataString; // The processed data in string format
+        public List<List<string>> DataColumns = new List<List<string>>();
 
         /* Class Methods */
 
@@ -35,16 +40,39 @@ namespace DFM
         /// The constructor. Initializes object attributes when a DataObject
         /// is instantiated. 
         /// </summary>
-        /// <param name="extensionStr"> The input file's extenstion.</param>
+        /// <param name="filename"> The input file's name.</param>
         /// <param name="fileStream"> The stream representing the input
         /// file's content. </param>
         public DataObject(string filename, Stream fileStream)
         {
-            // Initialize the class variables
+            // Initialize the internal variables
             fnameStr = filename;
             fStream = fileStream;
-            DataString = GetDataString(GetDataMatrix(fStream,
-                delimiters[0]),dataOption);
+            cellMatrix = GetDataMatrix(fStream, delimiters[0]);
+
+            // Initialize the externally accessible properties
+            FileString = GetFileString(fileStream);
+            DataString = GetDataString(cellMatrix,dataOption);
+            DataColumns = GetDataColumns(cellMatrix,dataOption);
+        }
+
+        /// <summary>
+        /// Returns the contents of the original file as a string assembled from
+        /// the file's stream.
+        /// </summary>
+        /// <param name="stream"></param>
+        /// <returns></returns>
+        private string GetFileString(Stream stream)
+        {
+            StreamReader reader = new StreamReader(stream);
+            StringBuilder str = new StringBuilder();
+            string line;
+            while ((line = reader.ReadLine()) != null)
+            {
+                str.Append(line + Environment.NewLine);
+            }
+            if (DEBUG) { Console.WriteLine("FileString: " + str.ToString()); }
+            return str.ToString();
         }
 
         /// <summary>
@@ -203,8 +231,9 @@ namespace DFM
         }
 
         /// <summary>
-        /// Converts 3D data matrix dataMat3D into a multi-line string.
-        /// Primarily used for debugging. 
+        /// Converts 3D data matrix dataMat3D into a multi-line string. The
+        /// cells in 3D matrix are white space delimited, and newlines are
+        /// inserted between string lists. Primarily used for debugging. 
         /// </summary>
         /// <param name="dataMat3D"></param>
         /// <param name="returnOption"></param>
@@ -215,31 +244,79 @@ namespace DFM
             StringBuilder outputStrBldr = new StringBuilder();
             switch (returnOption)
             {
-                case 0: // return all groups i separated by '\n'
+                case 0: // return only the larget group
+                    outputStrBldr.Append(StringFrom2DMatrix(
+                        GetDesired2DMatrix(dataMat3D)));
+                    break;
+                case 1: // return all groups i separated by '\n'
                     foreach (List<List<string>> dataMat2D in dataMat3D)
                     {
                         string layer = StringFrom2DMatrix(dataMat2D);
                         outputStrBldr.Append(layer + Environment.NewLine);
-                        if (DEBUG) { Console.WriteLine("Layer: "+layer); }
+                        if (DEBUG) { Console.WriteLine("Layer: " + layer); }
                     }
-                    break;
-                case 1: // return only the larget group
-                    outputStrBldr.Append(StringFrom2DMatrix(
-                        GetDesired2DMatrix(dataMat3D)));
                     break;
                 default:
                     goto case 0;
             }
+            if (DEBUG) { Console.WriteLine("DataString: " + 
+                outputStrBldr.ToString()); }
             return outputStrBldr.ToString();
         }
         
-        //TODO: fill the function body here
+        /// <summary>
+        /// Generates a list of the columns of data, each of which is a list of
+        /// strings, from the 2D layer(s) in cellMatrix. Note that this function
+        /// can be thought of as transposing the layers of the input matrix: the 
+        /// input string lists are rows, the output string lists are columns. 
+        /// </summary>
+        /// <param name="cellMatrix"></param>
+        /// <param name="returnOption"></param>
+        /// <returns></returns>
         private List<List<string>> GetDataColumns(List<List<List<string>>> 
             cellMatrix, int returnOption)
         {
             List<List<string>> dataColumns = new List<List<string>>();
-            // code to populate dataColumns here
+            List<string> dataColumn = new List<string>();
+            int count = cellMatrix.Count;
+            switch (returnOption)
+            {
+                case 0: // Return only the largest group of columns
+                    int iMax = 0;
+                    for (int i = 0; i < count; i++)
+                    { if (cellMatrix[i].Count > iMax) { iMax = i; } }
+                    var cellLayer = cellMatrix[iMax];
+                    int lineCount = cellLayer.Count; // Lines in max layer
+                    int cellCount = cellLayer[0].Count; // Cells/line
 
+                    // Rows of cellMatrix[iMax] => columns of dataColumns
+                    for (int j = 0; j < cellCount; j++)
+                    {
+                        for (int i = 0; i < lineCount; i++)
+                        {
+                            dataColumn.Add(cellLayer[i][j]);
+                        }
+                        dataColumns.Add(new List<string>(dataColumn));
+                        dataColumn.Clear();
+                    }
+                    break;
+                case 1: // Return all groups of columns in a single layer
+                    foreach (var layer in cellMatrix)
+                    {
+                        for (int j = 0; j < cellMatrix.Count; j++)
+                        {
+                            for (int i = 0; i < layer.Count; i++)
+                            {
+                                dataColumn.Add(layer[i][j]);
+                            }
+                            dataColumns.Add(new List<string>(dataColumn));
+                            dataColumn.Clear();
+                        }
+                    }
+                    break;
+                default:
+                    goto case 0;
+            }
             return dataColumns;
         }
     }
