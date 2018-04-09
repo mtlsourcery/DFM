@@ -119,6 +119,13 @@ namespace DFM
                         myFiles.Add(filename, new DataObject(filename,
                             fileStream));
 
+                        // List the file's data in DataListBox
+                        var dataObj = myFiles[filename];
+                        string item = filename + "(" + 
+                            dataObj.DataColumns.Count.ToString() +
+                            "Columns)";
+                        this.FileListBox.Items.Add(item);
+
                         // Add filename to FileListBox
                         FileListBox.Items.Add(filename);
                         
@@ -197,14 +204,14 @@ namespace DFM
             {
                 try
                 {
-                    //DataObject dataObj = new DataObject(selection[0].ToString(),
-                    //    myFiles[selection[0].ToString()]);
-                    //string dataStr = dataObj.DataString;
-                    string dataStr = myFiles[selection[0].ToString()].FileString;
-                    FilePreviewForm dataForm = new FilePreviewForm(dataStr);
-                    Console.WriteLine("Test data output string:" +
-                        Environment.NewLine + dataStr);
-                    dataForm.Show();
+                    if (DEBUG)
+                    {
+                        string dataStr = myFiles[selection[0].ToString()].FileString;
+                        FilePreviewForm dataForm = new FilePreviewForm(dataStr);
+                        Console.WriteLine("Test data output string:" +
+                            Environment.NewLine + dataStr);
+                        dataForm.Show();
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -231,12 +238,15 @@ namespace DFM
                         myFiles.Remove(item.ToString());
                     }
 
-                    // Remove the selected items from FileListBox
+                    // Remove the selected items from FileListBox/DataListBox
                     while (selection.Count != 0)
                     {   // We can't iterate through the enumerated list of items
                         // because we're removing values as we go, so just 
                         // remove the zeroth element until 'selection' is empty
                         FileListBox.Items.Remove(selection[0]);
+
+                        // Figure out how to remove the item of the same index
+                        // from the DataFilesListBox
                     }
                     if (DEBUG){ PrintDictionary(); }
                 }
@@ -265,7 +275,7 @@ namespace DFM
                     {
                         // Get the file content associated with item.ToString()
                         string contentString = 
-                            myFiles[item.ToString()].FileString;
+                            myFiles[item.ToString()].DataString;
                         // Instantiate a FilePreviewForm
                         FilePreviewForm filePreviewForm = new FilePreviewForm(
                             contentString)
@@ -287,7 +297,7 @@ namespace DFM
             {
                 msgHandler.ShowMessage("Please select at least one file.",0);
             }
-        }        
+        }
     }
 }
     

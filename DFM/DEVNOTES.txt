@@ -9,6 +9,10 @@ Intended code structure summary (as of 14 March, 2018):
 
 --------------------------------------------------------------------------------
 Dailyish Notes
+9 April, 2018 - 
+	DataObject.FileString no longer returns an empty string. The file stream has
+	to be reset via the Position property before being read, if it has been read
+	previously.
 5 April, 2018 -
 	DataObject.FileString is returning an empty string. 
 3 April, 2018 - 
@@ -71,6 +75,9 @@ Dailyish Notes
 
 --------------------------------------------------------------------------------
 To-Do List:
+- Find a way to bind the dataObject created in AddFileButton_Click to a label
+	in DataListBox representing the data columns. This shouldn't involve a lot 
+	of string parsing and dependencies...
 - Add a way to view the primary outputs (cellmatrix, columns, etc) of files 
 	converted to dataObjects. This could be a ListBox that shows previewable/
 	saveable items such as 'exampledata.txt - columns'. 

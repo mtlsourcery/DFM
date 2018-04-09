@@ -30,6 +30,7 @@ namespace DFM
         /* Class Variables - Public */
 
         // Use two-hump CamelFont by convention for public variables
+        public bool HasData = false;
         public string FileString; // The verbatim contents of the file
         public string DataString; // The processed data in string format
         public List<List<string>> DataColumns = new List<List<string>>();
@@ -51,9 +52,10 @@ namespace DFM
             cellMatrix = GetDataMatrix(fStream, delimiters[0]);
 
             // Initialize the externally accessible properties
-            FileString = GetFileString(fileStream);
+            FileString = GetFileString(fStream);
             DataString = GetDataString(cellMatrix,dataOption);
             DataColumns = GetDataColumns(cellMatrix,dataOption);
+            HasData = (DataColumns.Count > 0);
         }
 
         /// <summary>
@@ -64,11 +66,15 @@ namespace DFM
         /// <returns></returns>
         private string GetFileString(Stream stream)
         {
+            // The stream is kind of like a VHS. You have to rewind it in
+            // order to read it from the beginning. 
+            stream.Position = 0; 
             StreamReader reader = new StreamReader(stream);
             StringBuilder str = new StringBuilder();
             string line;
             while ((line = reader.ReadLine()) != null)
             {
+                if (DEBUG) { Console.WriteLine("Line: " + line); }
                 str.Append(line + Environment.NewLine);
             }
             if (DEBUG) { Console.WriteLine("FileString: " + str.ToString()); }
@@ -92,6 +98,9 @@ namespace DFM
             // cellMatrix2D is a layer or group i in cellMatrix3D
             List<List<string>> cellMatrix2D = new List<List<string>>();
             List<string> cellRow = new List<string>();
+            // The stream is kind of like a VHS. You have to rewind it in
+            // order to read it from the beginning. 
+            stream.Position = 0;
             StreamReader streamer = new StreamReader(stream);
             string line;
             int lineIter = 0;
@@ -165,7 +174,7 @@ namespace DFM
             cellMatrix2D.Clear();
             if (DEBUG)
             {
-                string lines = (cellMatrix2D.ToArray()).Count().ToString();
+                string lines = (cellMatrix3D.ToArray()).Count().ToString();
                 Console.WriteLine("Lines in output: " + lines);
             }
             return cellMatrix3D;
