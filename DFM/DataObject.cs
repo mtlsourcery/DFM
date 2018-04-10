@@ -26,7 +26,7 @@ namespace DFM
         Stream fStream;
         List<char> delimiters = new List<char> { ',', ' ', '\t' };
         List<List<List<string>>> cellMatrix = new List<List<List<string>>>();
-
+        
         /* Class Variables - Public */
 
         // Use two-hump CamelFont by convention for public variables
@@ -34,6 +34,11 @@ namespace DFM
         public string FileString; // The verbatim contents of the file
         public string DataString; // The processed data in string format
         public List<List<string>> DataColumns = new List<List<string>>();
+
+        // List of all of the DataObjects. This is associated with the class 
+        // itself, not any particular instance (that's what 'static' means).
+        public static Dictionary<string, DataObject> ObjectList = 
+            new Dictionary<string, DataObject>();
 
         /* Class Methods */
 
@@ -56,6 +61,13 @@ namespace DFM
             DataString = GetDataString(cellMatrix,dataOption);
             DataColumns = GetDataColumns(cellMatrix,dataOption);
             HasData = (DataColumns.Count > 0);
+
+            // Add this instance to our running list
+            ObjectList.Add(fnameStr, this);
+            if (DEBUG)
+            {
+                Console.WriteLine("Object count: " + ObjectList.Count);
+            }
         }
 
         /// <summary>

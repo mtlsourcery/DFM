@@ -22,7 +22,7 @@ namespace DFM
         const string DEFAULT_BROWSE_DIR = @"C:\";
         const string DEFAULT_SAVE_DIR = @"C:\";
 
-        /* Class Variables */
+        /* Class Variables - Private */
 
         string filename;
         //Dictionary<string, Stream> myFiles = new Dictionary<string, Stream>();
@@ -55,7 +55,7 @@ namespace DFM
             StringBuilder str = new StringBuilder();
             str.Append("(");
 
-            foreach (var file in myFiles)
+            foreach (var file in DataObject.ObjectList)//myFiles)
             {
                 str.Append(" "+file.Key);
             }
@@ -116,15 +116,20 @@ namespace DFM
 
                         // Add the selected file to the dictionary
                         // and create its instance of DataObject
-                        myFiles.Add(filename, new DataObject(filename,
-                            fileStream));
+                        //myFiles.Add(filename, new DataObject(filename,
+                        // fileStream));
+
+                        // Create new dataObject. Notice that we don't have to
+                        // assign new objects to a variables. We can access this
+                        // by its filename: DataObject.ObjectList[filename]
+                        new DataObject(filename, fileStream);
 
                         // List the file's data in DataListBox
-                        var dataObj = myFiles[filename];
-                        string item = filename + "(" + 
+                        var dataObj = DataObject.ObjectList[filename];// myFiles[filename];
+                        string item = filename + " (" + 
                             dataObj.DataColumns.Count.ToString() +
-                            "Columns)";
-                        this.FileListBox.Items.Add(item);
+                            " Columns)";
+                        DataListBox.Items.Add(item);
 
                         // Add filename to FileListBox
                         FileListBox.Items.Add(filename);
@@ -195,8 +200,8 @@ namespace DFM
         {
             // Do the processing of selected file (extracting csv rows, cols,
             // and putting into a "nicer" file; e.g. populating a lab analysis
-            // certificate; plotting stuff; etc. then save the output to 
-            // the specified directory. 
+            // certificate, plotting stuff, putting all rows into a spreadsheet
+            // etc. then save the output to the specified directory. 
 
             // Test the DataObject class - REMOVE LATER 
             var selection = FileListBox.SelectedItems;
@@ -206,7 +211,10 @@ namespace DFM
                 {
                     if (DEBUG)
                     {
-                        string dataStr = myFiles[selection[0].ToString()].FileString;
+                        //string dataStr = myFiles[selection[0].ToString()].FileString;
+                        string dataStr = 
+                            DataObject.ObjectList[selection[0].ToString()].FileString;
+
                         FilePreviewForm dataForm = new FilePreviewForm(dataStr);
                         Console.WriteLine("Test data output string:" +
                             Environment.NewLine + dataStr);
@@ -235,7 +243,8 @@ namespace DFM
                     // Remove the selection from myFiles
                     foreach (var item in selection)
                     {   // Remove the entry by its key
-                        myFiles.Remove(item.ToString());
+                        //myFiles.Remove(item.ToString());
+                        DataObject.ObjectList.Remove(item.ToString());
                     }
 
                     // Remove the selected items from FileListBox/DataListBox
@@ -274,8 +283,10 @@ namespace DFM
                     foreach (var item in selection)
                     {
                         // Get the file content associated with item.ToString()
+                        //string contentString = 
+                        //  myFiles[item.ToString()].DataString;
                         string contentString = 
-                            myFiles[item.ToString()].DataString;
+                          DataObject.ObjectList[item.ToString()].DataString;
                         // Instantiate a FilePreviewForm
                         FilePreviewForm filePreviewForm = new FilePreviewForm(
                             contentString)

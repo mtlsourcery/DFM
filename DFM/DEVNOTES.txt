@@ -80,7 +80,8 @@ To-Do List:
 	of string parsing and dependencies...
 - Add a way to view the primary outputs (cellmatrix, columns, etc) of files 
 	converted to dataObjects. This could be a ListBox that shows previewable/
-	saveable items such as 'exampledata.txt - columns'. 
+	saveable items such as 'exampledata.txt - columns'. Could add double click
+	method for opening data columns as text or in a table for viewing/readonly.
 - If initial directory is not found when attempting to browse files, pop open a
 	dialogue asking for a new default directory (could store this in an ini 
 	file eventually).
@@ -90,6 +91,8 @@ To-Do List:
 
 --------------------------------------------------------------------------------
 Maybe-Do List:
+- Do away with storing files in dictionary myFiles. Can store all of the needed
+	file data in the static list ObjectsList in DataObjects.
 - Add a SettingsForm to allow changing of settings. 
 - Add a toolbar at the top of MainForm to allow selection of options like 'help'
 	and 'settings'.
@@ -102,6 +105,8 @@ Maybe-Do List:
 
 --------------------------------------------------------------------------------
 Did List:
+10 April, 2018 - Added static list to DataObjects to store instances. This list
+	is used instead of myFiles, which is now obselete and can be deleted.
 5 April, 2018 - Find a way to bind DataObjects to the dictionary. myFiles is now
 	of type Dictionary<string,DataObject> instead of Dictionary<string,Stream>.
 	- Add functionality to DataObject class to look for columns of data in 
