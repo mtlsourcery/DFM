@@ -9,6 +9,9 @@ Intended code structure summary (as of 14 March, 2018):
 
 --------------------------------------------------------------------------------
 Dailyish Notes
+11 April, 2018 - 
+	Remove files button runs into an indexing error if more than two objects
+	selected. Presumably this happens in the foreach statement. 
 9 April, 2018 - 
 	DataObject.FileString no longer returns an empty string. The file stream has
 	to be reset via the Position property before being read, if it has been read
@@ -75,6 +78,8 @@ Dailyish Notes
 
 --------------------------------------------------------------------------------
 To-Do List:
+- Display random pulling of catgifs... Just use grumpy cat image or no image for
+	exception messages. Or an "Oops!" image.
 - Find a way to bind the dataObject created in AddFileButton_Click to a label
 	in DataListBox representing the data columns. This shouldn't involve a lot 
 	of string parsing and dependencies...

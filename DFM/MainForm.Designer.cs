@@ -91,7 +91,7 @@
             // 
             this.SaveDirLabel.AutoSize = true;
             this.SaveDirLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SaveDirLabel.Location = new System.Drawing.Point(14, 443);
+            this.SaveDirLabel.Location = new System.Drawing.Point(14, 442);
             this.SaveDirLabel.Name = "SaveDirLabel";
             this.SaveDirLabel.Size = new System.Drawing.Size(119, 16);
             this.SaveDirLabel.TabIndex = 8;

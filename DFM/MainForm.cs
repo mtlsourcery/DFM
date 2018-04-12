@@ -55,10 +55,8 @@ namespace DFM
             StringBuilder str = new StringBuilder();
             str.Append("(");
 
-            foreach (var file in DataObject.ObjectList)//myFiles)
-            {
-                str.Append(" "+file.Key);
-            }
+            foreach (var file in DataObject.ObjectList)
+            { str.Append(" "+file.Key); }
             str.Append(" )");
             Console.WriteLine(str.ToString());
         }
@@ -91,7 +89,7 @@ namespace DFM
             // Displays the file selection window and stores the result
             OpenFileDialog openFileDialog = new OpenFileDialog()
             {
-                // The @'s force the compiler to ignore escape sequences, so 
+                // The @'s force the compiler to ignore escape sequences, e.g. 
                 // '\' does not have to be typed '\\'
 
                 //InitialDirectory = @"C:\Users\Preston Huft\Documents\Visual " +
@@ -114,18 +112,13 @@ namespace DFM
                         // Get the filename
                         filename = openFileDialog.SafeFileName;
 
-                        // Add the selected file to the dictionary
-                        // and create its instance of DataObject
-                        //myFiles.Add(filename, new DataObject(filename,
-                        // fileStream));
-
                         // Create new dataObject. Notice that we don't have to
                         // assign new objects to a variables. We can access this
                         // by its filename: DataObject.ObjectList[filename]
                         new DataObject(filename, fileStream);
 
                         // List the file's data in DataListBox
-                        var dataObj = DataObject.ObjectList[filename];// myFiles[filename];
+                        var dataObj = DataObject.ObjectList[filename];
                         string item = filename + " (" + 
                             dataObj.DataColumns.Count.ToString() +
                             " Columns)";
@@ -203,7 +196,7 @@ namespace DFM
             // certificate, plotting stuff, putting all rows into a spreadsheet
             // etc. then save the output to the specified directory. 
 
-            // Test the DataObject class - REMOVE LATER 
+            // Test the DataObject class - DEBUGGING PURPOSES ONLY
             var selection = FileListBox.SelectedItems;
             if (selection.Count == 1)// later: if(Count > 0){foreach(item in selection)...
             {
@@ -211,7 +204,6 @@ namespace DFM
                 {
                     if (DEBUG)
                     {
-                        //string dataStr = myFiles[selection[0].ToString()].FileString;
                         string dataStr = 
                             DataObject.ObjectList[selection[0].ToString()].FileString;
 
@@ -236,27 +228,47 @@ namespace DFM
         private void RemoveFileButton_Click(object sender, EventArgs e)
         {
             var selection = FileListBox.SelectedItems;
+            //var indices = FileListBox.SelectedIndices; 
+
             if (selection.Count != 0)
             {
+                List<int> indices = new List<int>();
+                for (int i = 0; i < FileListBox.Items.Count; i++)
+                {
+                    if (FileListBox.GetSelected(i))
+                        indices.Add(i);
+                }
+
                 try
                 {
-                    // Remove the selection from myFiles
-                    foreach (var item in selection)
-                    {   // Remove the entry by its key
-                        //myFiles.Remove(item.ToString());
-                        DataObject.ObjectList.Remove(item.ToString());
+                    // Remove selected items from ListZBoxes and ObjectsList
+                    foreach (int index in indices)
+                    {
+                        DataObject.ObjectList.Remove(
+                            selection[index].ToString());
+                        FileListBox.Items.RemoveAt(index);
+                        DataListBox.Items.RemoveAt(index);
                     }
+                    // Remove the selection from myFiles
+                    //foreach (var item in selection)
+                    //{   // Remove the entry by its key
+                        //DataObject.ObjectList.Remove(item.ToString());
+                        //FileListBox.Items.Remove(selection[item]);
+                        //DataObject.ObjectList.Remove(index.ToString());
+                        //FileListBox.Items.Remove(index);
+                        //DataListBox.Items.Remove(index);
+                    //}
 
                     // Remove the selected items from FileListBox/DataListBox
-                    while (selection.Count != 0)
-                    {   // We can't iterate through the enumerated list of items
+                    //while (selection.Count != 0)
+                    //{   // We can't iterate through the enumerated list of items
                         // because we're removing values as we go, so just 
                         // remove the zeroth element until 'selection' is empty
-                        FileListBox.Items.Remove(selection[0]);
+                        //FileListBox.Items.Remove(selection[0]);
 
                         // Figure out how to remove the item of the same index
-                        // from the DataFilesListBox
-                    }
+                        // from the DataListBox
+                    //}
                     if (DEBUG){ PrintDictionary(); }
                 }
                 catch (Exception ex)
@@ -283,8 +295,6 @@ namespace DFM
                     foreach (var item in selection)
                     {
                         // Get the file content associated with item.ToString()
-                        //string contentString = 
-                        //  myFiles[item.ToString()].DataString;
                         string contentString = 
                           DataObject.ObjectList[item.ToString()].DataString;
                         // Instantiate a FilePreviewForm
