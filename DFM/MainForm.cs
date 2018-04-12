@@ -25,9 +25,7 @@ namespace DFM
         /* Class Variables - Private */
 
         string filename;
-        //Dictionary<string, Stream> myFiles = new Dictionary<string, Stream>();
-        Dictionary<string, DataObject> myFiles = new Dictionary<string, DataObject>();
-
+        
         // The default browsing  and save directories saved in settings
         string initialDir = Properties.Settings.Default.BrowseDirectory;
         string saveDir = Properties.Settings.Default.SaveDirectory;
