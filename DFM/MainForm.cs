@@ -33,7 +33,7 @@ namespace DFM
         string saveDir = Properties.Settings.Default.SaveDirectory;
 
         // The message handler
-        MessageHandler msgHandler = new MessageHandler();
+        //MessageHandler msgHandler = new MessageHandler();
 
         /* Class Methods */ 
         
@@ -136,7 +136,7 @@ namespace DFM
                 }
                 catch (Exception ex)
                 {
-                    msgHandler.ShowException(ex);
+                    //msgHandler.ShowException(ex);
                 }
             }
         }
@@ -172,18 +172,18 @@ namespace DFM
                         string msg = "Set " + selectedDir + 
                             Environment.NewLine +
                             " as the default save directory?";
-                        if(msgHandler.ShowBinaryOptions(msg) == DialogResult.Yes)
-                        {
-                            // Update the save directory string and Settings.settings
-                            saveDir = selectedDir.ToString();
-                            Properties.Settings.Default.SaveDirectory = saveDir;
-                            Properties.Settings.Default.Save();
-                        }
+                        //if(msgHandler.ShowBinaryOptions(msg) == DialogResult.Yes)
+                        //{
+                        //    // Update the save directory string and Settings.settings
+                        //    saveDir = selectedDir.ToString();
+                        //    Properties.Settings.Default.SaveDirectory = saveDir;
+                        //    Properties.Settings.Default.Save();
+                        //}
                     }
                 }
                 catch (Exception ex)
                 {
-                    msgHandler.ShowException(ex);
+                    //msgHandler.ShowException(ex);
                 }
             }
         }
@@ -219,7 +219,7 @@ namespace DFM
                 }
                 catch (Exception ex)
                 {
-                    msgHandler.ShowException(ex);
+                    //msgHandler.ShowException(ex);
                 }
             }
         }
@@ -277,10 +277,11 @@ namespace DFM
                 }
                 catch (Exception ex)
                 {
-                    msgHandler.ShowException(ex);
+                    //msgHandler.ShowException(ex);
                 }
             }
-            else { msgHandler.ShowMessage("Please select a file.",0); }
+            else { //msgHandler.ShowMessage("Please select a file.",0); 
+            }
         }
 
         /// <summary>
@@ -315,12 +316,12 @@ namespace DFM
                 }
                 catch (Exception ex)
                 {
-                    msgHandler.ShowException(ex);
+                    //msgHandler.ShowException(ex);
                 }
             }
             else
             {
-                msgHandler.ShowMessage("Please select at least one file.",0);
+                //msgHandler.ShowMessage("Please select at least one file.",0);
             }
         }
     }
