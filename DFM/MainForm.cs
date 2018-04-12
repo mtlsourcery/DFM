@@ -46,6 +46,10 @@ namespace DFM
             this.SaveDirTextBox.Text = saveDir;
         }
 
+        // REMOVE LATER; PEDANTIC ONLY
+        ColorsClass newColor = new ColorsClass(0,255,0,100);
+        List<string> rgbVals = ColorsClass.GetMaxRGB();
+
         /// <summary>
         /// Prints the keys in myFiles to the Output Console. Used for debugging
         /// purposes only.
@@ -183,7 +187,7 @@ namespace DFM
                 }
             }
         }
-
+          
         /// <summary>
         /// Handles ProcessButton click event.
         /// </summary>

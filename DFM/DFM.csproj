@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ColorsClass.cs" />
     <Compile Include="DataObject.cs" />
     <Compile Include="MessageHandler.cs" />
     <Compile Include="Settings.cs" />
