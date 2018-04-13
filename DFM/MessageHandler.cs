@@ -19,31 +19,32 @@ namespace DFM
     {
         /* Class Constants */
 
-        const string IMAGE_DIR = @"C:\Users\Preston Huft\Documents\" +
-            @"Visual Studio 2017\Projects\DFM\DFM\Images\";
         const string URL_STRING =
             "http://thecatapi.com/api/images/get?format=xml&results_per_page=";
-        const string GRUMPYCAT = IMAGE_DIR + "grumpycat.jpg";
-        const string CATBOX4 = IMAGE_DIR + "catbox4.jpg";
-        const string CATBOX3 = IMAGE_DIR + "catbox3.jpg";
-        const string CATBOX2 = IMAGE_DIR + "catbox2.jpg";
-        const string CATBOX1 = IMAGE_DIR + "catbox1.jpg";
         const bool DEBUG = true;
         const int side = 200; // length of side of an image
 
         /* Class Variables */
 
         List<string> imageURLs = new List<string>();
-        Image gcImage = ResizeImage(Image.FromFile(GRUMPYCAT),
-            side, side);
-        Image cb4Image = ResizeImage(Image.FromFile(CATBOX4),
-            side, side);
-        Image cb3Image = ResizeImage(Image.FromFile(CATBOX3),
-            side, side);
-        Image cb2Image = ResizeImage(Image.FromFile(CATBOX2),
-            side, side);
-        Image cb1Image = ResizeImage(Image.FromFile(CATBOX1),
-            side, side);
+        
+        // Import images from files in Resources.resx
+        Image grumpyCat = ResizeImage(new Bitmap(
+            DFM.Properties.Resources.grumpycat),side, side);
+        Image catBox4 = ResizeImage(new Bitmap(
+            DFM.Properties.Resources.catbox4), side, side);
+        Image catBox3 = ResizeImage(new Bitmap(
+            DFM.Properties.Resources.catbox3), side, side);
+        Image catBox2 = ResizeImage(new Bitmap(
+            DFM.Properties.Resources.catbox2), side, side);
+        Image catBox1 = ResizeImage(new Bitmap(
+            DFM.Properties.Resources.catbox1), side, side);
+        Image catBowl1 = ResizeImage(new Bitmap(
+            DFM.Properties.Resources.catbowl1), side, side);
+        Image mtlLogo = ResizeImage(new Bitmap(
+            DFM.Properties.Resources.mtlapplogo), side, side);
+        Image mtlOops = ResizeImage(new Bitmap(
+            DFM.Properties.Resources.mtloops), 2*side, side);
 
         /* Class Methods */
 
@@ -52,7 +53,7 @@ namespace DFM
         /// </summary>
         public MessageHandler()
         {
-            //imageURLs = GetImageURLs(URL_STRING,20);
+            imageURLs = GetImageURLs(URL_STRING,20);
         }
 
         /// <summary>
@@ -153,27 +154,37 @@ namespace DFM
         public void ShowMessage(string message, int option)
         {
             //string labelStr = "Oops! Something went wrong...";
-            Image image = gcImage;
-            if (DEBUG)
+            Image image = grumpyCat;
+            switch (option)
             {
-                Console.WriteLine("h=" + image.Height.ToString() +
-                    ",w=" + image.Width.ToString());
-            }
-            if (!(option == 0))
-            {
-                try // Create/show an ErrorHandlingForm
-                {
-                    Random rand = new Random();
-                    int rInt = rand.Next(0, 19);
-                    //Image randImage = GetImageFromURL(imageURLs[rInt]);
-                    Image newImage = GetImageFromURL(GetImageURLs(URL_STRING, 
-                        1)[0]);
-                    image = ResizeImage(newImage,side,side);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("msgHandler: " + ex.Message);
-                }
+                case 0: // use grumpyCat
+                    break;
+                case 1: // use catBowl
+                    image = catBowl1;
+                    break;
+                case 2: // use mtlapplogo
+                    image = mtlLogo;
+                    break;
+                case 3: // use mtloops
+                    image = mtlOops;
+                    break;
+                case 4: // use random cat image from api
+                    try 
+                    {
+                        Random rand = new Random();
+                        int rInt = rand.Next(0, 19);
+                        //Image randImage = GetImageFromURL(imageURLs[rInt]);
+                        Image newImage = GetImageFromURL(GetImageURLs(URL_STRING,
+                            1)[0]);
+                        image = ResizeImage(newImage, side, side);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("msgHandler: " + ex.Message);
+                    }
+                    break;
+                default:
+                    goto case 0;
             }
             OneButtonForm form = new OneButtonForm(message, image);
             form.Show();
@@ -189,7 +200,7 @@ namespace DFM
         {
             string errorStr = "Error: " + exception.Message + Environment.NewLine
                 + "from " + exception.Source;
-            ShowMessage(errorStr, 1); 
+            ShowMessage(errorStr, 3); 
         }
 
         /// <summary>
@@ -201,7 +212,7 @@ namespace DFM
         /// <returns></returns>
         public DialogResult ShowBinaryOptions(string prompt)
         {
-            TwoButtonForm form = new TwoButtonForm(prompt, cb4Image);
+            TwoButtonForm form = new TwoButtonForm(prompt, catBox4);
             return form.ShowDialog(); ;
         }
     }

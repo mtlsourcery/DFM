@@ -31,7 +31,7 @@ namespace DFM
         string saveDir = Properties.Settings.Default.SaveDirectory;
 
         // The message handler
-        //MessageHandler msgHandler = new MessageHandler();
+        MessageHandler msgHandler = new MessageHandler();
 
         /* Class Methods */ 
         
@@ -42,6 +42,7 @@ namespace DFM
         {
             InitializeComponent();
             this.SaveDirTextBox.Text = saveDir;
+            this.Icon = Icon.FromHandle(Properties.Resources.mtlapplogo.GetHicon());
         }
 
         // REMOVE LATER; PEDANTIC ONLY
@@ -134,7 +135,7 @@ namespace DFM
                 }
                 catch (Exception ex)
                 {
-                    //msgHandler.ShowException(ex);
+                    msgHandler.ShowException(ex);
                 }
             }
         }
@@ -181,7 +182,7 @@ namespace DFM
                 }
                 catch (Exception ex)
                 {
-                    //msgHandler.ShowException(ex);
+                    msgHandler.ShowException(ex);
                 }
             }
         }
@@ -217,7 +218,7 @@ namespace DFM
                 }
                 catch (Exception ex)
                 {
-                    //msgHandler.ShowException(ex);
+                    msgHandler.ShowException(ex);
                 }
             }
         }
@@ -275,11 +276,10 @@ namespace DFM
                 }
                 catch (Exception ex)
                 {
-                    //msgHandler.ShowException(ex);
+                    msgHandler.ShowException(ex);
                 }
             }
-            else { //msgHandler.ShowMessage("Please select a file.",0); 
-            }
+            else { msgHandler.ShowMessage("Please select a file.",0); }
         }
 
         /// <summary>
@@ -314,12 +314,12 @@ namespace DFM
                 }
                 catch (Exception ex)
                 {
-                    //msgHandler.ShowException(ex);
+                    msgHandler.ShowException(ex);
                 }
             }
             else
             {
-                //msgHandler.ShowMessage("Please select at least one file.",0);
+                msgHandler.ShowMessage("Please select at least one file.",0);
             }
         }
     }

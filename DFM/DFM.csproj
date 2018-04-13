@@ -121,6 +121,9 @@
     <Content Include="Images\catbox4.jpg" />
     <Content Include="Images\catpringles.jpg" />
     <Content Include="Images\grumpycat.jpg" />
+    <Content Include="Images\README.txt" />
+    <None Include="Resources\mtloops.png" />
+    <None Include="Resources\mtlapplogo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

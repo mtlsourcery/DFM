@@ -110,6 +110,8 @@ Maybe-Do List:
 
 --------------------------------------------------------------------------------
 Did List:
+13 April, 2018 - Added images via copy/pasting into Resources.resx > Images. 
+	These can be reference via DFM.Properties.Resources.imagename. 
 10 April, 2018 - Added static list to DataObjects to store instances. This list
 	is used instead of myFiles, which is now obselete and can be deleted.
 5 April, 2018 - Find a way to bind DataObjects to the dictionary. myFiles is now
