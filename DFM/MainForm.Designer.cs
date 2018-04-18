@@ -47,6 +47,7 @@
             this.MenuSettings = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.ViewDataButton = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -235,12 +236,23 @@
             this.menuStrip1.TabIndex = 19;
             this.menuStrip1.Text = "menuStrip1";
             // 
+            // ViewDataButton
+            // 
+            this.ViewDataButton.Location = new System.Drawing.Point(273, 220);
+            this.ViewDataButton.Name = "ViewDataButton";
+            this.ViewDataButton.Size = new System.Drawing.Size(106, 24);
+            this.ViewDataButton.TabIndex = 20;
+            this.ViewDataButton.Text = "View Data";
+            this.ViewDataButton.UseVisualStyleBackColor = true;
+            this.ViewDataButton.Click += new System.EventHandler(this.ViewDataButton_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(397, 563);
+            this.Controls.Add(this.ViewDataButton);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.DataListBox);
             this.Controls.Add(this.PreviewFileButton);
@@ -288,6 +300,7 @@
         private System.Windows.Forms.ToolStripMenuItem MenuSettings;
         private System.Windows.Forms.ToolStripMenuItem MenuHelp;
         private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.Button ViewDataButton;
     }
 }
 

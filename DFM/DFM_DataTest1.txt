@@ -1,0 +1,6 @@
+﻿second,paragraph,of,text,has,more,delimiters
+per,line,than,the,previous,paragraph,did
+second,paragraph,of,text,has,more,delimiters
+per,line,than,the,previous,paragraph,did
+second,paragraph,of,text,has,more,delimiters
+per,line,than,the,previous,paragraph,did

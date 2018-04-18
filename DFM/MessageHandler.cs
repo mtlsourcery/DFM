@@ -21,8 +21,9 @@ namespace DFM
 
         const string URL_STRING =
             "http://thecatapi.com/api/images/get?format=xml&results_per_page=";
-        const bool DEBUG = true;
         const int side = 200; // length of side of an image
+        const bool DEBUG = false;
+
 
         /* Class Variables */
 

@@ -12,20 +12,19 @@ namespace DFM
     /// general data object that can be handled in a way mostly independent
     /// of the file extension of the input file. 
     /// </summary>
-    class DataObject // Should this extend the Stream abstract class?
+    class DataObject
     {
         /* Class Constants */
 
-        const int dataOption = 0; // 0 (1) for largets (all) group(s) of data
-        const bool DEBUG = true;
+        const int dataOption = 1; // 0 (1) for largets (all) group(s) of data
+        const bool DEBUG = false;
 
         /* Class Variables - Private */
 
         // Use one-hump camelFont by convention for private variables
         string fnameStr;
         Stream fStream;
-        List<char> delimiters = new List<char> { ',', ' ', '\t' };
-        List<List<List<string>>> cellMatrix = new List<List<List<string>>>();
+        List<char> delimiters = new List<char> { ',', ' ','\t' };
         
         /* Class Variables - Public */
 
@@ -34,6 +33,7 @@ namespace DFM
         public string FileString; // The verbatim contents of the file
         public string DataString; // The processed data in string format
         public List<List<string>> DataColumns = new List<List<string>>();
+        public List<List<List<string>>> CellMatrix = new List<List<List<string>>>();
 
         // List of all of the DataObjects. This is associated with the class 
         // itself, not any particular instance (that's what 'static' means).
@@ -54,12 +54,12 @@ namespace DFM
             // Initialize the internal variables
             fnameStr = filename;
             fStream = fileStream;
-            cellMatrix = GetDataMatrix(fStream, delimiters[0]);
 
             // Initialize the externally accessible properties
+            CellMatrix = GetDataMatrix(fStream, delimiters[0]);
             FileString = GetFileString(fStream);
-            DataString = GetDataString(cellMatrix,dataOption);
-            DataColumns = GetDataColumns(cellMatrix,dataOption);
+            DataString = GetDataString(CellMatrix,dataOption);
+            DataColumns = GetDataColumns(CellMatrix,dataOption);
             HasData = (DataColumns.Count > 0);
 
             // Add this instance to our running list
@@ -104,11 +104,11 @@ namespace DFM
         private List<List<List<string>>> GetDataMatrix(Stream stream,
             char delimiter)
         {
-            // cellMatrix3D[i][j][k] specifies a cell k in line j in group i
-            List<List<List<string>>> cellMatrix3D =
+            // CellMatrix3D[i][j][k] specifies a cell k in line j in group i
+            List<List<List<string>>> CellMatrix3D =
                 new List<List<List<string>>>();
-            // cellMatrix2D is a layer or group i in cellMatrix3D
-            List<List<string>> cellMatrix2D = new List<List<string>>();
+            // CellMatrix2D is a layer or group i in CellMatrix3D
+            List<List<string>> CellMatrix2D = new List<List<string>>();
             List<string> cellRow = new List<string>();
             // The stream is kind of like a VHS. You have to rewind it in
             // order to read it from the beginning. 
@@ -121,7 +121,7 @@ namespace DFM
             int previousDelimiters = 0; // Current delimiter/line for group
             int delimiters = 0; // Counts delimiters in a line
 
-            // Build cellMatrix3D
+            // Build CellMatrix3D
             while ((line = streamer.ReadLine()) != null)
             {
                 // Reinitialize these each iteration of while((line...
@@ -167,29 +167,29 @@ namespace DFM
                     // Create a new layer, except on first iteration
                     if (previousDelimiters > 0)
                     {
-                        cellMatrix3D.Add(new List<List<string>>(cellMatrix2D));
-                        cellMatrix2D = new List<List<string>>();
-                        cellMatrix2D.Add(cellRow);
+                        CellMatrix3D.Add(new List<List<string>>(CellMatrix2D));
+                        CellMatrix2D = new List<List<string>>();
+                        CellMatrix2D.Add(cellRow);
                     }
-                    else { cellMatrix2D.Add(cellRow);  }
+                    else { CellMatrix2D.Add(cellRow);  }
                     previousDelimiters = delimiters;
                 }
                 else
                 {
                     // Add the line of cells to the 2D matrix, reset cellRow
-                    cellMatrix2D.Add(cellRow);
+                    CellMatrix2D.Add(cellRow);
                 }
                 lineIter++;
             }
             // The last 2D matrix has to be added to the 3D matrix here:
-            cellMatrix3D.Add(new List<List<string>>(cellMatrix2D));
-            cellMatrix2D.Clear();
+            CellMatrix3D.Add(new List<List<string>>(CellMatrix2D));
+            CellMatrix2D.Clear();
             if (DEBUG)
             {
-                string lines = (cellMatrix3D.ToArray()).Count().ToString();
+                string lines = (CellMatrix3D.ToArray()).Count().ToString();
                 Console.WriteLine("Lines in output: " + lines);
             }
-            return cellMatrix3D;
+            return CellMatrix3D;
         }
 
         /// <summary>
@@ -287,30 +287,30 @@ namespace DFM
         
         /// <summary>
         /// Generates a list of the columns of data, each of which is a list of
-        /// strings, from the 2D layer(s) in cellMatrix. Note that this function
+        /// strings, from the 2D layer(s) in CellMatrix. Note that this function
         /// can be thought of as transposing the layers of the input matrix: the 
         /// input string lists are rows, the output string lists are columns. 
         /// </summary>
-        /// <param name="cellMatrix"></param>
+        /// <param name="CellMatrix"></param>
         /// <param name="returnOption"></param>
         /// <returns></returns>
         private List<List<string>> GetDataColumns(List<List<List<string>>> 
-            cellMatrix, int returnOption)
+            CellMatrix, int returnOption)
         {
             List<List<string>> dataColumns = new List<List<string>>();
             List<string> dataColumn = new List<string>();
-            int count = cellMatrix.Count;
+            int count = CellMatrix.Count;
             switch (returnOption)
             {
                 case 0: // Return only the largest group of columns
                     int iMax = 0;
                     for (int i = 0; i < count; i++)
-                    { if (cellMatrix[i].Count > iMax) { iMax = i; } }
-                    var cellLayer = cellMatrix[iMax];
+                    { if (CellMatrix[i].Count > iMax) { iMax = i; } }
+                    var cellLayer = CellMatrix[iMax];
                     int lineCount = cellLayer.Count; // Lines in max layer
                     int cellCount = cellLayer[0].Count; // Cells/line
 
-                    // Rows of cellMatrix[iMax] => columns of dataColumns
+                    // Rows of CellMatrix[iMax] => columns of dataColumns
                     for (int j = 0; j < cellCount; j++)
                     {
                         for (int i = 0; i < lineCount; i++)
@@ -322,9 +322,9 @@ namespace DFM
                     }
                     break;
                 case 1: // Return all groups of columns in a single layer
-                    foreach (var layer in cellMatrix)
+                    foreach (var layer in CellMatrix)
                     {
-                        for (int j = 0; j < cellMatrix.Count; j++)
+                        for (int j = 0; j < CellMatrix.Count; j++)
                         {
                             for (int i = 0; i < layer.Count; i++)
                             {

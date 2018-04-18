@@ -302,6 +302,50 @@ namespace DFM
         }
 
         /// <summary>
+        /// Handles ViewDataButton click event.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ViewDataButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                List<List<List<string>>> dataMat = new List<List<List<string>>>();
+                // Concatenate all of our data columns into a single 3D matrix
+                foreach (var entry in DataObject.ObjectList)
+                {
+                    dataMat.AddRange((entry.Value).CellMatrix);
+                }
+
+                TableForm tableForm = new TableForm(dataMat);
+                tableForm.Show();
+
+                //List<string> l = new List<string>() { "a","b","c","d" };
+                //l.AddRange(l);
+                //Console.Write("l added to l: "); PrintList(l);
+                //l.Concat(l);
+                //Console.WriteLine("l concat'd to l: "); PrintList(l);
+            }
+            catch (Exception ex)
+            {
+                msgHandler.ShowException(ex);
+            }
+        }
+
+        /// <summary>
+        /// For debugging
+        /// </summary>
+        /// <param name="list"></param>
+        void PrintList(List<string> list)
+        {
+            foreach (string s in list)
+            {
+                Console.Write(s + ",");
+            }
+            Console.Write(Environment.NewLine);
+        }
+
+        /// <summary>
         /// The click handler for the Settings Menu Item.
         /// </summary>
         /// <param name="sender"></param>
