@@ -43,13 +43,18 @@
             this.PreviewFileButton = new System.Windows.Forms.Button();
             this.DataListBox = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.MenuStrip = new System.Windows.Forms.ToolStripMenuItem();
+            this.MenuSettings = new System.Windows.Forms.ToolStripMenuItem();
+            this.MenuHelp = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // FileLabel
             // 
             this.FileLabel.AutoSize = true;
             this.FileLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FileLabel.Location = new System.Drawing.Point(14, 13);
+            this.FileLabel.Location = new System.Drawing.Point(15, 44);
             this.FileLabel.Name = "FileLabel";
             this.FileLabel.Size = new System.Drawing.Size(60, 16);
             this.FileLabel.TabIndex = 0;
@@ -57,7 +62,7 @@
             // 
             // AddFileButton
             // 
-            this.AddFileButton.Location = new System.Drawing.Point(272, 31);
+            this.AddFileButton.Location = new System.Drawing.Point(273, 62);
             this.AddFileButton.Name = "AddFileButton";
             this.AddFileButton.Size = new System.Drawing.Size(106, 24);
             this.AddFileButton.TabIndex = 4;
@@ -69,7 +74,7 @@
             // 
             this.SaveDirTextBox.ForeColor = System.Drawing.SystemColors.ControlText;
             this.SaveDirTextBox.HideSelection = false;
-            this.SaveDirTextBox.Location = new System.Drawing.Point(17, 462);
+            this.SaveDirTextBox.Location = new System.Drawing.Point(18, 493);
             this.SaveDirTextBox.MaxLength = 40;
             this.SaveDirTextBox.Name = "SaveDirTextBox";
             this.SaveDirTextBox.ReadOnly = true;
@@ -79,7 +84,7 @@
             // 
             // SaveDirButton
             // 
-            this.SaveDirButton.Location = new System.Drawing.Point(272, 460);
+            this.SaveDirButton.Location = new System.Drawing.Point(273, 491);
             this.SaveDirButton.Name = "SaveDirButton";
             this.SaveDirButton.Size = new System.Drawing.Size(106, 24);
             this.SaveDirButton.TabIndex = 7;
@@ -91,7 +96,7 @@
             // 
             this.SaveDirLabel.AutoSize = true;
             this.SaveDirLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SaveDirLabel.Location = new System.Drawing.Point(14, 442);
+            this.SaveDirLabel.Location = new System.Drawing.Point(15, 473);
             this.SaveDirLabel.Name = "SaveDirLabel";
             this.SaveDirLabel.Size = new System.Drawing.Size(119, 16);
             this.SaveDirLabel.TabIndex = 8;
@@ -101,7 +106,7 @@
             // 
             this.ProcessLabel.AutoSize = true;
             this.ProcessLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ProcessLabel.Location = new System.Drawing.Point(14, 337);
+            this.ProcessLabel.Location = new System.Drawing.Point(15, 368);
             this.ProcessLabel.Name = "ProcessLabel";
             this.ProcessLabel.Size = new System.Drawing.Size(147, 16);
             this.ProcessLabel.TabIndex = 9;
@@ -110,7 +115,7 @@
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(17, 356);
+            this.checkBox1.Location = new System.Drawing.Point(18, 387);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(179, 20);
             this.checkBox1.TabIndex = 10;
@@ -120,7 +125,7 @@
             // checkBox2
             // 
             this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(17, 382);
+            this.checkBox2.Location = new System.Drawing.Point(18, 413);
             this.checkBox2.Name = "checkBox2";
             this.checkBox2.Size = new System.Drawing.Size(156, 20);
             this.checkBox2.TabIndex = 11;
@@ -130,7 +135,7 @@
             // checkBox3
             // 
             this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(17, 408);
+            this.checkBox3.Location = new System.Drawing.Point(18, 439);
             this.checkBox3.Name = "checkBox3";
             this.checkBox3.Size = new System.Drawing.Size(237, 20);
             this.checkBox3.TabIndex = 12;
@@ -139,7 +144,7 @@
             // 
             // ProcessButton
             // 
-            this.ProcessButton.Location = new System.Drawing.Point(201, 505);
+            this.ProcessButton.Location = new System.Drawing.Point(202, 526);
             this.ProcessButton.Name = "ProcessButton";
             this.ProcessButton.Size = new System.Drawing.Size(177, 24);
             this.ProcessButton.TabIndex = 13;
@@ -149,7 +154,7 @@
             // 
             // RemoveFileButton
             // 
-            this.RemoveFileButton.Location = new System.Drawing.Point(272, 61);
+            this.RemoveFileButton.Location = new System.Drawing.Point(273, 92);
             this.RemoveFileButton.Name = "RemoveFileButton";
             this.RemoveFileButton.Size = new System.Drawing.Size(106, 24);
             this.RemoveFileButton.TabIndex = 14;
@@ -161,7 +166,7 @@
             // 
             this.FileListBox.FormattingEnabled = true;
             this.FileListBox.ItemHeight = 16;
-            this.FileListBox.Location = new System.Drawing.Point(17, 32);
+            this.FileListBox.Location = new System.Drawing.Point(18, 63);
             this.FileListBox.Name = "FileListBox";
             this.FileListBox.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
             this.FileListBox.Size = new System.Drawing.Size(249, 132);
@@ -169,7 +174,7 @@
             // 
             // PreviewFileButton
             // 
-            this.PreviewFileButton.Location = new System.Drawing.Point(272, 91);
+            this.PreviewFileButton.Location = new System.Drawing.Point(273, 122);
             this.PreviewFileButton.Name = "PreviewFileButton";
             this.PreviewFileButton.Size = new System.Drawing.Size(106, 24);
             this.PreviewFileButton.TabIndex = 16;
@@ -181,7 +186,7 @@
             // 
             this.DataListBox.FormattingEnabled = true;
             this.DataListBox.ItemHeight = 16;
-            this.DataListBox.Location = new System.Drawing.Point(17, 189);
+            this.DataListBox.Location = new System.Drawing.Point(18, 220);
             this.DataListBox.Name = "DataListBox";
             this.DataListBox.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
             this.DataListBox.Size = new System.Drawing.Size(249, 132);
@@ -191,18 +196,51 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(14, 170);
+            this.label1.Location = new System.Drawing.Point(15, 201);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(96, 16);
             this.label1.TabIndex = 18;
             this.label1.Text = "Data Found: ";
+            // 
+            // MenuStrip
+            // 
+            this.MenuStrip.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.MenuSettings,
+            this.MenuHelp});
+            this.MenuStrip.Name = "MenuStrip";
+            this.MenuStrip.Size = new System.Drawing.Size(50, 20);
+            this.MenuStrip.Text = "Menu";
+            // 
+            // MenuSettings
+            // 
+            this.MenuSettings.Name = "MenuSettings";
+            this.MenuSettings.Size = new System.Drawing.Size(180, 22);
+            this.MenuSettings.Text = "Settings";
+            this.MenuSettings.Click += new System.EventHandler(this.MenuSettings_Click);
+            // 
+            // MenuHelp
+            // 
+            this.MenuHelp.Name = "MenuHelp";
+            this.MenuHelp.Size = new System.Drawing.Size(180, 22);
+            this.MenuHelp.Text = "Help";
+            this.MenuHelp.Click += new System.EventHandler(this.MenuHelp_Click);
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.MenuStrip});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(397, 24);
+            this.menuStrip1.TabIndex = 19;
+            this.menuStrip1.Text = "menuStrip1";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(397, 546);
+            this.ClientSize = new System.Drawing.Size(397, 563);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.DataListBox);
             this.Controls.Add(this.PreviewFileButton);
@@ -218,8 +256,12 @@
             this.Controls.Add(this.SaveDirTextBox);
             this.Controls.Add(this.AddFileButton);
             this.Controls.Add(this.FileLabel);
+            this.Controls.Add(this.menuStrip1);
+            this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
             this.Text = "MTL Data File Manager";
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -242,6 +284,10 @@
         private System.Windows.Forms.Button PreviewFileButton;
         private System.Windows.Forms.ListBox DataListBox;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ToolStripMenuItem MenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem MenuSettings;
+        private System.Windows.Forms.ToolStripMenuItem MenuHelp;
+        private System.Windows.Forms.MenuStrip menuStrip1;
     }
 }
 

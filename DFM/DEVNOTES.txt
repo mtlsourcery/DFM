@@ -80,11 +80,8 @@ Dailyish Notes
 
 --------------------------------------------------------------------------------
 To-Do List:
-- Display random pulling of catgifs... Just use grumpy cat image or no image for
-	exception messages. Or an "Oops!" image.
-- Find a way to bind the dataObject created in AddFileButton_Click to a label
-	in DataListBox representing the data columns. This shouldn't involve a lot 
-	of string parsing and dependencies...
+- Add method prototypes to the DataObject class to add to the skeleton of 
+	potential features.
 - Add a way to view the primary outputs (cellmatrix, columns, etc) of files 
 	converted to dataObjects. This could be a ListBox that shows previewable/
 	saveable items such as 'exampledata.txt - columns'. Could add double click
@@ -98,11 +95,7 @@ To-Do List:
 
 --------------------------------------------------------------------------------
 Maybe-Do List:
-- Do away with storing files in dictionary myFiles. Can store all of the needed
-	file data in the static list ObjectsList in DataObjects.
 - Add a SettingsForm to allow changing of settings. 
-- Add a toolbar at the top of MainForm to allow selection of options like 'help'
-	and 'settings'.
 - Add option to save file in PreviewFileForm.
 - Find a different cat image api... maybe a gif-only api. There are occasional
 	questionable images (nothing obscene, just a bit odd) that pop up in the 
@@ -112,6 +105,8 @@ Maybe-Do List:
 
 --------------------------------------------------------------------------------
 Did List:
+18 April, 2018 - Add a MenuStrip at the top of MainForm to allow selection of 
+	options like 'help' and 'settings'.
 13 April, 2018 - Added images via copy/pasting into Resources.resx > Images. 
 	These can be reference via DFM.Properties.Resources.imagename. 
 10 April, 2018 - Added static list to DataObjects to store instances. This list

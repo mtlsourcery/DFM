@@ -300,6 +300,29 @@ namespace DFM
                 msgHandler.ShowMessage("Please select at least one file.",0);
             }
         }
+
+        /// <summary>
+        /// The click handler for the Settings Menu Item.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MenuSettings_Click(object sender, EventArgs e)
+        {
+            // Do something here, e.g. open a settings Form that allows the user
+            // to change things like default save directory or background color.
+            // These settings are then saved to the Settings.settings file.
+        }
+
+        /// <summary>
+        /// The click handler for the Help Menu Item.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MenuHelp_Click(object sender, EventArgs e)
+        {
+            // Do something here, e.g. open a help file (in a Form functionally
+            // identical to FilePreviewForm?), 
+        }
     }
 }
     
