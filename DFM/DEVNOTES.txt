@@ -9,6 +9,8 @@ Intended code structure summary (as of 14 March, 2018):
 
 --------------------------------------------------------------------------------
 Dailyish Notes
+18 April, 2018 - 
+	Remove files button now behaves as expected. 
 11 April, 2018 - 
 	Remove files button runs into an indexing error if more than two objects
 	selected. Presumably this happens in the foreach statement. 

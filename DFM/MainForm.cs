@@ -235,43 +235,21 @@ namespace DFM
 
             if (selection.Count != 0)
             {
-                List<int> indices = new List<int>();
-                for (int i = 0; i < FileListBox.Items.Count; i++)
-                {
-                    if (FileListBox.GetSelected(i))
-                        indices.Add(i);
-                }
-
                 try
                 {
-                    // Remove selected items from ListZBoxes and ObjectsList
-                    foreach (int index in indices)
+                    int count = FileListBox.Items.Count;
+                    for (int i = count-1; i>=0; i--)
                     {
-                        DataObject.ObjectList.Remove(
-                            selection[index].ToString());
-                        FileListBox.Items.RemoveAt(index);
-                        DataListBox.Items.RemoveAt(index);
+                        // True if ith item in FileListBox is selected
+                        if (FileListBox.GetSelected(i))
+                        {
+                            DataObject.ObjectList.Remove(
+                                selection[i].ToString());
+                            FileListBox.Items.RemoveAt(i);
+                            DataListBox.Items.RemoveAt(i);
+                            if (DEBUG) { Console.WriteLine(i); }
+                        }
                     }
-                    // Remove the selection from myFiles
-                    //foreach (var item in selection)
-                    //{   // Remove the entry by its key
-                        //DataObject.ObjectList.Remove(item.ToString());
-                        //FileListBox.Items.Remove(selection[item]);
-                        //DataObject.ObjectList.Remove(index.ToString());
-                        //FileListBox.Items.Remove(index);
-                        //DataListBox.Items.Remove(index);
-                    //}
-
-                    // Remove the selected items from FileListBox/DataListBox
-                    //while (selection.Count != 0)
-                    //{   // We can't iterate through the enumerated list of items
-                        // because we're removing values as we go, so just 
-                        // remove the zeroth element until 'selection' is empty
-                        //FileListBox.Items.Remove(selection[0]);
-
-                        // Figure out how to remove the item of the same index
-                        // from the DataListBox
-                    //}
                     if (DEBUG){ PrintDictionary(); }
                 }
                 catch (Exception ex)
