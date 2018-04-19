@@ -1,6 +1,6 @@
 ﻿namespace DFM
 {
-    partial class TableForm
+    partial class ViewDataForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,36 +28,31 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.DataGrid = new System.Windows.Forms.DataGridView();
-            ((System.ComponentModel.ISupportInitialize)(this.DataGrid)).BeginInit();
+            this.DataTabs = new System.Windows.Forms.TabControl();
             this.SuspendLayout();
             // 
-            // DataGrid
+            // DataTabs
             // 
-            this.DataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DataGrid.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DataGrid.Location = new System.Drawing.Point(0, 0);
-            this.DataGrid.Name = "DataGrid";
-            this.DataGrid.ReadOnly = true;
-            this.DataGrid.RowTemplate.Height = 24;
-            this.DataGrid.Size = new System.Drawing.Size(516, 450);
-            this.DataGrid.TabIndex = 0;
+            this.DataTabs.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DataTabs.Location = new System.Drawing.Point(0, 0);
+            this.DataTabs.Name = "DataTabs";
+            this.DataTabs.SelectedIndex = 0;
+            this.DataTabs.Size = new System.Drawing.Size(516, 450);
+            this.DataTabs.TabIndex = 0;
             // 
-            // TableForm
+            // ViewDataForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(516, 450);
-            this.Controls.Add(this.DataGrid);
-            this.Name = "TableForm";
+            this.Controls.Add(this.DataTabs);
+            this.Name = "ViewDataForm";
             this.Text = "TableForm";
-            ((System.ComponentModel.ISupportInitialize)(this.DataGrid)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private System.Windows.Forms.DataGridView DataGrid;
+        private System.Windows.Forms.TabControl DataTabs;
     }
 }

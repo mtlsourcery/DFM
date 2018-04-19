@@ -49,11 +49,11 @@
     <Compile Include="DataObject.cs" />
     <Compile Include="MessageHandler.cs" />
     <Compile Include="Settings.cs" />
-    <Compile Include="TableForm.cs">
+    <Compile Include="ViewDataForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="TableForm.Designer.cs">
-      <DependentUpon>TableForm.cs</DependentUpon>
+    <Compile Include="ViewDataForm.Designer.cs">
+      <DependentUpon>ViewDataForm.cs</DependentUpon>
     </Compile>
     <Compile Include="TwoButtonForm.cs">
       <SubType>Form</SubType>
@@ -82,8 +82,8 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WinFormsExtensions.cs" />
-    <EmbeddedResource Include="TableForm.resx">
-      <DependentUpon>TableForm.cs</DependentUpon>
+    <EmbeddedResource Include="ViewDataForm.resx">
+      <DependentUpon>ViewDataForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TwoButtonForm.resx">
       <DependentUpon>TwoButtonForm.cs</DependentUpon>

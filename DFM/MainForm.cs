@@ -310,15 +310,17 @@ namespace DFM
         {
             try
             {
-                List<List<List<string>>> dataMat = new List<List<List<string>>>();
-                // Concatenate all of our data columns into a single 3D matrix
-                foreach (var entry in DataObject.ObjectList)
-                {
-                    dataMat.AddRange((entry.Value).CellMatrix);
-                }
+                ViewDataForm viewDataForm = new ViewDataForm(DataObject.ObjectList);
+                viewDataForm.Show();
+                //List<List<List<string>>> dataMat = new List<List<List<string>>>();
+                //// Concatenate all of our data columns into a single 3D matrix
+                //foreach (var entry in DataObject.ObjectList)
+                //{
+                //    dataMat.AddRange((entry.Value).CellMatrix);
+                //}
 
-                TableForm tableForm = new TableForm(dataMat);
-                tableForm.Show();
+                //TableForm tableForm = new TableForm(dataMat);
+                //tableForm.Show();
 
                 //List<string> l = new List<string>() { "a","b","c","d" };
                 //l.AddRange(l);

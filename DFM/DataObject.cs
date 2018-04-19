@@ -12,7 +12,7 @@ namespace DFM
     /// general data object that can be handled in a way mostly independent
     /// of the file extension of the input file. 
     /// </summary>
-    class DataObject
+    public class DataObject
     {
         /* Class Constants */
 

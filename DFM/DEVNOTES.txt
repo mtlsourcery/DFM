@@ -99,6 +99,10 @@ To-Do List:
 
 --------------------------------------------------------------------------------
 Maybe-Do List:
+- Use databinding techniques to link items in FileListBox and DataListBox,
+	so that when an item is added/removed in one ListBox, so is the 
+	corresponding item in the other. Or leave it, because the current method 
+	works.
 - Add a SettingsForm to allow changing of settings. 
 - Add option to save file in PreviewFileForm.
 - Find a different cat image api... maybe a gif-only api. There are occasional
@@ -109,7 +113,8 @@ Maybe-Do List:
 
 --------------------------------------------------------------------------------
 Did List:
-18 April, 2018 - Add a MenuStrip at the top of MainForm to allow selection of 
+18 April, 2018 - Added TableForm for previewing data columns
+	- Add a MenuStrip at the top of MainForm to allow selection of 
 	options like 'help' and 'settings'.
 13 April, 2018 - Added images via copy/pasting into Resources.resx > Images. 
 	These can be reference via DFM.Properties.Resources.imagename. 
