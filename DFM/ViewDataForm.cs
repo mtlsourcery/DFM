@@ -55,9 +55,13 @@ namespace DFM
 
         void GridTabsInit(Dictionary<string,DataObject> objectDict)
         {
+            int tab = 0;
             foreach (var entry in objectDict)
             {
+                DataGridView dataGrid = new DataGridView();
                 DataTabs.TabPages.Add(new TabPage(entry.Key));
+                DataTabs.TabPages[tab].Controls.Add(dataGrid);
+                tab++;
             }
         }
     }

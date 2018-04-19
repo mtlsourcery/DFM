@@ -10,6 +10,8 @@ Intended code structure summary (as of 14 March, 2018):
 --------------------------------------------------------------------------------
 Dailyish Notes
 18 April, 2018 - 
+	Bug: data columns number displayed in DataListBox is incorrect
+
 	TableForm added to preview data columns in a DataGridView. BindingSource 
 	throws an exception complaining about "different" sources being added to the 
 	BindingSource.

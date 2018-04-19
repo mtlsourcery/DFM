@@ -16,8 +16,8 @@ namespace DFM
     {
         /* Class Constants */
 
-        const int dataOption = 1; // 0 (1) for largets (all) group(s) of data
-        const bool DEBUG = false;
+        const int dataOption = 1; // 0 (1) for largest (all) group(s) of data
+        const bool DEBUG = true;
 
         /* Class Variables - Private */
 
@@ -300,6 +300,8 @@ namespace DFM
             List<List<string>> dataColumns = new List<List<string>>();
             List<string> dataColumn = new List<string>();
             int count = CellMatrix.Count;
+            int cellCount; // Cells/line
+            int lineCount; // Lines/layer
             switch (returnOption)
             {
                 case 0: // Return only the largest group of columns
@@ -307,8 +309,8 @@ namespace DFM
                     for (int i = 0; i < count; i++)
                     { if (CellMatrix[i].Count > iMax) { iMax = i; } }
                     var cellLayer = CellMatrix[iMax];
-                    int lineCount = cellLayer.Count; // Lines in max layer
-                    int cellCount = cellLayer[0].Count; // Cells/line
+                    lineCount = cellLayer.Count; // Lines in max layer
+                    cellCount = cellLayer[0].Count; // Cells/line
 
                     // Rows of CellMatrix[iMax] => columns of dataColumns
                     for (int j = 0; j < cellCount; j++)
@@ -317,6 +319,8 @@ namespace DFM
                         {
                             dataColumn.Add(cellLayer[i][j]);
                         }
+                        // Note: a new List is added, because Add() creates
+                        // a pointer to the dataColumn, which overwrite later
                         dataColumns.Add(new List<string>(dataColumn));
                         dataColumn.Clear();
                     }
@@ -324,9 +328,14 @@ namespace DFM
                 case 1: // Return all groups of columns in a single layer
                     foreach (var layer in CellMatrix)
                     {
-                        for (int j = 0; j < CellMatrix.Count; j++)
+                        lineCount = layer.Count; // lines in this layer
+                        cellCount = layer[0].Count; // cells/line in this layer
+                        if (DEBUG) { Console.WriteLine("lines,cells: " + 
+                            lineCount + "," + cellCount); }
+
+                        for (int j = 0; j < cellCount; j++)
                         {
-                            for (int i = 0; i < layer.Count; i++)
+                            for (int i = 0; i < lineCount; i++)
                             {
                                 dataColumn.Add(layer[i][j]);
                             }
