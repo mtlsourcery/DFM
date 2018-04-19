@@ -58,9 +58,20 @@ namespace DFM
             int tab = 0;
             foreach (var entry in objectDict)
             {
-                DataGridView dataGrid = new DataGridView();
+                int row = 0;
+                int col = 0;
+                DataGridView dataGridView = new DataGridView();
+                var dataMatrix = entry.Value.CellMatrix;
+                foreach (List<List<string>> layer in dataMatrix)
+                {
+                    foreach (List<string> line in layer)
+                    {
+                        dataGridView.Rows.Add(line);   
+                    }
+                }
+                
                 DataTabs.TabPages.Add(new TabPage(entry.Key));
-                DataTabs.TabPages[tab].Controls.Add(dataGrid);
+                DataTabs.TabPages[tab].Controls.Add(dataGridView);
                 tab++;
             }
         }

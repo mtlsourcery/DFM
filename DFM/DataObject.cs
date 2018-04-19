@@ -16,7 +16,7 @@ namespace DFM
     {
         /* Class Constants */
 
-        const int dataOption = 1; // 0 (1) for largest (all) group(s) of data
+        const int dataOption = 0; // 0 (1) for largest (all) group(s) of data
         const bool DEBUG = true;
 
         /* Class Variables - Private */
@@ -32,7 +32,15 @@ namespace DFM
         public bool HasData = false;
         public string FileString; // The verbatim contents of the file
         public string DataString; // The processed data in string format
+
+        /// <summary>
+        /// Columns of data. May be unnecessary, due to the way C# handles data.
+        /// </summary>
         public List<List<string>> DataColumns = new List<List<string>>();
+
+        /// <summary>
+        /// Rows of data grouped by number of columns per row.
+        /// </summary>
         public List<List<List<string>>> CellMatrix = new List<List<List<string>>>();
 
         // List of all of the DataObjects. This is associated with the class 
@@ -318,6 +326,7 @@ namespace DFM
                         for (int i = 0; i < lineCount; i++)
                         {
                             dataColumn.Add(cellLayer[i][j]);
+                            if (DEBUG) { Console.WriteLine("i,j= " + i + "," + j); }
                         }
                         // Note: a new List is added, because Add() creates
                         // a pointer to the dataColumn, which overwrite later
