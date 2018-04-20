@@ -25,7 +25,8 @@ namespace DFM
         /* Class Variables - Private */
 
         string filename;
-        
+        bool allColumns; // true (false): store all (only the largest group by
+                         // row count) of data columns in a file
         // The default browsing  and save directories saved in settings
         string initialDir = Properties.Settings.Default.BrowseDirectory;
         string saveDir = Properties.Settings.Default.SaveDirectory;
@@ -118,7 +119,7 @@ namespace DFM
                         // Create new dataObject. Notice that we don't have to
                         // assign new objects to a variables. We can access this
                         // by its filename: DataObject.ObjectList[filename]
-                        new DataObject(filename, fileStream);
+                        new DataObject(filename, fileStream, allColumns);
 
                         // List the file's data in DataListBox
                         var dataObj = DataObject.ObjectList[filename];
@@ -310,23 +311,14 @@ namespace DFM
         {
             try
             {
-                ViewDataForm viewDataForm = new ViewDataForm(DataObject.ObjectList);
-                viewDataForm.Show();
-                //List<List<List<string>>> dataMat = new List<List<List<string>>>();
-                //// Concatenate all of our data columns into a single 3D matrix
-                //foreach (var entry in DataObject.ObjectList)
-                //{
-                //    dataMat.AddRange((entry.Value).CellMatrix);
-                //}
-
-                //TableForm tableForm = new TableForm(dataMat);
-                //tableForm.Show();
-
-                //List<string> l = new List<string>() { "a","b","c","d" };
-                //l.AddRange(l);
-                //Console.Write("l added to l: "); PrintList(l);
-                //l.Concat(l);
-                //Console.WriteLine("l concat'd to l: "); PrintList(l);
+                if (DataObject.ObjectList.Count > 0)
+                {
+                    ViewDataForm viewDataForm = new ViewDataForm(DataObject.ObjectList);
+                    viewDataForm.Show();
+                }
+                else
+                { msgHandler.ShowMessage("No data to view. Add files.",0); }
+                
             }
             catch (Exception ex)
             {

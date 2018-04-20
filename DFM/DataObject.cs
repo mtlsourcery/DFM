@@ -16,7 +16,6 @@ namespace DFM
     {
         /* Class Constants */
 
-        const int dataOption = 0; // 0 (1) for largest (all) group(s) of data
         const bool DEBUG = true;
 
         /* Class Variables - Private */
@@ -25,6 +24,7 @@ namespace DFM
         string fnameStr;
         Stream fStream;
         List<char> delimiters = new List<char> { ',', ' ','\t' };
+        bool dataOption;
         
         /* Class Variables - Public */
 
@@ -32,6 +32,7 @@ namespace DFM
         public bool HasData = false;
         public string FileString; // The verbatim contents of the file
         public string DataString; // The processed data in string format
+        public int MaxColumnsCount; // The number of columns in the largest group
 
         /// <summary>
         /// Columns of data. May be unnecessary, due to the way C# handles data.
@@ -43,8 +44,9 @@ namespace DFM
         /// </summary>
         public List<List<List<string>>> CellMatrix = new List<List<List<string>>>();
 
-        // List of all of the DataObjects. This is associated with the class 
-        // itself, not any particular instance (that's what 'static' means).
+        /// <summary>
+        /// Static list of all objects belonging to the class.
+        /// </summary>
         public static Dictionary<string, DataObject> ObjectList = 
             new Dictionary<string, DataObject>();
 
@@ -57,11 +59,14 @@ namespace DFM
         /// <param name="filename"> The input file's name.</param>
         /// <param name="fileStream"> The stream representing the input
         /// file's content. </param>
-        public DataObject(string filename, Stream fileStream)
+        /// <param name="allColumns">True: store all data columns. False:
+        /// store only group of data columns with most rows. </param>
+        public DataObject(string filename, Stream fileStream, bool allColumns)
         {
             // Initialize the internal variables
             fnameStr = filename;
             fStream = fileStream;
+            dataOption = allColumns;
 
             // Initialize the externally accessible properties
             CellMatrix = GetDataMatrix(fStream, delimiters[0]);
@@ -268,16 +273,16 @@ namespace DFM
         /// <param name="returnOption"></param>
         /// <returns></returns>
         private string GetDataString(List<List<List<string>>> dataMat3D,
-            int returnOption)
+            bool returnOption)
         {
             StringBuilder outputStrBldr = new StringBuilder();
             switch (returnOption)
             {
-                case 0: // return only the larget group
+                case true: // return only the larget group
                     outputStrBldr.Append(StringFrom2DMatrix(
                         GetDesired2DMatrix(dataMat3D)));
                     break;
-                case 1: // return all groups i separated by '\n'
+                case false: // return all groups i separated by '\n'
                     foreach (List<List<string>> dataMat2D in dataMat3D)
                     {
                         string layer = StringFrom2DMatrix(dataMat2D);
@@ -285,8 +290,6 @@ namespace DFM
                         if (DEBUG) { Console.WriteLine("Layer: " + layer); }
                     }
                     break;
-                default:
-                    goto case 0;
             }
             if (DEBUG) { Console.WriteLine("DataString: " + 
                 outputStrBldr.ToString()); }
@@ -303,19 +306,35 @@ namespace DFM
         /// <param name="returnOption"></param>
         /// <returns></returns>
         private List<List<string>> GetDataColumns(List<List<List<string>>> 
-            CellMatrix, int returnOption)
+            CellMatrix, bool returnOption)
         {
             List<List<string>> dataColumns = new List<List<string>>();
             List<string> dataColumn = new List<string>();
             int count = CellMatrix.Count;
-            int cellCount; // Cells/line
-            int lineCount; // Lines/layer
+            int cellCount;      // Cells/line
+            int lineCount;      // Lines/layer
+            int iMax = 0;       // Index of largest layer of CellMatrix
+            int maxCount = 0;   // Number of rows in iMax layer
+
+            for (int i = 0; i < count; i++)
+            {
+                if (CellMatrix[i].Count > maxCount)
+                { iMax = i; maxCount = CellMatrix[maxCount].Count; }
+
+                if (DEBUG)
+                {
+                    Console.WriteLine("layer count " +
+                        CellMatrix[i].Count);
+                    Console.WriteLine("Max: " + iMax.ToString());
+                }
+            }
+
+            MaxColumnsCount = maxCount; // Set the max columns count property
+
             switch (returnOption)
             {
-                case 0: // Return only the largest group of columns
-                    int iMax = 0;
-                    for (int i = 0; i < count; i++)
-                    { if (CellMatrix[i].Count > iMax) { iMax = i; } }
+                case false: // Return only the largest group of columns
+
                     var cellLayer = CellMatrix[iMax];
                     lineCount = cellLayer.Count; // Lines in max layer
                     cellCount = cellLayer[0].Count; // Cells/line
@@ -334,7 +353,7 @@ namespace DFM
                         dataColumn.Clear();
                     }
                     break;
-                case 1: // Return all groups of columns in a single layer
+                case true: // Return all groups of columns in a single layer
                     foreach (var layer in CellMatrix)
                     {
                         lineCount = layer.Count; // lines in this layer
@@ -347,14 +366,14 @@ namespace DFM
                             for (int i = 0; i < lineCount; i++)
                             {
                                 dataColumn.Add(layer[i][j]);
+                                if (DEBUG) { Console.WriteLine("i,j= " + i + 
+                                    "," + j); }
                             }
                             dataColumns.Add(new List<string>(dataColumn));
                             dataColumn.Clear();
                         }
                     }
                     break;
-                default:
-                    goto case 0;
             }
             return dataColumns;
         }

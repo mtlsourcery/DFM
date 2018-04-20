@@ -61,6 +61,13 @@ namespace DFM
                 int row = 0;
                 int col = 0;
                 DataGridView dataGridView = new DataGridView();
+                int maxColNum = entry.Value.MaxColumnsCount;
+                for (int i = 0; i < maxColNum; i++)
+                {
+                    dataGridView.Columns.Add("Column" + i.ToString(), 
+                        i.ToString());
+                }
+
                 var dataMatrix = entry.Value.CellMatrix;
                 foreach (List<List<string>> layer in dataMatrix)
                 {

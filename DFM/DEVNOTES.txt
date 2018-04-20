@@ -9,6 +9,9 @@ Intended code structure summary (as of 14 March, 2018):
 
 --------------------------------------------------------------------------------
 Dailyish Notes
+20 April, 2018 - 
+	DataColumn issues resolved. Columns not displaying properly in TableForm.
+	TableForm.DataGridView should be set to lock to the dimension of its TabPage.
 18 April, 2018 - 
 	Bug: data columns number displayed in DataListBox is incorrect
 
