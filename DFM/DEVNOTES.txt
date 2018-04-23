@@ -9,6 +9,10 @@ Intended code structure summary (as of 14 March, 2018):
 
 --------------------------------------------------------------------------------
 Dailyish Notes
+23 April, 2018 - 
+	Data binding used in ViewDataForm to fill grid, but yields unexpected result.
+	I think the BindingSource needs to be configured for type. Currently, setting
+	the datasource of dataGridView yields a grid showing the count of each dim.
 20 April, 2018 - 
 	DataColumn issues resolved. Columns not displaying properly in TableForm.
 	TableForm.DataGridView should be set to lock to the dimension of its TabPage.

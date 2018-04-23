@@ -40,6 +40,11 @@ namespace DFM
         public List<List<string>> DataColumns = new List<List<string>>();
 
         /// <summary>
+        /// The rows of data. 
+        /// </summary>
+        public List<List<string>> DataRows = new List<List<string>>();
+
+        /// <summary>
         /// Rows of data grouped by number of columns per row.
         /// </summary>
         public List<List<List<string>>> CellMatrix = new List<List<List<string>>>();
@@ -73,6 +78,7 @@ namespace DFM
             FileString = GetFileString(fStream);
             DataString = GetDataString(CellMatrix,dataOption);
             DataColumns = GetDataColumns(CellMatrix,dataOption);
+            DataRows = GetDataRows(CellMatrix);
             HasData = (DataColumns.Count > 0);
 
             // Add this instance to our running list
@@ -269,10 +275,10 @@ namespace DFM
         /// cells in 3D matrix are white space delimited, and newlines are
         /// inserted between string lists. Primarily used for debugging. 
         /// </summary>
-        /// <param name="dataMat3D"></param>
+        /// <param name="cellMat3D"></param>
         /// <param name="returnOption"></param>
         /// <returns></returns>
-        private string GetDataString(List<List<List<string>>> dataMat3D,
+        private string GetDataString(List<List<List<string>>> cellMat3D,
             bool returnOption)
         {
             StringBuilder outputStrBldr = new StringBuilder();
@@ -280,10 +286,10 @@ namespace DFM
             {
                 case true: // return only the larget group
                     outputStrBldr.Append(StringFrom2DMatrix(
-                        GetDesired2DMatrix(dataMat3D)));
+                        GetDesired2DMatrix(cellMat3D)));
                     break;
                 case false: // return all groups i separated by '\n'
-                    foreach (List<List<string>> dataMat2D in dataMat3D)
+                    foreach (List<List<string>> dataMat2D in cellMat3D)
                     {
                         string layer = StringFrom2DMatrix(dataMat2D);
                         outputStrBldr.Append(layer + Environment.NewLine);
@@ -302,15 +308,15 @@ namespace DFM
         /// can be thought of as transposing the layers of the input matrix: the 
         /// input string lists are rows, the output string lists are columns. 
         /// </summary>
-        /// <param name="CellMatrix"></param>
+        /// <param name="cellMat3D"></param>
         /// <param name="returnOption"></param>
         /// <returns></returns>
         private List<List<string>> GetDataColumns(List<List<List<string>>> 
-            CellMatrix, bool returnOption)
+            cellMat3D, bool returnOption)
         {
             List<List<string>> dataColumns = new List<List<string>>();
             List<string> dataColumn = new List<string>();
-            int count = CellMatrix.Count;
+            int count = cellMat3D.Count;
             int cellCount;      // Cells/line
             int lineCount;      // Lines/layer
             int iMax = 0;       // Index of largest layer of CellMatrix
@@ -318,13 +324,13 @@ namespace DFM
 
             for (int i = 0; i < count; i++)
             {
-                if (CellMatrix[i].Count > maxCount)
-                { iMax = i; maxCount = CellMatrix[maxCount].Count; }
+                if (cellMat3D[i].Count > maxCount)
+                { iMax = i; maxCount = cellMat3D[maxCount].Count; }
 
                 if (DEBUG)
                 {
                     Console.WriteLine("layer count " +
-                        CellMatrix[i].Count);
+                        cellMat3D[i].Count);
                     Console.WriteLine("Max: " + iMax.ToString());
                 }
             }
@@ -335,7 +341,7 @@ namespace DFM
             {
                 case false: // Return only the largest group of columns
 
-                    var cellLayer = CellMatrix[iMax];
+                    var cellLayer = cellMat3D[iMax];
                     lineCount = cellLayer.Count; // Lines in max layer
                     cellCount = cellLayer[0].Count; // Cells/line
 
@@ -354,7 +360,7 @@ namespace DFM
                     }
                     break;
                 case true: // Return all groups of columns in a single layer
-                    foreach (var layer in CellMatrix)
+                    foreach (var layer in cellMat3D)
                     {
                         lineCount = layer.Count; // lines in this layer
                         cellCount = layer[0].Count; // cells/line in this layer
@@ -376,6 +382,16 @@ namespace DFM
                     break;
             }
             return dataColumns;
+        }
+
+        private List<List<string>> GetDataRows(List<List<List<string>>> cellMat3D)
+        {
+            List<List<string>> rowMat = new List<List<string>>();
+            foreach (List<List<string>> cellMat2D in cellMat3D)
+            {
+                rowMat.AddRange(cellMat2D);
+            }
+            return rowMat;
         }
     }
 }

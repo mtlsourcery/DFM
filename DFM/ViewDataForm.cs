@@ -26,7 +26,6 @@ namespace DFM
         public ViewDataForm(Dictionary<string,DataObject> objectList)
         {
             InitializeComponent();
-
             GridTabsInit(objectList);
 
             //DataGrid.AutoGenerateColumns = true;
@@ -58,9 +57,13 @@ namespace DFM
             int tab = 0;
             foreach (var entry in objectDict)
             {
-                int row = 0;
-                int col = 0;
-                DataGridView dataGridView = new DataGridView();
+                //int row = 0;
+                //int col = 0;
+                DataGridView dataGridView = new DataGridView()
+                {
+                    AutoGenerateColumns = true,
+                    Dock = DockStyle.Fill
+                };
                 int maxColNum = entry.Value.MaxColumnsCount;
                 for (int i = 0; i < maxColNum; i++)
                 {
@@ -68,19 +71,44 @@ namespace DFM
                         i.ToString());
                 }
 
-                var dataMatrix = entry.Value.CellMatrix;
-                foreach (List<List<string>> layer in dataMatrix)
+                var dataRows = new List<string>()
                 {
-                    foreach (List<string> line in layer)
-                    {
-                        dataGridView.Rows.Add(line);   
-                    }
-                }
-                
+                    "W",
+                    "T",
+                    "F"
+                }; //entry.Value.DataRows;
+                BindingSource dataBindSrc = new BindingSource()
+                { DataSource = dataRows };
+
+                dataGridView.DataSource = dataBindSrc;
+
+                //foreach (List<List<string>> layer in dataMatrix)
+                //{
+                //    foreach (List<string> line in layer)
+                //    {
+
+                //        //dataGridView.Rows.Add("M","T","L");
+                //        //dataGridView.Rows.Add(ListToDelimitedString(line));
+                //        dataGridView.Cell
+                //    }
+                //}
+
                 DataTabs.TabPages.Add(new TabPage(entry.Key));
                 DataTabs.TabPages[tab].Controls.Add(dataGridView);
                 tab++;
             }
+            
+            //string ListToDelimitedString(List<string> wordList)
+            //{
+            //    StringBuilder strB = new StringBuilder();
+            //    foreach (var word in wordList)
+            //    {
+            //        strB.Append(word.ToString() + ',');
+            //    }
+            //    string str = strB.ToString();
+            //    return str.Substring(0, str.Length - 1); // omit the last comma
+            //}
+            //this.Size = this.DataTabs.Size;
         }
     }
 }

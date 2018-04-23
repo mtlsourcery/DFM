@@ -28,9 +28,10 @@ namespace DFM
         public OneButtonForm(string message, Image image)
         {
             InitializeComponent();
-
+            this.BackColor = Color.White;
             this.ErrorLabel.Text = message;
             this.ErrorLabel.Font = new Font(ErrorLabel.Font, FontStyle.Bold);
+            this.ErrorLabel.BackColor = Color.White;
             this.ImageBox.Image = image;
 
             /* Tune the position and size of controls based on each others'

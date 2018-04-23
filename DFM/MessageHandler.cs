@@ -214,7 +214,7 @@ namespace DFM
         public DialogResult ShowBinaryOptions(string prompt)
         {
             TwoButtonForm form = new TwoButtonForm(prompt, catBox4);
-            return form.ShowDialog(); ;
+            return form.ShowDialog();
         }
     }
 }
