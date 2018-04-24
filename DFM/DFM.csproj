@@ -124,7 +124,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="DEVNOTES.txt" />
-    <Content Include="DFM_DataTest0.txt" />
+    <Content Include="DFM_DataTest0b.txt" />
+    <Content Include="DFM_DataTest0a.txt" />
     <Content Include="DFM_DataTest1.txt" />
     <Content Include="Images\catbowl1.jpg" />
     <Content Include="Images\catbox1.jpg" />

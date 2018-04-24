@@ -92,22 +92,23 @@ Dailyish Notes
 	formats (.csv, .txt, .rtf, and .xlsx for now). 
 
 --------------------------------------------------------------------------------
-To-Do List:
-- Add method prototypes to the DataObject class to add to the skeleton of 
-	potential features.
-- Add a way to view the primary outputs (cellmatrix, columns, etc) of files 
-	converted to dataObjects. This could be a ListBox that shows previewable/
-	saveable items such as 'exampledata.txt - columns'. Could add double click
-	method for opening data columns as text or in a table for viewing/readonly.
-- If initial directory is not found when attempting to browse files, pop open a
-	dialogue asking for a new default directory (could store this in an ini 
-	file eventually).
+To-Do List: (Ranked by priority)
+
+- Expand pattern recognition in DataObject methods to search check for other 
+	delimiters (e.g. whitespace or \tab)
 - Add option to omit data rows for which at least one cell is empty. E.g. the 
 	row (Milk,2.50,,Target) would be omitted from your shopping list table. This
 	way, there will be no vacant cells.
+- If initial directory is not found when attempting to browse files, pop open a
+	dialogue asking for a new default directory (could store this in an settings
+	file eventually).
+- Allow multiple-file selection in file dialog (would set this in 
+	AddButton_click()).
 
 --------------------------------------------------------------------------------
 Maybe-Do List:
+- Add method prototypes to the DataObject class to add to the skeleton of 
+	potential features.
 - Use databinding techniques to link items in FileListBox and DataListBox,
 	so that when an item is added/removed in one ListBox, so is the 
 	corresponding item in the other. Or leave it, because the current method 

@@ -32,7 +32,8 @@ namespace DFM
         public bool HasData = false;
         public string FileString; // The verbatim contents of the file
         public string DataString; // The processed data in string format
-        public int MaxColumnsCount; // The number of columns in the largest group
+        public int MaxColumnCount; // The largest number of rows/group
+        public int MaxRowCount; // The largest number of rows/group
 
         /// <summary>
         /// Columns of data. May be unnecessary, due to the way C# handles data.
@@ -139,8 +140,9 @@ namespace DFM
             int lastCharIndex = 0; // 
             int previousDelimiters = 0; // Current delimiter/line for group
             int delimiters = 0; // Counts delimiters in a line
+            int maxColumns = 0; // Stores the maximum columns/row
 
-            // Build CellMatrix3D
+            // Build the 3D matrix from lines in the file
             while ((line = streamer.ReadLine()) != null)
             {
                 // Reinitialize these each iteration of while((line...
@@ -193,10 +195,11 @@ namespace DFM
                     else { CellMatrix2D.Add(cellRow);  }
                     previousDelimiters = delimiters;
                 }
-                else
+                else // Add the line of cells to the 2D matrix, reset cellRow
                 {
-                    // Add the line of cells to the 2D matrix, reset cellRow
                     CellMatrix2D.Add(cellRow);
+                    if (cellRow.Count > maxColumns)
+                    { maxColumns = cellRow.Count; }
                 }
                 lineIter++;
             }
@@ -208,6 +211,7 @@ namespace DFM
                 string lines = (CellMatrix3D.ToArray()).Count().ToString();
                 Console.WriteLine("Lines in output: " + lines);
             }
+            MaxColumnCount = maxColumns;
             return CellMatrix3D;
         }
 
@@ -325,7 +329,7 @@ namespace DFM
             for (int i = 0; i < count; i++)
             {
                 if (cellMat3D[i].Count > maxCount)
-                { iMax = i; maxCount = cellMat3D[maxCount].Count; }
+                { iMax = i; maxCount = cellMat3D[i].Count; }
 
                 if (DEBUG)
                 {
@@ -335,7 +339,8 @@ namespace DFM
                 }
             }
 
-            MaxColumnsCount = maxCount; // Set the max columns count property
+            // Get the row and column count for the largest group (by rows
+            MaxRowCount = maxCount; 
 
             switch (returnOption)
             {
@@ -384,6 +389,12 @@ namespace DFM
             return dataColumns;
         }
 
+        /// <summary>
+        /// Returns a list of all of the rows in cellMat3D, by concatenating the
+        /// 2D layers. 
+        /// </summary>
+        /// <param name="cellMat3D"></param>
+        /// <returns></returns>
         private List<List<string>> GetDataRows(List<List<List<string>>> cellMat3D)
         {
             List<List<string>> rowMat = new List<List<string>>();
