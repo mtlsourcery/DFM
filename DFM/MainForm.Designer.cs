@@ -245,7 +245,7 @@
             this.FilenameBox.Location = new System.Drawing.Point(18, 434);
             this.FilenameBox.MaxLength = 40;
             this.FilenameBox.Name = "FilenameBox";
-            this.FilenameBox.Size = new System.Drawing.Size(249, 22);
+            this.FilenameBox.Size = new System.Drawing.Size(361, 22);
             this.FilenameBox.TabIndex = 21;
             this.FilenameBox.Text = "output filename";
             // 

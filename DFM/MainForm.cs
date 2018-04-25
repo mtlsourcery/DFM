@@ -26,7 +26,6 @@ namespace DFM
 
         /* Class Variables - Private */
 
-        string filename;
         bool allColumns; // true (false): store all (only the largest group by
                          // row count) of data columns in a file
 
@@ -45,6 +44,8 @@ namespace DFM
         public MainForm()
         {
             InitializeComponent();
+            this.FilenameBox.Text = "MTLX_LabFile" +
+                DateTime.Now.ToString().Replace('/', '_').Replace(' ','_');
             this.SaveDirTextBox.Text = saveDir;
             this.Icon = Icon.FromHandle(Properties.Resources.mtlapplogo.GetHicon());
         }
@@ -105,6 +106,7 @@ namespace DFM
         {
             // Initialize a Stream to read in data from files
             Stream fileStream;
+            string filename;
 
             // Displays the file selection window and stores the result
             OpenFileDialog openFileDialog = new OpenFileDialog()
@@ -398,44 +400,46 @@ namespace DFM
             xlWorkBook = xlApp.Workbooks.Add(misValue);
             xlWorkSheet = (Excel.Worksheet)xlWorkBook.Worksheets.get_Item(1);
 
-            //xlWorkSheet.Cells[1, 1] = "ID";
-            //xlWorkSheet.Cells[1, 2] = "Name";
-            //xlWorkSheet.Cells[2, 1] = "1";
-            //xlWorkSheet.Cells[2, 2] = "One";
-            //xlWorkSheet.Cells[3, 1] = "2";
-            //xlWorkSheet.Cells[3, 2] = "Two";
-
             // Populate the worksheet with data from the files
+            int lastCol = 0;
             foreach (var entry in dataObjects)
             {
+                var dataObject = entry.Value;
                 try
                 {
-                    var dataObject = entry.Value;
                     if (dataObject.HasData)
                     {
                         for (int j = 0; j < dataObject.DataColumns.Count; j++)
                         {
                             for (int i = 0; i < dataObject.DataColumns[j].Count; i++)
                             {
-                                xlWorkSheet.Cells[i, j] = 
+                                // Note that Excel cells use 1-based indexing
+                                xlWorkSheet.Cells[i+1, j+1+lastCol] = 
                                     dataObject.DataColumns[j][i].ToString();
                             }
                         }
-
                     }
                 }
                 catch (Exception ex)
                 {
                     msgHandler.ShowException(ex);
                 }
+                lastCol += dataObject.DataColumns.Count;
             }
 
-            xlWorkBook.SaveAs(saveStr, format, misValue, misValue, misValue,
-                misValue, Excel.XlSaveAsAccessMode.xlExclusive, misValue, 
-                misValue, misValue, misValue, misValue);
-            xlWorkBook.Close(true, misValue, misValue);
-            xlApp.Quit();
-
+            try
+            {
+                xlWorkBook.SaveAs(saveStr, format, misValue, misValue, misValue,
+               misValue, Excel.XlSaveAsAccessMode.xlExclusive, misValue,
+               misValue, misValue, misValue, misValue);
+                xlWorkBook.Close(true, misValue, misValue);
+                xlApp.Quit();
+            }
+            catch (Exception ex)
+            {
+                msgHandler.ShowException(ex);
+            }
+           
             // Release these objects from memory 
             Marshal.ReleaseComObject(xlWorkSheet);
             Marshal.ReleaseComObject(xlWorkBook);
