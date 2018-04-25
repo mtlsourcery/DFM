@@ -255,9 +255,9 @@
             this.FileNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FileNameLabel.Location = new System.Drawing.Point(15, 414);
             this.FileNameLabel.Name = "FileNameLabel";
-            this.FileNameLabel.Size = new System.Drawing.Size(128, 16);
+            this.FileNameLabel.Size = new System.Drawing.Size(266, 16);
             this.FileNameLabel.TabIndex = 22;
-            this.FileNameLabel.Text = "Output Filename: ";
+            this.FileNameLabel.Text = "Output Filename (exclude extension): ";
             // 
             // CSV_ChBox
             // 

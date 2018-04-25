@@ -338,9 +338,9 @@ namespace DFM
             if (DataObject.ObjectList.Count > 0)
             {
                 if (Excel_ChBox.Checked)
-                {
-                    WriteNewExcelFile(DataObject.ObjectList);
-                }
+                { WriteNewExcelFile(DataObject.ObjectList); }
+                if (CSV_ChBox.Checked)
+                { WriteNewCSVFile(DataObject.ObjectList); }
             }
             else
             {
@@ -348,7 +348,6 @@ namespace DFM
                     Environment.NewLine + "Please add files.", 0);
             }
             
-
             //// Test the DataObject class - DEBUGGING PURPOSES ONLY
             //var selection = FileListBox.SelectedItems;
             //if (selection.Count == 1)// later: if(Count > 0){foreach(item in selection)...
@@ -373,9 +372,8 @@ namespace DFM
             //}
         }
 
-
         /// <summary>
-        /// Write Excel file from dataObjects. 
+        /// Write a new Excel (.xlsx) file from dataObjects. 
         /// </summary>
         /// <param name="dataObjects"></param>
         private void WriteNewExcelFile(Dictionary<string, DataObject> 
@@ -426,7 +424,6 @@ namespace DFM
                 }
                 lastCol += dataObject.DataColumns.Count;
             }
-
             try
             {
                 xlWorkBook.SaveAs(saveStr, format, misValue, misValue, misValue,
@@ -444,6 +441,19 @@ namespace DFM
             Marshal.ReleaseComObject(xlWorkSheet);
             Marshal.ReleaseComObject(xlWorkBook);
             Marshal.ReleaseComObject(xlApp);
+        }
+
+        /// <summary>
+        /// Writes a new CSV (.csv) file from dataObjects.
+        /// </summary>
+        /// <param name="dataObjects"></param>
+        private void WriteNewCSVFile(Dictionary<string, DataObject>
+            dataObjects)
+        {
+            // Set the save directory and output filename
+            string saveStr = SaveDirTextBox.Text + FilenameBox.Text + ".xlsx";
+
+            // Code to go here
         }
 
         /// <summary>

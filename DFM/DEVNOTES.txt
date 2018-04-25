@@ -30,6 +30,10 @@ Some Pointers:
 
 --------------------------------------------------------------------------------
 Dailyish Notes
+25 April, 2018 -
+	RemoveFile_click throws OutOfRange exception when trying to remove only the 
+	last file in a list. Also, when MainForm.WriteNewExcelFile is called for
+	DataObject.ObjectList.Count > 1, exception file not found is thrown.
 24 April, 2018 -
 	ViewDataForm.dataGridView populating in GridTabInit fixed.
 23 April, 2018 - 
@@ -136,6 +140,12 @@ To-Do List: (Ranked by priority) Need things to do Drew (and Nate and Lincoln?)?
 	file eventually).
 - Allow multiple-file selection in file dialog (would set this in 
 	AddButton_click()).
+
+* As soon as a rudimentary version is working with some fundamental capabilities
+(e.g. able to pull data from XRF data files and output to spreadsheet?), pull
+the .exe from DFM>DFM>bin>Debug and install it on the PCs in the XRF lab. And,
+tell David! If David starts using it, then maybe the knowledge/use of this code
+will passed on... an MTLegacy.
 
 --------------------------------------------------------------------------------
 Maybe-Do List:
