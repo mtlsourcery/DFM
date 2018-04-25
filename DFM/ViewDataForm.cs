@@ -29,6 +29,10 @@ namespace DFM
             GridTabsInit(objectList);
         }
 
+        /// <summary>
+        /// Adds 
+        /// </summary>
+        /// <param name="objectDict"></param>
         void GridTabsInit(Dictionary<string,DataObject> objectDict)
         {
             int tab = 0;
@@ -51,8 +55,7 @@ namespace DFM
 
                 List<List<string>> dataRows = entry.Value.DataRows;
 
-                /* Bind the dataRows to dataGridView */
-
+                // Add the data rows to the DataGridView 
                 foreach (var row in dataRows)
                 {
                     dataGridView.Rows.Add(row.ToArray());
@@ -63,8 +66,5 @@ namespace DFM
                 tab++;
             }
         }
-
-        
-        
     }
 }

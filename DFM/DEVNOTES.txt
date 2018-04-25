@@ -1,5 +1,6 @@
 ﻿** DEVELOPER NOTES AND TODO LIST **
-	
+
+--------------------------------------------------------------------------------
 Intended code structure summary (as of 14 March, 2018): 
 	Windows Form (MainForm) to handle user input. Backend handles user input and
 	and has two primary functions: 1) Convert user-selected data files into 
@@ -7,8 +8,30 @@ Intended code structure summary (as of 14 March, 2018):
 	general way regardless of the original file extension, 2) combine the data
 	in a way predetermined by user input (e.g. via CheckBox options).
 
+Attention Drew (and Nate and Lincoln?): If you need things to do, the To-do list
+farther down in this file is a good place to start. I've intentionally filled it
+in with things that should provide fun challenges. 
+
+Some Pointers:
+- Visual Studio is daunting when you first start working with it. Take some time
+	explore -- look through the files in Solution Explorer, check out the View 
+	menu, etc.
+- A good strategy for working on a project of this size: fill in the big 
+	picture details first, and then gradually fill in the specifics in a modular
+	fashion, working on parts of the code that relate to each other. If you 
+	try to perfect a particular class without working on the surrounding code, 
+	you may end up writing code that doesn't work well with other classes.
+- Try to keep classes and functions self-sufficient; that is, they shouldn't 
+	rely on global constants, especially across files. This way, if you change
+	class A, you won't inadvertently break class B.
+- Test things as you go, and utilize debugging features such as writing values 
+	to the console with Console.WriteLine("your message" + variable.ToString())
+- Make good comments. https://img.devrant.com/devrant/rant/r_83437_EKoUL.jpg
+
 --------------------------------------------------------------------------------
 Dailyish Notes
+24 April, 2018 -
+	ViewDataForm.dataGridView populating in GridTabInit fixed.
 23 April, 2018 - 
 	Data binding used in ViewDataForm to fill grid, but yields unexpected result.
 	I think the BindingSource needs to be configured for type. Currently, setting
@@ -92,10 +115,19 @@ Dailyish Notes
 	formats (.csv, .txt, .rtf, and .xlsx for now). 
 
 --------------------------------------------------------------------------------
-To-Do List: (Ranked by priority)
+To-Do List: (Ranked by priority) Need things to do Drew (and Nate and Lincoln?)?
 
+- Implement merge columns to excel spreadsheet output processing option. 
+	http://csharp.net-informations.com/excel/csharp-create-excel.htm
 - Expand pattern recognition in DataObject methods to search check for other 
 	delimiters (e.g. whitespace or \tab)
+- Modify DataObject class to be able to handle XLSX (spreadsheet) files. See:
+	http://csharp.net-informations.com/excel/csharp-open-excel.htm
+	http://csharp.net-informations.com/excel/csharp-read-excel.htm
+	http://csharp.net-informations.com/excel/csharp-read-excel.htm
+- Fill in DataObject.FlagHeaders method
+- Modify ViewDataForm.GridTabInit to look for flagged headers (see 
+	DataObject.FlagHeaders)s
 - Add option to omit data rows for which at least one cell is empty. E.g. the 
 	row (Milk,2.50,,Target) would be omitted from your shopping list table. This
 	way, there will be no vacant cells.
@@ -118,8 +150,11 @@ Maybe-Do List:
 - Find a different cat image api... maybe a gif-only api. There are occasional
 	questionable images (nothing obscene, just a bit odd) that pop up in the 
 	current database.
+- Add a terminal (command prompt) mode as an alternative to the gui. 
 - Implement a function output the source of an exception and its message to the 
 	VS console. Throw this in several functions?
+- Write/train a neural net to find data in files, rather than explicitly looking
+	for delimiters and other patterns. This would be reallly ambitious.
 
 --------------------------------------------------------------------------------
 Did List:

@@ -288,11 +288,11 @@ namespace DFM
             StringBuilder outputStrBldr = new StringBuilder();
             switch (returnOption)
             {
-                case true: // return only the larget group
+                case false: // return only the largest group
                     outputStrBldr.Append(StringFrom2DMatrix(
                         GetDesired2DMatrix(cellMat3D)));
                     break;
-                case false: // return all groups i separated by '\n'
+                case true: // return all groups i separated by '\n'
                     foreach (List<List<string>> dataMat2D in cellMat3D)
                     {
                         string layer = StringFrom2DMatrix(dataMat2D);
@@ -364,7 +364,7 @@ namespace DFM
                         dataColumn.Clear();
                     }
                     break;
-                case true: // Return all groups of columns in a single layer
+                case true: // Return all groups of columns as a single layer
                     foreach (var layer in cellMat3D)
                     {
                         lineCount = layer.Count; // lines in this layer
@@ -403,6 +403,20 @@ namespace DFM
                 rowMat.AddRange(cellMat2D);
             }
             return rowMat;
+        }
+
+        /// <summary>
+        /// Check for non-numeric strings in the first row of each group, and 
+        /// "flag" those strings. Flag could be appending some rarely used char
+        /// or group of chars (e.g. '&^') onto the front of the alphabetic 
+        /// string. Then, when populating DataGridViews or spreadsheets, make
+        /// a header from the flagged string (e.g., 
+        /// if (rows[0][i].Substring(0,2) == '&^') 
+        ///     header[i] == rows[0][i].Substring(2,rows[0][i].Count-2)
+        /// </summary>
+        private void FlagHeaders()
+        {
+            // code here
         }
     }
 }

@@ -9,6 +9,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
 using System.Windows.Forms;
+using System.Runtime.InteropServices;
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace DFM
 {
@@ -27,6 +29,7 @@ namespace DFM
         string filename;
         bool allColumns; // true (false): store all (only the largest group by
                          // row count) of data columns in a file
+
         // The default browsing  and save directories saved in settings
         string initialDir = Properties.Settings.Default.BrowseDirectory;
         string saveDir = Properties.Settings.Default.SaveDirectory;
@@ -76,6 +79,19 @@ namespace DFM
             StreamReader streamReader = new StreamReader(stream);
             string text = streamReader.ReadToEnd();
             return text;
+        }
+        
+        /// <summary>
+        /// For debugging
+        /// </summary>
+        /// <param name="list"></param>
+        void PrintList(List<string> list)
+        {
+            foreach (string s in list)
+            {
+                Console.Write(s + ",");
+            }
+            Console.Write(Environment.NewLine);
         }
 
         /* Class Event Handlers */
@@ -189,42 +205,6 @@ namespace DFM
         }
           
         /// <summary>
-        /// Handles ProcessButton click event.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void ProcessButton_Click(object sender, EventArgs e)
-        {
-            // Do the processing of selected file (extracting csv rows, cols,
-            // and putting into a "nicer" file; e.g. populating a lab analysis
-            // certificate, plotting stuff, putting all rows into a spreadsheet
-            // etc. then save the output to the specified directory. 
-
-            // Test the DataObject class - DEBUGGING PURPOSES ONLY
-            var selection = FileListBox.SelectedItems;
-            if (selection.Count == 1)// later: if(Count > 0){foreach(item in selection)...
-            {
-                try
-                {
-                    if (DEBUG)
-                    {
-                        string dataStr = 
-                            DataObject.ObjectList[selection[0].ToString()].FileString;
-
-                        FilePreviewForm dataForm = new FilePreviewForm(dataStr);
-                        Console.WriteLine("Test data output string:" +
-                            Environment.NewLine + dataStr);
-                        dataForm.Show();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    msgHandler.ShowException(ex);
-                }
-            }
-        }
-
-        /// <summary>
         /// Handles RemoveFileButton click event.
         /// </summary>
         /// <param name="sender"></param>
@@ -318,25 +298,148 @@ namespace DFM
                 }
                 else
                 { msgHandler.ShowMessage("No data to view. Add files.",0); }
-                
             }
             catch (Exception ex)
             {
                 msgHandler.ShowException(ex);
             }
         }
+        
+        /// <summary>
+        /// Handles ProcessButton click event.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ProcessButton_Click(object sender, EventArgs e)
+        {
+            // Do the processing of selected file (extracting csv rows, cols,
+            // and putting into a "nicer" file; e.g. populating a lab analysis
+            // certificate, plotting stuff, putting all rows into a spreadsheet
+            // etc. then save the output to the specified directory. 
+
+            /* Psuedo code blueprint for the intended functionality
+             * 
+             * foreach (var checkBox in checkBoxContainer)
+             * {
+             *     if (checkBox.checked)
+             *     {
+             *         // run the specified task with each file we have,
+             *         // e.g. merge each file's columns into a csv file
+             *         string outputName = FilenameBox.text;
+             *         checkBox.associatedMethod(DataOjbects.ObjectList,
+             *                                   outputName)
+             *     }
+             * }
+             * 
+             */
+
+            if (DataObject.ObjectList.Count > 0)
+            {
+                if (Excel_ChBox.Checked)
+                {
+                    WriteNewExcelFile(DataObject.ObjectList);
+                }
+            }
+            else
+            {
+                msgHandler.ShowMessage("No files to process." +
+                    Environment.NewLine + "Please add files.", 0);
+            }
+            
+
+            //// Test the DataObject class - DEBUGGING PURPOSES ONLY
+            //var selection = FileListBox.SelectedItems;
+            //if (selection.Count == 1)// later: if(Count > 0){foreach(item in selection)...
+            //{
+            //    try
+            //    {
+            //        if (DEBUG)
+            //        {
+            //            string dataStr = 
+            //                DataObject.ObjectList[selection[0].ToString()].FileString;
+
+            //            FilePreviewForm dataForm = new FilePreviewForm(dataStr);
+            //            Console.WriteLine("Test data output string:" +
+            //                Environment.NewLine + dataStr);
+            //            dataForm.Show();
+            //        }
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        msgHandler.ShowException(ex);
+            //    }
+            //}
+        }
+
 
         /// <summary>
-        /// For debugging
+        /// Write Excel file from dataObjects. 
         /// </summary>
-        /// <param name="list"></param>
-        void PrintList(List<string> list)
+        /// <param name="dataObjects"></param>
+        private void WriteNewExcelFile(Dictionary<string, DataObject> 
+            dataObjects)
         {
-            foreach (string s in list)
+            Excel.Application xlApp = new Excel.Application();
+            if (xlApp == null)
             {
-                Console.Write(s + ",");
+                msgHandler.ShowMessage("MS Excel installation not found."
+                    + Environment.NewLine + "Can not write spreadsheet.",0);
+                return;
             }
-            Console.Write(Environment.NewLine);
+
+            // Set the save directory and output filename
+            string saveStr = SaveDirTextBox.Text + FilenameBox.Text + ".xlsx";
+
+            Excel.Workbook xlWorkBook;
+            Excel.Worksheet xlWorkSheet;
+            var format = Excel.XlFileFormat.xlOpenXMLWorkbook;
+            object misValue = System.Reflection.Missing.Value;
+
+            xlWorkBook = xlApp.Workbooks.Add(misValue);
+            xlWorkSheet = (Excel.Worksheet)xlWorkBook.Worksheets.get_Item(1);
+
+            //xlWorkSheet.Cells[1, 1] = "ID";
+            //xlWorkSheet.Cells[1, 2] = "Name";
+            //xlWorkSheet.Cells[2, 1] = "1";
+            //xlWorkSheet.Cells[2, 2] = "One";
+            //xlWorkSheet.Cells[3, 1] = "2";
+            //xlWorkSheet.Cells[3, 2] = "Two";
+
+            // Populate the worksheet with data from the files
+            foreach (var entry in dataObjects)
+            {
+                try
+                {
+                    var dataObject = entry.Value;
+                    if (dataObject.HasData)
+                    {
+                        for (int j = 0; j < dataObject.DataColumns.Count; j++)
+                        {
+                            for (int i = 0; i < dataObject.DataColumns[j].Count; i++)
+                            {
+                                xlWorkSheet.Cells[i, j] = 
+                                    dataObject.DataColumns[j][i].ToString();
+                            }
+                        }
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    msgHandler.ShowException(ex);
+                }
+            }
+
+            xlWorkBook.SaveAs(saveStr, format, misValue, misValue, misValue,
+                misValue, Excel.XlSaveAsAccessMode.xlExclusive, misValue, 
+                misValue, misValue, misValue, misValue);
+            xlWorkBook.Close(true, misValue, misValue);
+            xlApp.Quit();
+
+            // Release these objects from memory 
+            Marshal.ReleaseComObject(xlWorkSheet);
+            Marshal.ReleaseComObject(xlWorkBook);
+            Marshal.ReleaseComObject(xlApp);
         }
 
         /// <summary>
