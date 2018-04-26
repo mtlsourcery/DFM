@@ -36,13 +36,8 @@ namespace DFM
         // The message handler
         MessageHandler msgHandler = new MessageHandler();
 
-<<<<<<< HEAD
-        /* Class Methods */
-
-=======
         /* Class Methods - Miscellaneous */ 
         
->>>>>>> 533ae613a1d8a187cdba844c537016a8771556cd
         /// <summary>
         /// The constructor for MainForm.
         /// </summary>
@@ -348,11 +343,8 @@ namespace DFM
                     foreach (var item in selection)
                     {
                         // Get the file content associated with item.ToString()
-<<<<<<< HEAD
-                        string contentString =
-=======
+
                         string contentString = 
->>>>>>> 533ae613a1d8a187cdba844c537016a8771556cd
                           DataObject.ObjectList[item.ToString()].FileString;
                         // Instantiate a FilePreviewForm
                         FilePreviewForm filePreviewForm = new FilePreviewForm(
@@ -465,78 +457,6 @@ namespace DFM
             //    }
             //}
         }
-<<<<<<< HEAD
-
-        /// <summary>
-        /// Write a new Excel (.xlsx) file from dataObjects. 
-        /// </summary>
-        /// <param name="dataObjects"></param>
-        private void WriteNewExcelFile(Dictionary<string, DataObject>
-            dataObjects)
-        {
-            Excel.Application xlApp = new Excel.Application();
-            if (xlApp == null)
-            {
-                msgHandler.ShowMessage("MS Excel installation not found."
-                    + Environment.NewLine + "Can not write spreadsheet.", 0);
-                return;
-            }
-
-            // Set the save directory and output filename
-            string saveStr = SaveDirTextBox.Text + FilenameBox.Text + ".xlsx";
-
-            Excel.Workbook xlWorkBook;
-            Excel.Worksheet xlWorkSheet;
-            var format = Excel.XlFileFormat.xlOpenXMLWorkbook;
-            object misValue = System.Reflection.Missing.Value;
-
-            xlWorkBook = xlApp.Workbooks.Add(misValue);
-            xlWorkSheet = (Excel.Worksheet)xlWorkBook.Worksheets.get_Item(1);
-
-            // Populate the worksheet with data from the files
-            int lastCol = 0;
-            foreach (var entry in dataObjects)
-            {
-                var dataObject = entry.Value;
-                try
-                {
-                    if (dataObject.HasData)
-                    {
-                        for (int j = 0; j < dataObject.DataColumns.Count; j++)
-                        {
-                            for (int i = 0; i < dataObject.DataColumns[j].Count; i++)
-                            {
-                                // Note that Excel cells use 1-based indexing
-                                xlWorkSheet.Cells[i + 1, j + 1 + lastCol] =
-                                    dataObject.DataColumns[j][i].ToString();
-                            }
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    msgHandler.ShowException(ex);
-                }
-                lastCol += dataObject.DataColumns.Count;
-            }
-            try
-            {
-                xlWorkBook.SaveAs(saveStr, format, misValue, misValue, misValue,
-               misValue, Excel.XlSaveAsAccessMode.xlExclusive, misValue,
-               misValue, misValue, misValue, misValue);
-                xlWorkBook.Close(true, misValue, misValue);
-                xlApp.Quit();
-            }
-            catch (Exception ex)
-            {
-                msgHandler.ShowException(ex);
-            }
-
-            // Release these objects from memory 
-            Marshal.ReleaseComObject(xlWorkSheet);
-            Marshal.ReleaseComObject(xlWorkBook);
-            Marshal.ReleaseComObject(xlApp);
-        }
 
         /// <summary>
         /// Writes a new CSV (.csv) file from dataObjects.
@@ -577,11 +497,7 @@ namespace DFM
                 msgHandler.ShowException(ex);
             }
         }
-
-
-=======
         
->>>>>>> 533ae613a1d8a187cdba844c537016a8771556cd
         /// <summary>
         /// The click handler for the Settings Menu Item.
         /// </summary>
