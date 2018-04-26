@@ -524,7 +524,7 @@ namespace DFM
             // Clear all of the items in the file list box and the objects they
             // Represent in DataObjects.ObjectList
         }
-        // dont be afraid to commit
+        // dont be afraid to get wrecked
     }
 }
     
