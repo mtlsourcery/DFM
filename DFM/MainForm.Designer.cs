@@ -42,15 +42,16 @@
             this.PreviewFileButton = new System.Windows.Forms.Button();
             this.DataListBox = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.MenuStrip = new System.Windows.Forms.ToolStripMenuItem();
-            this.MenuSettings = new System.Windows.Forms.ToolStripMenuItem();
-            this.MenuHelp = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.ViewDataButton = new System.Windows.Forms.Button();
             this.FilenameBox = new System.Windows.Forms.TextBox();
             this.FileNameLabel = new System.Windows.Forms.Label();
             this.CSV_ChBox = new System.Windows.Forms.CheckBox();
             this.ClearFilesButton = new System.Windows.Forms.Button();
+            this.sExcel_ChBox = new System.Windows.Forms.CheckBox();
+            this.MenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.MenuSettings = new System.Windows.Forms.ToolStripMenuItem();
+            this.MenuHelp = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -78,7 +79,7 @@
             // 
             this.SaveDirTextBox.ForeColor = System.Drawing.SystemColors.ControlText;
             this.SaveDirTextBox.HideSelection = false;
-            this.SaveDirTextBox.Location = new System.Drawing.Point(18, 386);
+            this.SaveDirTextBox.Location = new System.Drawing.Point(18, 397);
             this.SaveDirTextBox.MaxLength = 40;
             this.SaveDirTextBox.Name = "SaveDirTextBox";
             this.SaveDirTextBox.ReadOnly = true;
@@ -88,7 +89,7 @@
             // 
             // SaveDirButton
             // 
-            this.SaveDirButton.Location = new System.Drawing.Point(273, 384);
+            this.SaveDirButton.Location = new System.Drawing.Point(273, 396);
             this.SaveDirButton.Name = "SaveDirButton";
             this.SaveDirButton.Size = new System.Drawing.Size(106, 24);
             this.SaveDirButton.TabIndex = 7;
@@ -100,7 +101,7 @@
             // 
             this.SaveDirLabel.AutoSize = true;
             this.SaveDirLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SaveDirLabel.Location = new System.Drawing.Point(15, 366);
+            this.SaveDirLabel.Location = new System.Drawing.Point(15, 377);
             this.SaveDirLabel.Name = "SaveDirLabel";
             this.SaveDirLabel.Size = new System.Drawing.Size(119, 16);
             this.SaveDirLabel.TabIndex = 8;
@@ -119,7 +120,7 @@
             // LabCert_ChBox
             // 
             this.LabCert_ChBox.AutoSize = true;
-            this.LabCert_ChBox.Location = new System.Drawing.Point(18, 336);
+            this.LabCert_ChBox.Location = new System.Drawing.Point(18, 331);
             this.LabCert_ChBox.Name = "LabCert_ChBox";
             this.LabCert_ChBox.Size = new System.Drawing.Size(179, 20);
             this.LabCert_ChBox.TabIndex = 10;
@@ -129,7 +130,7 @@
             // Excel_ChBox
             // 
             this.Excel_ChBox.AutoSize = true;
-            this.Excel_ChBox.Location = new System.Drawing.Point(18, 296);
+            this.Excel_ChBox.Location = new System.Drawing.Point(18, 291);
             this.Excel_ChBox.Name = "Excel_ChBox";
             this.Excel_ChBox.Size = new System.Drawing.Size(238, 20);
             this.Excel_ChBox.TabIndex = 12;
@@ -138,7 +139,7 @@
             // 
             // ProcessButton
             // 
-            this.ProcessButton.Location = new System.Drawing.Point(202, 471);
+            this.ProcessButton.Location = new System.Drawing.Point(202, 477);
             this.ProcessButton.Name = "ProcessButton";
             this.ProcessButton.Size = new System.Drawing.Size(177, 24);
             this.ProcessButton.TabIndex = 13;
@@ -196,39 +197,6 @@
             this.label1.TabIndex = 18;
             this.label1.Text = "Data Found: ";
             // 
-            // MenuStrip
-            // 
-            this.MenuStrip.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.MenuSettings,
-            this.MenuHelp});
-            this.MenuStrip.Name = "MenuStrip";
-            this.MenuStrip.Size = new System.Drawing.Size(50, 20);
-            this.MenuStrip.Text = "Menu";
-            // 
-            // MenuSettings
-            // 
-            this.MenuSettings.Name = "MenuSettings";
-            this.MenuSettings.Size = new System.Drawing.Size(116, 22);
-            this.MenuSettings.Text = "Settings";
-            this.MenuSettings.Click += new System.EventHandler(this.MenuSettings_Click);
-            // 
-            // MenuHelp
-            // 
-            this.MenuHelp.Name = "MenuHelp";
-            this.MenuHelp.Size = new System.Drawing.Size(116, 22);
-            this.MenuHelp.Text = "Help";
-            this.MenuHelp.Click += new System.EventHandler(this.MenuHelp_Click);
-            // 
-            // menuStrip1
-            // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.MenuStrip});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(397, 24);
-            this.menuStrip1.TabIndex = 19;
-            this.menuStrip1.Text = "menuStrip1";
-            // 
             // ViewDataButton
             // 
             this.ViewDataButton.Location = new System.Drawing.Point(273, 175);
@@ -243,7 +211,7 @@
             // 
             this.FilenameBox.ForeColor = System.Drawing.SystemColors.ControlText;
             this.FilenameBox.HideSelection = false;
-            this.FilenameBox.Location = new System.Drawing.Point(18, 434);
+            this.FilenameBox.Location = new System.Drawing.Point(18, 445);
             this.FilenameBox.MaxLength = 40;
             this.FilenameBox.Name = "FilenameBox";
             this.FilenameBox.Size = new System.Drawing.Size(361, 22);
@@ -254,7 +222,7 @@
             // 
             this.FileNameLabel.AutoSize = true;
             this.FileNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FileNameLabel.Location = new System.Drawing.Point(15, 414);
+            this.FileNameLabel.Location = new System.Drawing.Point(15, 425);
             this.FileNameLabel.Name = "FileNameLabel";
             this.FileNameLabel.Size = new System.Drawing.Size(266, 16);
             this.FileNameLabel.TabIndex = 22;
@@ -263,7 +231,7 @@
             // CSV_ChBox
             // 
             this.CSV_ChBox.AutoSize = true;
-            this.CSV_ChBox.Location = new System.Drawing.Point(18, 316);
+            this.CSV_ChBox.Location = new System.Drawing.Point(18, 311);
             this.CSV_ChBox.Name = "CSV_ChBox";
             this.CSV_ChBox.Size = new System.Drawing.Size(209, 20);
             this.CSV_ChBox.TabIndex = 23;
@@ -280,12 +248,56 @@
             this.ClearFilesButton.UseVisualStyleBackColor = true;
             this.ClearFilesButton.Click += new System.EventHandler(this.ClearFilesButton_Click);
             // 
+            // sExcel_ChBox
+            // 
+            this.sExcel_ChBox.AutoSize = true;
+            this.sExcel_ChBox.Location = new System.Drawing.Point(18, 351);
+            this.sExcel_ChBox.Name = "sExcel_ChBox";
+            this.sExcel_ChBox.Size = new System.Drawing.Size(252, 20);
+            this.sExcel_ChBox.TabIndex = 25;
+            this.sExcel_ChBox.Text = "Export data to seperate spreadsheets";
+            this.sExcel_ChBox.UseVisualStyleBackColor = true;
+            // 
+            // MenuItem
+            // 
+            this.MenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.MenuSettings,
+            this.MenuHelp});
+            this.MenuItem.Name = "MenuItem";
+            this.MenuItem.Size = new System.Drawing.Size(50, 20);
+            this.MenuItem.Text = "Menu";
+            // 
+            // MenuSettings
+            // 
+            this.MenuSettings.Name = "MenuSettings";
+            this.MenuSettings.Size = new System.Drawing.Size(180, 22);
+            this.MenuSettings.Text = "Settings";
+            this.MenuSettings.Click += new System.EventHandler(this.MenuSettings_Click);
+            // 
+            // MenuHelp
+            // 
+            this.MenuHelp.Name = "MenuHelp";
+            this.MenuHelp.Size = new System.Drawing.Size(180, 22);
+            this.MenuHelp.Text = "Help";
+            this.MenuHelp.Click += new System.EventHandler(this.MenuHelp_Click);
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.MenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(397, 24);
+            this.menuStrip1.TabIndex = 19;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(397, 507);
+            this.ClientSize = new System.Drawing.Size(397, 512);
+            this.Controls.Add(this.sExcel_ChBox);
             this.Controls.Add(this.ClearFilesButton);
             this.Controls.Add(this.CSV_ChBox);
             this.Controls.Add(this.FileNameLabel);
@@ -332,15 +344,16 @@
         private System.Windows.Forms.Button PreviewFileButton;
         private System.Windows.Forms.ListBox DataListBox;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ToolStripMenuItem MenuStrip;
-        private System.Windows.Forms.ToolStripMenuItem MenuSettings;
-        private System.Windows.Forms.ToolStripMenuItem MenuHelp;
-        private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.Button ViewDataButton;
         private System.Windows.Forms.TextBox FilenameBox;
         private System.Windows.Forms.Label FileNameLabel;
         private System.Windows.Forms.CheckBox CSV_ChBox;
         private System.Windows.Forms.Button ClearFilesButton;
+        private System.Windows.Forms.CheckBox sExcel_ChBox;
+        private System.Windows.Forms.ToolStripMenuItem MenuItem;
+        private System.Windows.Forms.ToolStripMenuItem MenuSettings;
+        private System.Windows.Forms.ToolStripMenuItem MenuHelp;
+        private System.Windows.Forms.MenuStrip menuStrip1;
     }
 }
 

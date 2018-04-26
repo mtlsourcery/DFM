@@ -116,7 +116,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="pt25_4post.rtf" />
+    <None Include="DFM_sample_xrf.rtf" />
     <None Include="uPEM_data_1Mar18_incense.csv" />
   </ItemGroup>
   <ItemGroup>

@@ -26,7 +26,7 @@ namespace DFM
 
         /* Class Variables - Private */
 
-        bool allColumns; // true (false): store all (only the largest group by
+        bool allColumns; // true (false): retrieve all (only the largest group by
                          // row count) of data columns in a file
 
         // The default browsing  and save directories saved in settings
@@ -36,7 +36,7 @@ namespace DFM
         // The message handler
         MessageHandler msgHandler = new MessageHandler();
 
-        /* Class Methods */ 
+        /* Class Methods - Miscellaneous */ 
         
         /// <summary>
         /// The constructor for MainForm.
@@ -93,6 +93,90 @@ namespace DFM
                 Console.Write(s + ",");
             }
             Console.Write(Environment.NewLine);
+        }
+
+        /// <summary>
+        /// Write a new Excel (.xlsx) file from dataObjects. 
+        /// </summary>
+        /// <param name="dataObjects"></param>
+        private void WriteNewExcelFile(Dictionary<string, DataObject>
+            dataObjects)
+        {
+            Excel.Application xlApp = new Excel.Application();
+            if (xlApp == null)
+            {
+                msgHandler.ShowMessage("MS Excel installation not found."
+                    + Environment.NewLine + "Can not write spreadsheet.", 0);
+                return;
+            }
+
+            // Set the save directory and output filename
+            string saveStr = SaveDirTextBox.Text + FilenameBox.Text + ".xlsx";
+
+            Excel.Workbook xlWorkBook;
+            Excel.Worksheet xlWorkSheet;
+            var format = Excel.XlFileFormat.xlOpenXMLWorkbook;
+            object misValue = System.Reflection.Missing.Value;
+
+            xlWorkBook = xlApp.Workbooks.Add(misValue);
+            xlWorkSheet = (Excel.Worksheet)xlWorkBook.Worksheets.get_Item(1);
+
+            // Populate the worksheet with data from the files
+            int lastCol = 0;
+            foreach (var entry in dataObjects)
+            {
+                var dataObject = entry.Value;
+                try
+                {
+                    if (dataObject.HasData)
+                    {
+                        for (int j = 0; j < dataObject.DataColumns.Count; j++)
+                        {
+                            for (int i = 0; i < dataObject.DataColumns[j].Count; i++)
+                            {
+                                // Note that Excel cells use 1-based indexing
+                                xlWorkSheet.Cells[i + 1, j + 1 + lastCol] =
+                                    dataObject.DataColumns[j][i].ToString();
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    msgHandler.ShowException(ex);
+                }
+                lastCol += dataObject.DataColumns.Count;
+            }
+            try
+            {
+                xlWorkBook.SaveAs(saveStr, format, misValue, misValue, misValue,
+               misValue, Excel.XlSaveAsAccessMode.xlExclusive, misValue,
+               misValue, misValue, misValue, misValue);
+                xlWorkBook.Close(true, misValue, misValue);
+                xlApp.Quit();
+            }
+            catch (Exception ex)
+            {
+                msgHandler.ShowException(ex);
+            }
+
+            // Release these objects from memory 
+            Marshal.ReleaseComObject(xlWorkSheet);
+            Marshal.ReleaseComObject(xlWorkBook);
+            Marshal.ReleaseComObject(xlApp);
+        }
+
+        /// <summary>
+        /// Writes a new CSV (.csv) file from dataObjects.
+        /// </summary>
+        /// <param name="dataObjects"></param>
+        private void WriteNewCSVFile(Dictionary<string, DataObject>
+            dataObjects)
+        {
+            // Set the save directory and output filename
+            string saveStr = SaveDirTextBox.Text + FilenameBox.Text + ".csvs";
+
+            // Code to go here
         }
 
         /* Class Event Handlers */
@@ -373,7 +457,6 @@ namespace DFM
             //}
         }
         
-
         /// <summary>
         /// The click handler for the Settings Menu Item.
         /// </summary>
@@ -408,89 +491,6 @@ namespace DFM
             // Represent in DataObjects.ObjectList
         }
 
-        /// <summary>
-        /// Write a new Excel (.xlsx) file from dataObjects. 
-        /// </summary>
-        /// <param name="dataObjects"></param>
-        private void WriteNewExcelFile(Dictionary<string, DataObject> 
-            dataObjects)
-        {
-            Excel.Application xlApp = new Excel.Application();
-            if (xlApp == null)
-            {
-                msgHandler.ShowMessage("MS Excel installation not found."
-                    + Environment.NewLine + "Can not write spreadsheet.", 0);
-                return;
-            }
-
-            // Set the save directory and output filename
-            string saveStr = SaveDirTextBox.Text + FilenameBox.Text + ".xlsx";
-
-            Excel.Workbook xlWorkBook;
-            Excel.Worksheet xlWorkSheet;
-            var format = Excel.XlFileFormat.xlOpenXMLWorkbook;
-            object misValue = System.Reflection.Missing.Value;
-
-            xlWorkBook = xlApp.Workbooks.Add(misValue);
-            xlWorkSheet = (Excel.Worksheet)xlWorkBook.Worksheets.get_Item(1);
-
-            // Populate the worksheet with data from the files
-            int lastCol = 0;
-            foreach (var entry in dataObjects)
-            {
-                var dataObject = entry.Value;
-                try
-                {
-                    if (dataObject.HasData)
-                    {
-                        for (int j = 0; j < dataObject.DataColumns.Count; j++)
-                        {
-                            for (int i = 0; i < dataObject.DataColumns[j].Count; i++)
-                            {
-                                // Note that Excel cells use 1-based indexing
-                                xlWorkSheet.Cells[i+1, j+1+lastCol] = 
-                                    dataObject.DataColumns[j][i].ToString();
-                            }
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    msgHandler.ShowException(ex);
-                }
-                lastCol += dataObject.DataColumns.Count;
-            }
-            try
-            {
-                xlWorkBook.SaveAs(saveStr, format, misValue, misValue, misValue,
-               misValue, Excel.XlSaveAsAccessMode.xlExclusive, misValue,
-               misValue, misValue, misValue, misValue);
-                xlWorkBook.Close(true, misValue, misValue);
-                xlApp.Quit();
-            }
-            catch (Exception ex)
-            {
-                msgHandler.ShowException(ex);
-            }
-           
-            // Release these objects from memory 
-            Marshal.ReleaseComObject(xlWorkSheet);
-            Marshal.ReleaseComObject(xlWorkBook);
-            Marshal.ReleaseComObject(xlApp);
-        }
-
-        /// <summary>
-        /// Writes a new CSV (.csv) file from dataObjects.
-        /// </summary>
-        /// <param name="dataObjects"></param>
-        private void WriteNewCSVFile(Dictionary<string, DataObject>
-            dataObjects)
-        {
-            // Set the save directory and output filename
-            string saveStr = SaveDirTextBox.Text + FilenameBox.Text + ".xlsx";
-
-            // Code to go here
-        }
     }
 }
     
