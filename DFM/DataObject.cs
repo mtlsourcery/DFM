@@ -83,10 +83,6 @@ namespace DFM
             var rowsNcols = GetRowsAndColumns(CellMatrix,dataOption);
             DataRows = rowsNcols[0];
             DataColumns = rowsNcols[1];
-
-            // Call after GetDataColumns... consider merging these two methods
-            // to avoid having to call them in a certain order
-            //DataRows = GetDataRows(CellMatrix,dataOption);
             HasData = (DataColumns.Count > 0);
 
             // Add this instance to our running list
@@ -413,22 +409,6 @@ namespace DFM
             // An array of type List<List<string>> containing the rows and cols
             return new List<List<string>>[] { dataRows, dataColumns };
         }
-
-        ///// <summary>
-        ///// Returns a list of all of the rows in cellMat3D, by concatenating the
-        ///// 2D layers. 
-        ///// </summary>
-        ///// <param name="cellMat3D"></param>
-        ///// <returns></returns>
-        //private List<List<string>> GetDataRows(List<List<List<string>>> cellMat3D)
-        //{
-        //    List<List<string>> rowMat = new List<List<string>>();
-        //    foreach (List<List<string>> cellMat2D in cellMat3D)
-        //    {
-        //        rowMat.AddRange(cellMat2D);
-        //    }
-        //    return rowMat;
-        //}
 
         /// <summary>
         /// Check for non-numeric strings in the first row of each group, and 

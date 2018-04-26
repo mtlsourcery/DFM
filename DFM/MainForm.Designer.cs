@@ -50,6 +50,7 @@
             this.FilenameBox = new System.Windows.Forms.TextBox();
             this.FileNameLabel = new System.Windows.Forms.Label();
             this.CSV_ChBox = new System.Windows.Forms.CheckBox();
+            this.ClearFilesButton = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -269,12 +270,23 @@
             this.CSV_ChBox.Text = "Export merged data to CSV file";
             this.CSV_ChBox.UseVisualStyleBackColor = true;
             // 
+            // ClearFilesButton
+            // 
+            this.ClearFilesButton.Location = new System.Drawing.Point(273, 205);
+            this.ClearFilesButton.Name = "ClearFilesButton";
+            this.ClearFilesButton.Size = new System.Drawing.Size(106, 24);
+            this.ClearFilesButton.TabIndex = 24;
+            this.ClearFilesButton.Text = "Clear All Files";
+            this.ClearFilesButton.UseVisualStyleBackColor = true;
+            this.ClearFilesButton.Click += new System.EventHandler(this.ClearFilesButton_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(397, 507);
+            this.Controls.Add(this.ClearFilesButton);
             this.Controls.Add(this.CSV_ChBox);
             this.Controls.Add(this.FileNameLabel);
             this.Controls.Add(this.FilenameBox);
@@ -328,6 +340,7 @@
         private System.Windows.Forms.TextBox FilenameBox;
         private System.Windows.Forms.Label FileNameLabel;
         private System.Windows.Forms.CheckBox CSV_ChBox;
+        private System.Windows.Forms.Button ClearFilesButton;
     }
 }
 

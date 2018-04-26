@@ -341,6 +341,7 @@ namespace DFM
                 { WriteNewExcelFile(DataObject.ObjectList); }
                 if (CSV_ChBox.Checked)
                 { WriteNewCSVFile(DataObject.ObjectList); }
+                //if (otherChBox.Checked)...
             }
             else
             {
@@ -370,6 +371,41 @@ namespace DFM
             //        msgHandler.ShowException(ex);
             //    }
             //}
+        }
+        
+
+        /// <summary>
+        /// The click handler for the Settings Menu Item.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MenuSettings_Click(object sender, EventArgs e)
+        {
+            // Do something here, e.g. open a settings Form that allows the user
+            // to change things like default save directory or background color.
+            // These settings are then saved to the Settings.settings file.
+        }
+
+        /// <summary>
+        /// The click handler for the Help Menu Item.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MenuHelp_Click(object sender, EventArgs e)
+        {
+            // Do something here, e.g. open a help file (in a Form functionally
+            // identical to FilePreviewForm?), 
+        }
+
+        /// <summary>
+        /// The click handler for ClearFilesButton.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ClearFilesButton_Click(object sender, EventArgs e)
+        {
+            // Clear all of the items in the file list box and the objects they
+            // Represent in DataObjects.ObjectList
         }
 
         /// <summary>
@@ -454,29 +490,6 @@ namespace DFM
             string saveStr = SaveDirTextBox.Text + FilenameBox.Text + ".xlsx";
 
             // Code to go here
-        }
-
-        /// <summary>
-        /// The click handler for the Settings Menu Item.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void MenuSettings_Click(object sender, EventArgs e)
-        {
-            // Do something here, e.g. open a settings Form that allows the user
-            // to change things like default save directory or background color.
-            // These settings are then saved to the Settings.settings file.
-        }
-
-        /// <summary>
-        /// The click handler for the Help Menu Item.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void MenuHelp_Click(object sender, EventArgs e)
-        {
-            // Do something here, e.g. open a help file (in a Form functionally
-            // identical to FilePreviewForm?), 
         }
     }
 }
