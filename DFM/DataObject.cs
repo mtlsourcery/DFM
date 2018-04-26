@@ -69,17 +69,20 @@ namespace DFM
         /// store only group of data columns with most rows. </param>
         public DataObject(string filename, Stream fileStream, bool allColumns)
         {
-            // Initialize the internal variables
+            /* Initialize the internal variables */
             fnameStr = filename;
             fStream = fileStream;
             dataOption = allColumns;
 
-            // Initialize the externally accessible properties
+            /* Initialize the externally accessible properties */
             CellMatrix = GetDataMatrix(fStream, delimiters[0]);
             FileString = GetFileString(fStream);
-            DataString = GetDataString(CellMatrix,dataOption);
-            DataColumns = GetDataColumns(CellMatrix,dataOption);
-            DataRows = GetDataRows(CellMatrix);
+            DataString = GetDataString(CellMatrix, dataOption);
+
+            // Also sets MaxColumnCount and MaxRowCount
+            var rowsNcols = GetRowsAndColumns(CellMatrix,dataOption);
+            DataRows = rowsNcols[0];
+            DataColumns = rowsNcols[1];
             HasData = (DataColumns.Count > 0);
 
             // Add this instance to our running list
@@ -124,6 +127,13 @@ namespace DFM
         private List<List<List<string>>> GetDataMatrix(Stream stream,
             char delimiter)
         {
+            /* Could modify this method to:
+             * - omit lines with spaces between any pair of delimiters 
+             * - search for other delimiters; pass in the whole delimiter array?
+             * - add overload method for .xlsx files; this will only work w/ .txt
+             *      and maybe .csv files.
+             */
+
             // CellMatrix3D[i][j][k] specifies a cell k in line j in group i
             List<List<List<string>>> CellMatrix3D =
                 new List<List<List<string>>>();
@@ -288,11 +298,11 @@ namespace DFM
             StringBuilder outputStrBldr = new StringBuilder();
             switch (returnOption)
             {
-                case false: // return only the largest group
+                case true: // return only the largest group
                     outputStrBldr.Append(StringFrom2DMatrix(
                         GetDesired2DMatrix(cellMat3D)));
                     break;
-                case true: // return all groups i separated by '\n'
+                case false: // return all groups i separated by '\n'
                     foreach (List<List<string>> dataMat2D in cellMat3D)
                     {
                         string layer = StringFrom2DMatrix(dataMat2D);
@@ -315,10 +325,11 @@ namespace DFM
         /// <param name="cellMat3D"></param>
         /// <param name="returnOption"></param>
         /// <returns></returns>
-        private List<List<string>> GetDataColumns(List<List<List<string>>> 
+        private List<List<string>>[] GetRowsAndColumns(List<List<List<string>>> 
             cellMat3D, bool returnOption)
         {
             List<List<string>> dataColumns = new List<List<string>>();
+            List<List<string>> dataRows = new List<List<string>>();
             List<string> dataColumn = new List<string>();
             int count = cellMat3D.Count;
             int cellCount;      // Cells/line
@@ -363,6 +374,10 @@ namespace DFM
                         dataColumns.Add(new List<string>(dataColumn));
                         dataColumn.Clear();
                     }
+
+                    // The rows of the largest group
+                    dataRows = cellMat3D[iMax];
+
                     break;
                 case true: // Return all groups of columns as a single layer
                     foreach (var layer in cellMat3D)
@@ -384,25 +399,15 @@ namespace DFM
                             dataColumn.Clear();
                         }
                     }
+                    // Concatenate all of the groups of rows into a single layer
+                    foreach (List<List<string>> cellMat2D in cellMat3D)
+                    {
+                        dataRows.AddRange(cellMat2D);
+                    }
                     break;
             }
-            return dataColumns;
-        }
-
-        /// <summary>
-        /// Returns a list of all of the rows in cellMat3D, by concatenating the
-        /// 2D layers. 
-        /// </summary>
-        /// <param name="cellMat3D"></param>
-        /// <returns></returns>
-        private List<List<string>> GetDataRows(List<List<List<string>>> cellMat3D)
-        {
-            List<List<string>> rowMat = new List<List<string>>();
-            foreach (List<List<string>> cellMat2D in cellMat3D)
-            {
-                rowMat.AddRange(cellMat2D);
-            }
-            return rowMat;
+            // An array of type List<List<string>> containing the rows and cols
+            return new List<List<string>>[] { dataRows, dataColumns };
         }
 
         /// <summary>
