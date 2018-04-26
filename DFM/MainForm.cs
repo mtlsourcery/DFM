@@ -36,8 +36,8 @@ namespace DFM
         // The message handler
         MessageHandler msgHandler = new MessageHandler();
 
-        /* Class Methods */ 
-        
+        /* Class Methods */
+
         /// <summary>
         /// The constructor for MainForm.
         /// </summary>
@@ -45,13 +45,13 @@ namespace DFM
         {
             InitializeComponent();
             this.FilenameBox.Text = "MTLX_LabFile" +
-                DateTime.Now.ToString().Replace('/', '_').Replace(' ','_');
+                DateTime.Now.ToString().Replace('/', '_').Replace(' ', '_');
             this.SaveDirTextBox.Text = saveDir;
             this.Icon = Icon.FromHandle(Properties.Resources.mtlapplogo.GetHicon());
         }
 
         // REMOVE LATER; PEDANTIC ONLY
-        ColorsClass newColor = new ColorsClass(0,255,0,100);
+        ColorsClass newColor = new ColorsClass(0, 255, 0, 100);
         List<string> rgbVals = ColorsClass.GetMaxRGB();
 
         /// <summary>
@@ -64,7 +64,7 @@ namespace DFM
             str.Append("(");
 
             foreach (var file in DataObject.ObjectList)
-            { str.Append(" "+file.Key); }
+            { str.Append(" " + file.Key); }
             str.Append(" )");
             Console.WriteLine(str.ToString());
         }
@@ -81,7 +81,7 @@ namespace DFM
             string text = streamReader.ReadToEnd();
             return text;
         }
-        
+
         /// <summary>
         /// For debugging
         /// </summary>
@@ -141,15 +141,15 @@ namespace DFM
 
                         // List the file's data in DataListBox
                         var dataObj = DataObject.ObjectList[filename];
-                        string item = filename + " (" + 
+                        string item = filename + " (" +
                             dataObj.DataColumns.Count.ToString() +
                             " Columns)";
                         DataListBox.Items.Add(item);
 
                         // Add filename to FileListBox
                         FileListBox.Items.Add(filename);
-                        
-                        if (DEBUG){ PrintDictionary(); }
+
+                        if (DEBUG) { PrintDictionary(); }
                     }
                 }
                 catch (Exception ex)
@@ -182,12 +182,12 @@ namespace DFM
                 try
                 {
                     var selectedDir = folderBrowserDialog.SelectedPath;
-                    if ( selectedDir != null)
+                    if (selectedDir != null)
                     {
                         // Display the name of the selected directory
                         SaveDirTextBox.Text = selectedDir;
 
-                        string msg = "Set " + selectedDir + 
+                        string msg = "Set " + selectedDir +
                             Environment.NewLine +
                             " as the default save directory?";
                         //if(msgHandler.ShowBinaryOptions(msg) == DialogResult.Yes)
@@ -205,7 +205,7 @@ namespace DFM
                 }
             }
         }
-          
+
         /// <summary>
         /// Handles RemoveFileButton click event.
         /// </summary>
@@ -221,7 +221,7 @@ namespace DFM
                 try
                 {
                     int count = FileListBox.Items.Count;
-                    for (int i = count-1; i>=0; i--)
+                    for (int i = count - 1; i >= 0; i--)
                     {
                         // True if ith item in FileListBox is selected
                         if (FileListBox.GetSelected(i))
@@ -233,14 +233,14 @@ namespace DFM
                             if (DEBUG) { Console.WriteLine(i); }
                         }
                     }
-                    if (DEBUG){ PrintDictionary(); }
+                    if (DEBUG) { PrintDictionary(); }
                 }
                 catch (Exception ex)
                 {
                     msgHandler.ShowException(ex);
                 }
             }
-            else { msgHandler.ShowMessage("Please select a file.",0); }
+            else { msgHandler.ShowMessage("Please select a file.", 0); }
         }
 
         /// <summary>
@@ -259,8 +259,8 @@ namespace DFM
                     foreach (var item in selection)
                     {
                         // Get the file content associated with item.ToString()
-                        string contentString = 
-                          DataObject.ObjectList[item.ToString()].DataString;
+                        string contentString =
+                          DataObject.ObjectList[item.ToString()].FileString;
                         // Instantiate a FilePreviewForm
                         FilePreviewForm filePreviewForm = new FilePreviewForm(
                             contentString)
@@ -270,8 +270,8 @@ namespace DFM
                         };
                         // Show the form
                         filePreviewForm.Show();
-                    }   
-                    if (DEBUG){ Console.WriteLine("FilePreviewForm opened"); }
+                    }
+                    if (DEBUG) { Console.WriteLine("FilePreviewForm opened"); }
                 }
                 catch (Exception ex)
                 {
@@ -280,7 +280,7 @@ namespace DFM
             }
             else
             {
-                msgHandler.ShowMessage("Please select at least one file.",0);
+                msgHandler.ShowMessage("Please select at least one file.", 0);
             }
         }
 
@@ -299,14 +299,14 @@ namespace DFM
                     viewDataForm.Show();
                 }
                 else
-                { msgHandler.ShowMessage("No data to view. Add files.",0); }
+                { msgHandler.ShowMessage("No data to view. Add files.", 0); }
             }
             catch (Exception ex)
             {
                 msgHandler.ShowException(ex);
             }
         }
-        
+
         /// <summary>
         /// Handles ProcessButton click event.
         /// </summary>
@@ -347,7 +347,7 @@ namespace DFM
                 msgHandler.ShowMessage("No files to process." +
                     Environment.NewLine + "Please add files.", 0);
             }
-            
+
             //// Test the DataObject class - DEBUGGING PURPOSES ONLY
             //var selection = FileListBox.SelectedItems;
             //if (selection.Count == 1)// later: if(Count > 0){foreach(item in selection)...
@@ -376,14 +376,14 @@ namespace DFM
         /// Write a new Excel (.xlsx) file from dataObjects. 
         /// </summary>
         /// <param name="dataObjects"></param>
-        private void WriteNewExcelFile(Dictionary<string, DataObject> 
+        private void WriteNewExcelFile(Dictionary<string, DataObject>
             dataObjects)
         {
             Excel.Application xlApp = new Excel.Application();
             if (xlApp == null)
             {
                 msgHandler.ShowMessage("MS Excel installation not found."
-                    + Environment.NewLine + "Can not write spreadsheet.",0);
+                    + Environment.NewLine + "Can not write spreadsheet.", 0);
                 return;
             }
 
@@ -412,7 +412,7 @@ namespace DFM
                             for (int i = 0; i < dataObject.DataColumns[j].Count; i++)
                             {
                                 // Note that Excel cells use 1-based indexing
-                                xlWorkSheet.Cells[i+1, j+1+lastCol] = 
+                                xlWorkSheet.Cells[i + 1, j + 1 + lastCol] =
                                     dataObject.DataColumns[j][i].ToString();
                             }
                         }
@@ -436,7 +436,7 @@ namespace DFM
             {
                 msgHandler.ShowException(ex);
             }
-           
+
             // Release these objects from memory 
             Marshal.ReleaseComObject(xlWorkSheet);
             Marshal.ReleaseComObject(xlWorkBook);
@@ -451,10 +451,38 @@ namespace DFM
             dataObjects)
         {
             // Set the save directory and output filename
-            string saveStr = SaveDirTextBox.Text + FilenameBox.Text + ".xlsx";
+            string saveStr = SaveDirTextBox.Text + FilenameBox.Text + ".csv";
+            StreamWriter csvWriter = new StreamWriter(saveStr); //-- Do we need a StreamWriter?
 
-            // Code to go here
+            // Populate the worksheet with data from the files
+            int tab = 0;
+            foreach (var entry in dataObjects)
+            {
+                var dataObject = entry.Value;
+                try
+                { 
+                    if (dataObject.HasData)
+                    {
+                        int maxColNum = entry.Value.MaxColumnCount;
+                        List<List<string>> dataRows = entry.Value.DataRows;
+                        for (int i = 0; i < maxColNum; i++)
+                        {
+                            List<string> dataRow = dataRows(i);
+                        }
+                    }
+
+                }
+            }
+            try
+            {
+                //code here
+            }
+            catch (Exception ex)
+            {
+                msgHandler.ShowException(ex);
+            }
         }
+
 
         /// <summary>
         /// The click handler for the Settings Menu Item.
