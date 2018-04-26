@@ -260,7 +260,7 @@ namespace DFM
                     {
                         // Get the file content associated with item.ToString()
                         string contentString = 
-                          DataObject.ObjectList[item.ToString()].DataString;
+                          DataObject.ObjectList[item.ToString()].FileString;
                         // Instantiate a FilePreviewForm
                         FilePreviewForm filePreviewForm = new FilePreviewForm(
                             contentString)
@@ -383,7 +383,7 @@ namespace DFM
             if (xlApp == null)
             {
                 msgHandler.ShowMessage("MS Excel installation not found."
-                    + Environment.NewLine + "Can not write spreadsheet.",0);
+                    + Environment.NewLine + "Can not write spreadsheet.", 0);
                 return;
             }
 
