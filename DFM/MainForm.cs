@@ -36,6 +36,8 @@ namespace DFM
         // The message handler
         MessageHandler msgHandler = new MessageHandler();
 
+        /* Class Methods */
+
         /* Class Methods - Miscellaneous */ 
         
         /// <summary>
@@ -166,18 +168,6 @@ namespace DFM
             Marshal.ReleaseComObject(xlApp);
         }
 
-        /// <summary>
-        /// Writes a new CSV (.csv) file from dataObjects.
-        /// </summary>
-        /// <param name="dataObjects"></param>
-        private void WriteNewCSVFile(Dictionary<string, DataObject>
-            dataObjects)
-        {
-            // Set the save directory and output filename
-            string saveStr = SaveDirTextBox.Text + FilenameBox.Text + ".csvs";
-
-            // Code to go here
-        }
 
         /* Class Event Handlers */
 
@@ -482,9 +472,12 @@ namespace DFM
                         List<List<string>> dataRows = entry.Value.DataRows;
                         for (int i = 0; i < maxColNum; i++)
                         {
-                            List<string> dataRow = dataRows(i);
+                            List<string> dataRow = dataRows[i];
                         }
                     }
+                }
+                catch (Exception ex)
+                {
 
                 }
             }
