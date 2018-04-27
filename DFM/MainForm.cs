@@ -168,6 +168,48 @@ namespace DFM
             Marshal.ReleaseComObject(xlApp);
         }
 
+        /// <summary>
+        /// Writes a new CSV (.csv) file from dataObjects.
+        /// </summary>
+        /// <param name="dataObjects"></param>
+        private void WriteNewCSVFile(Dictionary<string, DataObject>
+            dataObjects)
+        {
+            // Set the save directory and output filename
+            string saveStr = SaveDirTextBox.Text + FilenameBox.Text + ".csv";
+            StreamWriter csvWriter = new StreamWriter(saveStr); //-- Do we need a StreamWriter?
+
+            // Populate the worksheet with data from the files
+            int tab = 0;
+            foreach (var entry in dataObjects)
+            {
+                var dataObject = entry.Value;
+                try
+                {
+                    if (dataObject.HasData)
+                    {
+                        int maxColNum = entry.Value.MaxColumnCount;
+                        List<List<string>> dataRows = entry.Value.DataRows;
+                        for (int i = 0; i < maxColNum; i++)
+                        {
+                            List<string> dataRow = dataRows[i];
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Code to go here
+                }
+            }
+            try
+            {
+                //code here
+            }
+            catch (Exception ex)
+            {
+                msgHandler.ShowException(ex);
+            }
+        }
 
         /* Class Event Handlers */
 
@@ -288,9 +330,7 @@ namespace DFM
         private void RemoveFileButton_Click(object sender, EventArgs e)
         {
             var selection = FileListBox.SelectedItems;
-            //var indices = FileListBox.SelectedIndices; 
-
-            if (selection.Count != 0)
+            if (selection.Count > 0)
             {
                 try
                 {
@@ -450,48 +490,36 @@ namespace DFM
         }
 
         /// <summary>
-        /// Writes a new CSV (.csv) file from dataObjects.
+        /// The click handler for ClearFilesButton.
         /// </summary>
-        /// <param name="dataObjects"></param>
-        private void WriteNewCSVFile(Dictionary<string, DataObject>
-            dataObjects)
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ClearAllFilesButton_Click(object sender, EventArgs e)
         {
-            // Set the save directory and output filename
-            string saveStr = SaveDirTextBox.Text + FilenameBox.Text + ".csv";
-            StreamWriter csvWriter = new StreamWriter(saveStr); //-- Do we need a StreamWriter?
+            // Clear all of the items in the file list box and the objects they
+            // Represent in DataObjects.ObjectList
 
-            // Populate the worksheet with data from the files
-            int tab = 0;
-            foreach (var entry in dataObjects)
+            var items = FileListBox.Items;
+            if (items.Count > 0)
             {
-                var dataObject = entry.Value;
                 try
-                { 
-                    if (dataObject.HasData)
+                {
+                    int count = items.Count;
+                    for (int i = 0; i < count; i++)
                     {
-                        int maxColNum = entry.Value.MaxColumnCount;
-                        List<List<string>> dataRows = entry.Value.DataRows;
-                        for (int i = 0; i < maxColNum; i++)
-                        {
-                            List<string> dataRow = dataRows[i];
-                        }
+                        DataObject.ObjectList.Remove(items[0].ToString());
+                        items.RemoveAt(0);
+                        DataListBox.Items.RemoveAt(0);
                     }
+                    if (DEBUG) { PrintDictionary(); }
                 }
                 catch (Exception ex)
                 {
-                    // Code to go here
+                    msgHandler.ShowException(ex);
                 }
             }
-            try
-            {
-                //code here
-            }
-            catch (Exception ex)
-            {
-                msgHandler.ShowException(ex);
-            }
         }
-        
+
         /// <summary>
         /// The click handler for the Settings Menu Item.
         /// </summary>
@@ -515,17 +543,7 @@ namespace DFM
             // identical to FilePreviewForm?), 
         }
 
-        /// <summary>
-        /// The click handler for ClearFilesButton.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void ClearFilesButton_Click(object sender, EventArgs e)
-        {
-            // Clear all of the items in the file list box and the objects they
-            // Represent in DataObjects.ObjectList
-        }
-        // dont be afraid to get wrecked
+       
     }
 }
     

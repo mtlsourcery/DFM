@@ -30,6 +30,10 @@ Some Pointers:
 
 --------------------------------------------------------------------------------
 Dailyish Notes
+27 April, 2018 -
+	Bug in RemoveFileButton_Click fixed.
+
+	ClearFilesButton functionality added.
 25 April, 2018 -
 	RemoveFile_click throws OutOfRange exception when trying to remove only the 
 	last file in a list. Also, when MainForm.WriteNewExcelFile is called for

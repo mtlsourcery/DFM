@@ -46,7 +46,7 @@
             this.FilenameBox = new System.Windows.Forms.TextBox();
             this.FileNameLabel = new System.Windows.Forms.Label();
             this.CSV_ChBox = new System.Windows.Forms.CheckBox();
-            this.ClearFilesButton = new System.Windows.Forms.Button();
+            this.ClearAllFilesButton = new System.Windows.Forms.Button();
             this.sExcel_ChBox = new System.Windows.Forms.CheckBox();
             this.MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuSettings = new System.Windows.Forms.ToolStripMenuItem();
@@ -238,15 +238,15 @@
             this.CSV_ChBox.Text = "Export merged data to CSV file";
             this.CSV_ChBox.UseVisualStyleBackColor = true;
             // 
-            // ClearFilesButton
+            // ClearAllFilesButton
             // 
-            this.ClearFilesButton.Location = new System.Drawing.Point(273, 205);
-            this.ClearFilesButton.Name = "ClearFilesButton";
-            this.ClearFilesButton.Size = new System.Drawing.Size(106, 24);
-            this.ClearFilesButton.TabIndex = 24;
-            this.ClearFilesButton.Text = "Clear All Files";
-            this.ClearFilesButton.UseVisualStyleBackColor = true;
-            this.ClearFilesButton.Click += new System.EventHandler(this.ClearFilesButton_Click);
+            this.ClearAllFilesButton.Location = new System.Drawing.Point(273, 205);
+            this.ClearAllFilesButton.Name = "ClearAllFilesButton";
+            this.ClearAllFilesButton.Size = new System.Drawing.Size(106, 24);
+            this.ClearAllFilesButton.TabIndex = 24;
+            this.ClearAllFilesButton.Text = "Clear All Files";
+            this.ClearAllFilesButton.UseVisualStyleBackColor = true;
+            this.ClearAllFilesButton.Click += new System.EventHandler(this.ClearAllFilesButton_Click);
             // 
             // sExcel_ChBox
             // 
@@ -270,14 +270,14 @@
             // MenuSettings
             // 
             this.MenuSettings.Name = "MenuSettings";
-            this.MenuSettings.Size = new System.Drawing.Size(180, 22);
+            this.MenuSettings.Size = new System.Drawing.Size(116, 22);
             this.MenuSettings.Text = "Settings";
             this.MenuSettings.Click += new System.EventHandler(this.MenuSettings_Click);
             // 
             // MenuHelp
             // 
             this.MenuHelp.Name = "MenuHelp";
-            this.MenuHelp.Size = new System.Drawing.Size(180, 22);
+            this.MenuHelp.Size = new System.Drawing.Size(116, 22);
             this.MenuHelp.Text = "Help";
             this.MenuHelp.Click += new System.EventHandler(this.MenuHelp_Click);
             // 
@@ -298,7 +298,7 @@
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(397, 512);
             this.Controls.Add(this.sExcel_ChBox);
-            this.Controls.Add(this.ClearFilesButton);
+            this.Controls.Add(this.ClearAllFilesButton);
             this.Controls.Add(this.CSV_ChBox);
             this.Controls.Add(this.FileNameLabel);
             this.Controls.Add(this.FilenameBox);
@@ -348,7 +348,7 @@
         private System.Windows.Forms.TextBox FilenameBox;
         private System.Windows.Forms.Label FileNameLabel;
         private System.Windows.Forms.CheckBox CSV_ChBox;
-        private System.Windows.Forms.Button ClearFilesButton;
+        private System.Windows.Forms.Button ClearAllFilesButton;
         private System.Windows.Forms.CheckBox sExcel_ChBox;
         private System.Windows.Forms.ToolStripMenuItem MenuItem;
         private System.Windows.Forms.ToolStripMenuItem MenuSettings;
