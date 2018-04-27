@@ -300,11 +300,12 @@ namespace DFM
                         // True if ith item in FileListBox is selected
                         if (FileListBox.GetSelected(i))
                         {
+                            // The selection indices are not the same as the
+                            // ListBox indices; just pop off the first item
                             DataObject.ObjectList.Remove(
-                                selection[i].ToString());
+                                selection[0].ToString());
                             FileListBox.Items.RemoveAt(i);
                             DataListBox.Items.RemoveAt(i);
-                            if (DEBUG) { Console.WriteLine(i); }
                         }
                     }
                     if (DEBUG) { PrintDictionary(); }

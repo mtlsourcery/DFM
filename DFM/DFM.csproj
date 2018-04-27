@@ -107,6 +107,8 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="DFM_sample_uPEM.csv" />
+    <None Include="DFM_sample_FWS.csv" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -117,7 +119,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <None Include="DFM_sample_xrf.rtf" />
-    <None Include="uPEM_data_1Mar18_incense.csv" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -135,6 +136,7 @@
     <Content Include="Images\catpringles.jpg" />
     <Content Include="Images\grumpycat.jpg" />
     <Content Include="Images\README.txt" />
+    <Content Include="PUM.jpg" />
     <None Include="Resources\mtloops.png" />
     <None Include="Resources\mtlapplogo.png" />
   </ItemGroup>
