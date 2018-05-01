@@ -25,7 +25,9 @@ namespace DFM
         Stream fStream;
         List<char> delimiters = new List<char> { ',', ' ','\t' };
         bool dataOption;
-        
+        bool ignoreWhiteSpace = true; // if we want to omit lines w/ empty cells
+        int omittedRows = 0;
+
         /* Class Variables - Public */
 
         // Use two-hump CamelFont by convention for public variables
@@ -75,7 +77,7 @@ namespace DFM
             dataOption = allColumns;
 
             /* Initialize the externally accessible properties */
-            CellMatrix = GetDataMatrix(fStream, delimiters[0]);
+            CellMatrix = GetDataMatrix(fStream, delimiters[0],ignoreWhiteSpace);
             FileString = GetFileString(fStream);
             DataString = GetDataString(CellMatrix, dataOption);
 
@@ -125,7 +127,7 @@ namespace DFM
         /// <param name="stream"></param>
         /// <returns></returns>
         private List<List<List<string>>> GetDataMatrix(Stream stream,
-            char delimiter)
+            char delimiter,bool removeVacancies)
         {
             /* Could modify this method to:
              * - omit lines with spaces between any pair of delimiters 
@@ -151,6 +153,7 @@ namespace DFM
             int previousDelimiters = 0; // Current delimiter/line for group
             int delimiters = 0; // Counts delimiters in a line
             int maxColumns = 0; // Stores the maximum columns/row
+            bool skipLine;
 
             // Build the 3D matrix from lines in the file
             while ((line = streamer.ReadLine()) != null)
@@ -160,6 +163,7 @@ namespace DFM
                 charIter = 1;// So that substring length is never 0
                 lastCharIndex = 0; // 
                 delimiters = 0; // Counts delimiters in a line
+                skipLine = false;
                 
                 // Get cells in line; Note: misses last cell if last char is
                 // not the specified delimiter
@@ -174,6 +178,8 @@ namespace DFM
                             string cell = line.Substring(lastCharIndex,
                                 charIter - lastCharIndex - 1);
                             //if (DEBUG) { Console.WriteLine("Cell: "+cell); }
+                            if (String.IsNullOrWhiteSpace(cell))
+                            { skipLine = true; }
                             cellRow.Add(cell);
                             lastCharIndex = charIter;
                         }
@@ -184,6 +190,10 @@ namespace DFM
                         Console.WriteLine("Woah, error: " + ex);
                     }
                 }
+                // Increment the omitted rows count if any cells vacant
+                if (skipLine)
+                    omittedRows++;
+
                 // Get the last cell if we didn't get it above
                 if (!line.EndsWith(delimiter.ToString()))
                 {
@@ -198,18 +208,27 @@ namespace DFM
                     // Create a new layer, except on first iteration
                     if (previousDelimiters > 0)
                     {
-                        CellMatrix3D.Add(new List<List<string>>(CellMatrix2D));
-                        CellMatrix2D = new List<List<string>>();
-                        CellMatrix2D.Add(cellRow);
+                        if (!skipLine) // add row if no cells were whitespace
+                        {
+                            CellMatrix3D.Add(new List<List<string>>(CellMatrix2D));
+                            CellMatrix2D = new List<List<string>>();
+                            CellMatrix2D.Add(cellRow);
+                        }
                     }
-                    else { CellMatrix2D.Add(cellRow);  }
+                    else
+                    {
+                        if (!skipLine) // add row if no cells were whitespace
+                            CellMatrix2D.Add(cellRow);
+                    }
                     previousDelimiters = delimiters;
                 }
                 else // Add the line of cells to the 2D matrix, reset cellRow
-                {
-                    CellMatrix2D.Add(cellRow);
-                    if (cellRow.Count > maxColumns)
-                    { maxColumns = cellRow.Count; }
+                {   if (!skipLine)
+                    {   // add row if no cells were whitespace
+                        CellMatrix2D.Add(cellRow); 
+                        if (cellRow.Count > maxColumns)
+                        { maxColumns = cellRow.Count; }
+                    }
                 }
                 lineIter++;
             }
@@ -220,6 +239,7 @@ namespace DFM
             {
                 string lines = (CellMatrix3D.ToArray()).Count().ToString();
                 Console.WriteLine("Lines in output: " + lines);
+                Console.WriteLine("Omitted lines: " + omittedRows);
             }
             MaxColumnCount = maxColumns;
             return CellMatrix3D;

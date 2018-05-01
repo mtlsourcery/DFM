@@ -27,7 +27,7 @@ namespace DFM
 
         /* Class Variables - Private */
 
-        bool allColumns; // true (false): retrieve all (only the largest group by
+        bool allColumns = false; // true (false): retrieve all (only the largest group by
                          // row count) of data columns in a file
 
         // The default browsing  and save directories saved in settings
