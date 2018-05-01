@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Reflection;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -540,10 +541,21 @@ namespace DFM
         private void MenuHelp_Click(object sender, EventArgs e)
         {
             // Do something here, e.g. open a help file (in a Form functionally
-            // identical to FilePreviewForm?), 
-        }
+            // identical to FilePreviewForm?)
 
-       
+            // Stand-in code (can edit later):
+            Stream fStream =
+                Assembly.GetExecutingAssembly().GetManifestResourceStream(
+                   "DFM.Text.HelpFile.txt");
+            if (fStream != null)
+            {
+                string fString = DataObject.GetFileString(fStream);
+                FilePreviewForm helpForm = new FilePreviewForm(fString);
+                helpForm.Show();
+            }
+            else
+                Console.WriteLine("Why is the file null?");
+        }
     }
 }
     

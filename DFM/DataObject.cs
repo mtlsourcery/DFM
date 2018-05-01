@@ -99,7 +99,7 @@ namespace DFM
         /// </summary>
         /// <param name="stream"></param>
         /// <returns></returns>
-        private string GetFileString(Stream stream)
+        public static string GetFileString(Stream stream)
         {
             // The stream is kind of like a VHS. You have to rewind it in
             // order to read it from the beginning. 

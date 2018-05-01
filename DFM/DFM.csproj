@@ -48,6 +48,11 @@
     <Compile Include="ColorsClass.cs" />
     <Compile Include="DataObject.cs" />
     <Compile Include="MessageHandler.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Settings.cs" />
     <Compile Include="ViewDataForm.cs">
       <SubType>Form</SubType>
@@ -99,14 +104,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <None Include="DFM_sample_uPEM.csv" />
     <None Include="DFM_sample_FWS.csv" />
     <None Include="Properties\Settings.settings">
@@ -128,6 +128,7 @@
     <Content Include="DFM_DataTest0b.txt" />
     <Content Include="DFM_DataTest0a.txt" />
     <Content Include="DFM_DataTest1.txt" />
+    <EmbeddedResource Include="Text\HelpFile.txt" />
     <Content Include="Images\catbowl1.jpg" />
     <Content Include="Images\catbox1.jpg" />
     <Content Include="Images\catbox2.jpg" />
@@ -137,8 +138,8 @@
     <Content Include="Images\grumpycat.jpg" />
     <Content Include="Images\README.txt" />
     <Content Include="PUM.jpg" />
-    <None Include="Resources\mtloops.png" />
-    <None Include="Resources\mtlapplogo.png" />
+    <None Include="Images\mtloops.png" />
+    <None Include="Images\mtlapplogo.png" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="Microsoft.Office.Core">
