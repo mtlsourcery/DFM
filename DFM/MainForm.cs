@@ -48,8 +48,8 @@ namespace DFM
         {
             InitializeComponent();
             this.FilenameBox.Text = "MTLX_LabFile" +
-                DateTime.Now.ToString().Replace('/', '_').Replace(' ', '_');
-            this.SaveDirTextBox.Text = saveDir;
+                DateTime.Now.ToString().Replace('/', '_').Replace(' ', '_').Replace(':','-');
+            this.SaveDirTextBox.Text = saveDir + '/';
             this.Icon = Icon.FromHandle(Properties.Resources.mtlapplogo.GetHicon());
         }
 
@@ -178,39 +178,30 @@ namespace DFM
         {
             // Set the save directory and output filename
             string saveStr = SaveDirTextBox.Text + FilenameBox.Text + ".csv";
-            StreamWriter csvWriter = new StreamWriter(saveStr); //-- Do we need a StreamWriter?
-
-            // Populate the worksheet with data from the files
-            int tab = 0;
-            foreach (var entry in dataObjects)
+            //Console.WriteLine(saveStr);
+            using (TextWriter csvWriter = new StreamWriter(saveStr))
             {
-                var dataObject = entry.Value;
+                // Populate the worksheet with data from the files  
                 try
                 {
-                    if (dataObject.HasData)
+                    foreach (var entry in dataObjects)
                     {
-                        int maxColNum = entry.Value.MaxColumnCount;
-                        List<List<string>> dataRows = entry.Value.DataRows;
-                        for (int i = 0; i < maxColNum; i++)
-                        {
-                            List<string> dataRow = dataRows[i];
+                        var dataObject = entry.Value;
+                        if (dataObject.HasData)
+                        { 
+                            string dataString = entry.Value.DataString;
+                            csvWriter.WriteLine(dataString);
                         }
                     }
                 }
                 catch (Exception ex)
-                {
-                    // Code to go here
+                {   
+                    msgHandler.ShowException(ex);
                 }
             }
-            try
-            {
-                //code here
-            }
-            catch (Exception ex)
-            {
-                msgHandler.ShowException(ex);
-            }
+
         }
+   
 
         /* Class Event Handlers */
 
@@ -302,7 +293,7 @@ namespace DFM
                     if (selectedDir != null)
                     {
                         // Display the name of the selected directory
-                        SaveDirTextBox.Text = selectedDir;
+                        SaveDirTextBox.Text = selectedDir + @"\";
 
                         string msg = "Set " + selectedDir +
                             Environment.NewLine +

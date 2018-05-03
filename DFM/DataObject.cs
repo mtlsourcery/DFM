@@ -247,7 +247,7 @@ namespace DFM
 
         /// <summary>
         /// Returns a string of lines of whitespace-delimited cells from a 2D 
-        /// cell matrix cellMat2D. Primarily used for debugging purposes. 
+        /// cell matrix cellMat2D. Primarily used in WriteNewCSVFile. 
         /// </summary>
         /// <param name="cellMat2D"></param>
         /// <returns>String of lines of white space delimited cells from cellMat2D
@@ -267,7 +267,7 @@ namespace DFM
 
                     foreach (string cell in line)
                     {
-                        lines.Append(cell + " ");
+                        lines.Append(cell + ",");
                     }
                     lines.Append(Environment.NewLine);
 
@@ -318,11 +318,11 @@ namespace DFM
             StringBuilder outputStrBldr = new StringBuilder();
             switch (returnOption)
             {
-                case true: // return only the largest group
+                case false: // return only the largest group
                     outputStrBldr.Append(StringFrom2DMatrix(
                         GetDesired2DMatrix(cellMat3D)));
                     break;
-                case false: // return all groups i separated by '\n'
+                case true: // return all groups i separated by '\n'
                     foreach (List<List<string>> dataMat2D in cellMat3D)
                     {
                         string layer = StringFrom2DMatrix(dataMat2D);
