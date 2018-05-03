@@ -201,7 +201,75 @@ namespace DFM
             }
 
         }
-   
+
+        /// <summary>
+        /// Write a separate Excel (.xlsx) file for each entry in dataObjects. 
+        /// </summary>
+        /// <param name="dataObjects"></param>
+        private void WriteSeparateExcelFiles(Dictionary<string, DataObject>
+            dataObjects)
+        {
+            Excel.Application xlApp = new Excel.Application();
+            if (xlApp == null)
+            {
+                msgHandler.ShowMessage("MS Excel installation not found."
+                    + Environment.NewLine + "Can not write spreadsheet.", 0);
+                return;
+            }
+
+            // Set the save directory and output filename
+            string saveStr = " ";
+            foreach (var entry in dataObjects)
+            {
+                Excel.Workbook xlWorkBook;
+                Excel.Worksheet xlWorkSheet;
+                var format = Excel.XlFileFormat.xlOpenXMLWorkbook;
+                object misValue = System.Reflection.Missing.Value;
+
+                xlWorkBook = xlApp.Workbooks.Add(misValue);
+                xlWorkSheet = (Excel.Worksheet)xlWorkBook.Worksheets.get_Item(1);
+
+                // Populate the worksheet with data from the files
+                int lastCol = 0;
+
+                saveStr = SaveDirTextBox.Text + FilenameBox.Text + entry.Key + ".xlsx";
+                var dataObject = entry.Value;
+                try
+                {
+                    if (dataObject.HasData)
+                    {
+                        for (int j = 0; j < dataObject.DataColumns.Count; j++)
+                        {
+                            for (int i = 0; i < dataObject.DataColumns[j].Count; i++)
+                            {
+                                // Note that Excel cells use 1-based indexing
+                                xlWorkSheet.Cells[i + 1, j + 1 + lastCol] =
+                                    dataObject.DataColumns[j][i].ToString();
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    msgHandler.ShowException(ex);
+                }
+                //lastCol += dataObject.DataColumns.Count;
+
+                try
+                {
+                    xlWorkBook.SaveAs(saveStr, format, misValue, misValue, misValue,
+                   misValue, Excel.XlSaveAsAccessMode.xlExclusive, misValue,
+                   misValue, misValue, misValue, misValue);
+                    xlWorkBook.Close(true, misValue, misValue);
+                    xlApp.Quit();
+                }
+                catch (Exception ex)
+                {
+                    msgHandler.ShowException(ex);
+                }
+            }
+        }
+
 
         /* Class Event Handlers */
 
@@ -449,6 +517,8 @@ namespace DFM
                 { WriteNewExcelFile(DataObject.ObjectList); }
                 if (CSV_ChBox.Checked)
                 { WriteNewCSVFile(DataObject.ObjectList); }
+                if (sExcel_ChBox.Checked)
+                { WriteSeparateExcelFiles(DataObject.ObjectList); }
                 //if (otherChBox.Checked)...
             }
             else
@@ -546,6 +616,11 @@ namespace DFM
             }
             else
                 Console.WriteLine("Why is the file null?");
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

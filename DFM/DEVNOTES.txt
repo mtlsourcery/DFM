@@ -31,9 +31,9 @@ Some Pointers:
 --------------------------------------------------------------------------------
 Dailyish Notes
 3 May, 2018 - 
-	Worked on CSV writer method, updated StringFrom2D matrix to be delimited by
-	commas rather than spaces
-
+	Completed on CSV writer method
+	Completed Separate Excel writer method
+	Updated StringFrom2D matrix to be delimited by commas rather than spaces
 27 April, 2018 -
 	Bug in RemoveFileButton_Click fixed.
 
