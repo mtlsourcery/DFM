@@ -258,8 +258,8 @@ namespace DFM
                 try
                 {
                     xlWorkBook.SaveAs(saveStr, format, misValue, misValue, misValue,
-                   misValue, Excel.XlSaveAsAccessMode.xlExclusive, misValue,
-                   misValue, misValue, misValue, misValue);
+                    misValue, Excel.XlSaveAsAccessMode.xlExclusive, misValue,
+                    misValue, misValue, misValue, misValue);
                     xlWorkBook.Close(true, misValue, misValue);
                     xlApp.Quit();
                 }
