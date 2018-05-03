@@ -290,6 +290,9 @@ namespace DFM
                 // The @'s force the compiler to ignore escape sequences, e.g. 
                 // '\' does not have to be typed '\\'
 
+                //Allow for multiple file selections
+             
+                
                 //InitialDirectory = @"C:\Users\Preston Huft\Documents\Visual " +
                 //@"Studio 2017\Projects\DFM\DFM",
                 InitialDirectory = initialDir,
@@ -298,6 +301,7 @@ namespace DFM
                 FilterIndex = 1,
                 RestoreDirectory = true
             };
+            openFileDialog.Multiselect = true;
 
             // Try to open the file selection dialog
             if (openFileDialog.ShowDialog() == DialogResult.OK)
@@ -308,24 +312,37 @@ namespace DFM
                     if ((fileStream = openFileDialog.OpenFile()) != null)
                     {
                         // Get the filename
-                        filename = openFileDialog.SafeFileName;
+                        string[] filenames = openFileDialog.SafeFileNames;
 
                         // Create new dataObject. Notice that we don't have to
                         // assign new objects to a variables. We can access this
-                        // by its filename: DataObject.ObjectList[filename]
-                        new DataObject(filename, fileStream, allColumns);
+                        // by its filename: DataObject.ObjectList[filename
+                        foreach (var entry in filenames)
+                        {
+                            try
+                            {
 
-                        // List the file's data in DataListBox
-                        var dataObj = DataObject.ObjectList[filename];
-                        string item = filename + " (" +
-                            dataObj.DataColumns.Count.ToString() +
-                            " Columns)";
-                        DataListBox.Items.Add(item);
+                                filename = entry;
 
-                        // Add filename to FileListBox
-                        FileListBox.Items.Add(filename);
+                                new DataObject(filename, fileStream, allColumns);
 
-                        if (DEBUG) { PrintDictionary(); }
+                                // List the file's data in DataListBox
+                                var dataObj = DataObject.ObjectList[filename];
+                                string item = filename + " (" +
+                                    dataObj.DataColumns.Count.ToString() +
+                                    " Columns)";
+                                DataListBox.Items.Add(item);
+
+                                // Add filename to FileListBox
+                                FileListBox.Items.Add(filename);
+
+                                if (DEBUG) { PrintDictionary(); }
+                            }
+                            catch (Exception ex)
+                            {
+                                msgHandler.ShowException(ex);
+                            }
+                        }
                     }
                 }
                 catch (Exception ex)
