@@ -30,6 +30,10 @@ Some Pointers:
 
 --------------------------------------------------------------------------------
 Dailyish Notes
+8 May, 2018 -
+	DataObject.GetHeader implemented. 
+	Edited ViewDataForm to check for header flags and make headers, but isn't 
+	working yet.
 3 May, 2018 - 
 	Completed on CSV writer method
 	Completed Separate Excel writer method

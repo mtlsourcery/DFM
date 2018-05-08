@@ -39,12 +39,12 @@ namespace DFM
         public int MaxRowCount; // The largest number of rows/group
 
         /// <summary>
-        /// Columns of data. May be unnecessary, due to the way C# handles data.
+        /// Largest group of data columns by row count, unless dataOption=true.
         /// </summary>
         public List<List<string>> DataColumns = new List<List<string>>();
 
         /// <summary>
-        /// The rows of data. 
+        ///  Largest group of data rows by row count, unless dataOption=true.
         /// </summary>
         public List<List<string>> DataRows = new List<List<string>>();
 
@@ -449,14 +449,17 @@ namespace DFM
             // If the parse to double fails, the cell has alphabetic chars
             if (!double.TryParse(testRow[0], out double number))
             {
-                // If the first cell didn't parse, assume the whole row won't
+                /* If the first cell didn't parse, assume the whole row won't.
+                 * If we're using the DataRows property, we need only check the
+                 * first entry of DataRows[0] for a flag. However, if we use the
+                 * DataColumns, then we'll have to check the first entry of each
+                 * List for a flag. Hence, flag all entries in row 0. */
                 for (int i = 0; i < testRow.Count; i++)
-                {
+                {   
                     testRow[i] = HEADER_FLAG + testRow[i];
                 }
             }
-
-            // return testRow, which might now have "flagged" cells
+            // return testRow, which might now have flagged cells
             return testRow;
         }
     }
