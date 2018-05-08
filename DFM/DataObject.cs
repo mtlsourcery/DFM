@@ -17,6 +17,7 @@ namespace DFM
         /* Class Constants */
 
         const bool DEBUG = true;
+        public const string HEADER_FLAG = "^.^";
 
         /* Class Variables - Private */
 
@@ -210,6 +211,9 @@ namespace DFM
                     {
                         if (!skipLine) // add row if no cells were whitespace
                         {
+                            // Flag the header row, if its a header
+                            CellMatrix2D[0] = GetHeader(CellMatrix2D[0]);
+                            // Add the 2D mat to the 3D mat
                             CellMatrix3D.Add(new List<List<string>>(CellMatrix2D));
                             CellMatrix2D = new List<List<string>>();
                             CellMatrix2D.Add(cellRow);
@@ -233,6 +237,7 @@ namespace DFM
                 lineIter++;
             }
             // The last 2D matrix has to be added to the 3D matrix here:
+            CellMatrix2D[0] = GetHeader(CellMatrix2D[0]);
             CellMatrix3D.Add(new List<List<string>>(CellMatrix2D));
             CellMatrix2D.Clear();
             if (DEBUG)
@@ -439,9 +444,20 @@ namespace DFM
         /// if (rows[0][i].Substring(0,2) == '&^') 
         ///     header[i] == rows[0][i].Substring(2,rows[0][i].Count-2)
         /// </summary>
-        private void FlagHeaders()
+        private List<string> GetHeader(List<string> testRow)
         {
-            // code here
+            // If the parse to double fails, the cell has alphabetic chars
+            if (!double.TryParse(testRow[0], out double number))
+            {
+                // If the first cell didn't parse, assume the whole row won't
+                for (int i = 0; i < testRow.Count; i++)
+                {
+                    testRow[i] = HEADER_FLAG + testRow[i];
+                }
+            }
+
+            // return testRow, which might now have "flagged" cells
+            return testRow;
         }
     }
 }
