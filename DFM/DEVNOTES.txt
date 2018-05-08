@@ -31,9 +31,12 @@ Some Pointers:
 --------------------------------------------------------------------------------
 Dailyish Notes
 8 May, 2018 -
+	Consider not flagging the header cells. If we want to include the headers in
+	the csv and xlsx outputs, we would have to remove the flags in these methods. 
+	Instead, could just set a bool HasHeader.
 	DataObject.GetHeader implemented. 
-	Edited ViewDataForm to check for header flags and make headers, but isn't 
-	working yet.
+	Edited ViewDataForm to check for header flags and make headers. Need to edit
+	MainForm.WriteNewExcelFile(),WriteSeparateExcelFile
 3 May, 2018 - 
 	Completed on CSV writer method
 	Completed Separate Excel writer method

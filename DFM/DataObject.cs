@@ -211,8 +211,8 @@ namespace DFM
                     {
                         if (!skipLine) // add row if no cells were whitespace
                         {
-                            // Flag the header row, if its a header
-                            CellMatrix2D[0] = GetHeader(CellMatrix2D[0]);
+                            //// Flag the header row, if its a header
+                            //CellMatrix2D[0] = GetHeader(CellMatrix2D[0]);
                             // Add the 2D mat to the 3D mat
                             CellMatrix3D.Add(new List<List<string>>(CellMatrix2D));
                             CellMatrix2D = new List<List<string>>();
@@ -237,7 +237,7 @@ namespace DFM
                 lineIter++;
             }
             // The last 2D matrix has to be added to the 3D matrix here:
-            CellMatrix2D[0] = GetHeader(CellMatrix2D[0]);
+            //CellMatrix2D[0] = GetHeader(CellMatrix2D[0]);
             CellMatrix3D.Add(new List<List<string>>(CellMatrix2D));
             CellMatrix2D.Clear();
             if (DEBUG)
@@ -435,32 +435,49 @@ namespace DFM
             return new List<List<string>>[] { dataRows, dataColumns };
         }
 
+        ///// <summary>
+        ///// Check for non-numeric strings in the first row of each group, and 
+        ///// "flag" those strings. Flag could be appending some rarely used char
+        ///// or group of chars (e.g. '&^') onto the front of the alphabetic 
+        ///// string. Then, when populating DataGridViews or spreadsheets, make
+        ///// a header from the flagged string (e.g., 
+        ///// if (rows[0][i].Substring(0,2) == '&^') 
+        /////     header[i] == rows[0][i].Substring(2,rows[0][i].Count-2)
+        ///// </summary>
+        //private List<string> GetHeader(List<string> testRow)
+        //{
+        //    // If the parse to double fails, the cell has alphabetic chars
+        //    if (!double.TryParse(testRow[0], out double number))
+        //    {
+        //        /* If the first cell didn't parse, assume the whole row won't.
+        //         * If we're using the DataRows property, we need only check the
+        //         * first entry of DataRows[0] for a flag. However, if we use the
+        //         * DataColumns, then we'll have to check the first entry of each
+        //         * List for a flag. Hence, flag all entries in row 0. */
+        //        for (int i = 0; i < testRow.Count; i++)
+        //        {   
+        //            testRow[i] = HEADER_FLAG + testRow[i];
+        //        }
+        //    }
+        //    // return testRow, which might now have flagged cells
+        //    return testRow;
+        //}
+
         /// <summary>
-        /// Check for non-numeric strings in the first row of each group, and 
-        /// "flag" those strings. Flag could be appending some rarely used char
-        /// or group of chars (e.g. '&^') onto the front of the alphabetic 
-        /// string. Then, when populating DataGridViews or spreadsheets, make
-        /// a header from the flagged string (e.g., 
-        /// if (rows[0][i].Substring(0,2) == '&^') 
-        ///     header[i] == rows[0][i].Substring(2,rows[0][i].Count-2)
+        /// Checks the zeroth row of dataRow for non-numeric values, which would 
+        /// indicate a header in a set of numeric data. Note that this may return
+        /// false when dataRows is a concatenation of all row groups (i.e. when
+        /// dataOption=true), as it only checks the zeroth row.
         /// </summary>
-        private List<string> GetHeader(List<string> testRow)
+        /// <param name="dataRows"></param>
+        /// <returns></returns>
+        private bool HasHeader(List<List<string>> dataRows)
         {
-            // If the parse to double fails, the cell has alphabetic chars
-            if (!double.TryParse(testRow[0], out double number))
-            {
-                /* If the first cell didn't parse, assume the whole row won't.
-                 * If we're using the DataRows property, we need only check the
-                 * first entry of DataRows[0] for a flag. However, if we use the
-                 * DataColumns, then we'll have to check the first entry of each
-                 * List for a flag. Hence, flag all entries in row 0. */
-                for (int i = 0; i < testRow.Count; i++)
-                {   
-                    testRow[i] = HEADER_FLAG + testRow[i];
-                }
-            }
-            // return testRow, which might now have flagged cells
-            return testRow;
+            bool hasHeader = false;
+            // Try to parse the (0,0)th cell as a double
+            if (!double.TryParse(dataRows[0][0], out double number))
+                hasHeader = true;
+            return hasHeader;
         }
     }
 }

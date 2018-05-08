@@ -67,16 +67,10 @@ namespace DFM
 
                 // Add the data rows to the DataGridView. if we added column 
                 // headers above, then start at the 1st row, not 0th row.
-                for(int i = rowStart; i < dataRows.Count; i++)
+                for (int i = rowStart; i < dataRows.Count; i++)
                 {
                     dataGridView.Rows.Add(dataRows[i].ToArray());
                 }
-
-                //// Add the data rows to the DataGridView 
-                //foreach (var row in dataRows)
-                //{
-                //    dataGridView.Rows.Add(row.ToArray());
-                //}
 
                 DataTabs.TabPages.Add(new TabPage(entry.Key));
                 DataTabs.TabPages[tab].Controls.Add(dataGridView);
