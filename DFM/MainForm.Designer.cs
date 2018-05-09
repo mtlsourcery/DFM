@@ -61,7 +61,7 @@
             this.FileLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FileLabel.Location = new System.Drawing.Point(15, 44);
             this.FileLabel.Name = "FileLabel";
-            this.FileLabel.Size = new System.Drawing.Size(76, 20);
+            this.FileLabel.Size = new System.Drawing.Size(60, 16);
             this.FileLabel.TabIndex = 0;
             this.FileLabel.Text = "File(s): ";
             // 
@@ -82,10 +82,10 @@
             this.SaveDirTextBox.Location = new System.Drawing.Point(18, 397);
             this.SaveDirTextBox.MaxLength = 40;
             this.SaveDirTextBox.Name = "SaveDirTextBox";
-            this.SaveDirTextBox.ReadOnly = true;
             this.SaveDirTextBox.Size = new System.Drawing.Size(249, 22);
             this.SaveDirTextBox.TabIndex = 6;
             this.SaveDirTextBox.Text = "No folder selected";
+            this.SaveDirTextBox.TextChanged += new System.EventHandler(this.SaveDirTextBox_TextChanged);
             // 
             // SaveDirButton
             // 
@@ -103,7 +103,7 @@
             this.SaveDirLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SaveDirLabel.Location = new System.Drawing.Point(15, 377);
             this.SaveDirLabel.Name = "SaveDirLabel";
-            this.SaveDirLabel.Size = new System.Drawing.Size(146, 20);
+            this.SaveDirLabel.Size = new System.Drawing.Size(119, 16);
             this.SaveDirLabel.TabIndex = 8;
             this.SaveDirLabel.Text = "Save Directory: ";
             // 
@@ -113,7 +113,7 @@
             this.ProcessLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ProcessLabel.Location = new System.Drawing.Point(15, 272);
             this.ProcessLabel.Name = "ProcessLabel";
-            this.ProcessLabel.Size = new System.Drawing.Size(180, 20);
+            this.ProcessLabel.Size = new System.Drawing.Size(147, 16);
             this.ProcessLabel.TabIndex = 9;
             this.ProcessLabel.Text = "Processing Options:";
             // 
@@ -122,7 +122,7 @@
             this.LabCert_ChBox.AutoSize = true;
             this.LabCert_ChBox.Location = new System.Drawing.Point(18, 331);
             this.LabCert_ChBox.Name = "LabCert_ChBox";
-            this.LabCert_ChBox.Size = new System.Drawing.Size(190, 21);
+            this.LabCert_ChBox.Size = new System.Drawing.Size(179, 20);
             this.LabCert_ChBox.TabIndex = 10;
             this.LabCert_ChBox.Text = "Fill lab analysis certificate";
             this.LabCert_ChBox.UseVisualStyleBackColor = true;
@@ -132,7 +132,7 @@
             this.Excel_ChBox.AutoSize = true;
             this.Excel_ChBox.Location = new System.Drawing.Point(18, 291);
             this.Excel_ChBox.Name = "Excel_ChBox";
-            this.Excel_ChBox.Size = new System.Drawing.Size(253, 21);
+            this.Excel_ChBox.Size = new System.Drawing.Size(238, 20);
             this.Excel_ChBox.TabIndex = 12;
             this.Excel_ChBox.Text = "Export merged data to spreadsheet";
             this.Excel_ChBox.UseVisualStyleBackColor = true;
@@ -193,7 +193,7 @@
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(15, 155);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(118, 20);
+            this.label1.Size = new System.Drawing.Size(96, 16);
             this.label1.TabIndex = 18;
             this.label1.Text = "Data Found: ";
             // 
@@ -224,7 +224,7 @@
             this.FileNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FileNameLabel.Location = new System.Drawing.Point(15, 425);
             this.FileNameLabel.Name = "FileNameLabel";
-            this.FileNameLabel.Size = new System.Drawing.Size(329, 20);
+            this.FileNameLabel.Size = new System.Drawing.Size(266, 16);
             this.FileNameLabel.TabIndex = 22;
             this.FileNameLabel.Text = "Output Filename (exclude extension): ";
             // 
@@ -233,7 +233,7 @@
             this.CSV_ChBox.AutoSize = true;
             this.CSV_ChBox.Location = new System.Drawing.Point(18, 311);
             this.CSV_ChBox.Name = "CSV_ChBox";
-            this.CSV_ChBox.Size = new System.Drawing.Size(223, 21);
+            this.CSV_ChBox.Size = new System.Drawing.Size(209, 20);
             this.CSV_ChBox.TabIndex = 23;
             this.CSV_ChBox.Text = "Export merged data to CSV file";
             this.CSV_ChBox.UseVisualStyleBackColor = true;
@@ -253,7 +253,7 @@
             this.sExcel_ChBox.AutoSize = true;
             this.sExcel_ChBox.Location = new System.Drawing.Point(18, 351);
             this.sExcel_ChBox.Name = "sExcel_ChBox";
-            this.sExcel_ChBox.Size = new System.Drawing.Size(268, 21);
+            this.sExcel_ChBox.Size = new System.Drawing.Size(252, 20);
             this.sExcel_ChBox.TabIndex = 25;
             this.sExcel_ChBox.Text = "Export data to seperate spreadsheets";
             this.sExcel_ChBox.UseVisualStyleBackColor = true;
@@ -264,31 +264,29 @@
             this.MenuSettings,
             this.MenuHelp});
             this.MenuItem.Name = "MenuItem";
-            this.MenuItem.Size = new System.Drawing.Size(58, 24);
+            this.MenuItem.Size = new System.Drawing.Size(50, 20);
             this.MenuItem.Text = "Menu";
             // 
             // MenuSettings
             // 
             this.MenuSettings.Name = "MenuSettings";
-            this.MenuSettings.Size = new System.Drawing.Size(137, 26);
+            this.MenuSettings.Size = new System.Drawing.Size(116, 22);
             this.MenuSettings.Text = "Settings";
             this.MenuSettings.Click += new System.EventHandler(this.MenuSettings_Click);
             // 
             // MenuHelp
             // 
             this.MenuHelp.Name = "MenuHelp";
-            this.MenuHelp.Size = new System.Drawing.Size(137, 26);
+            this.MenuHelp.Size = new System.Drawing.Size(116, 22);
             this.MenuHelp.Text = "Help";
             this.MenuHelp.Click += new System.EventHandler(this.MenuHelp_Click);
             // 
             // menuStrip1
             // 
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.MenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(397, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(397, 24);
             this.menuStrip1.TabIndex = 19;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -322,7 +320,6 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
             this.Text = "MTL Data File Manager";
-            this.Load += new System.EventHandler(this.MainForm_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);

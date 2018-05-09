@@ -29,7 +29,69 @@ Some Pointers:
 - Make good comments. https://img.devrant.com/devrant/rant/r_83437_EKoUL.jpg
 
 --------------------------------------------------------------------------------
+To-Do List: (Ranked by priority) Need things to do Drew (and Nate and Lincoln?)?
+
+* As soon as a rudimentary version is working with some fundamental capabilities
+(e.g. able to pull data from XRF data files and output to spreadsheet?), pull
+the .exe from DFM>DFM>bin>Debug and install it on the PCs in the XRF lab. And,
+tell David! If David starts using it, then maybe the knowledge/use of this code
+will passed on... an MTLegacy.
+
+- 
+- Expand pattern recognition in DataObject methods to search check for other 
+	delimiters (e.g. whitespace or \tab)
+- Modify DataObject class to be able to handle XLSX (spreadsheet) files. See:
+	http://csharp.net-informations.com/excel/csharp-open-excel.htm
+	http://csharp.net-informations.com/excel/csharp-read-excel.htm
+	http://csharp.net-informations.com/excel/csharp-read-excel.htm
+- Fill in DataObject.FlagHeaders method
+- Modify ViewDataForm.GridTabInit to look for flagged headers (see 
+	DataObject.FlagHeaders)s
+- Add option to omit data rows for which at least one cell is empty. E.g. the 
+	row (Milk,2.50,,Target) would be omitted from your shopping list table. This
+	way, there will be no vacant cells.
+- If initial directory is not found when attempting to browse files, pop open a
+	dialogue asking for a new default directory (could store this in an settings
+	file eventually).
+- Allow multiple-file selection in file dialog (would set this in 
+	AddButton_click()).
+
+--------------------------------------------------------------------------------
+Maybe-Do List:
+- Add method prototypes to the DataObject class to add to the skeleton of 
+	potential features.
+- Use databinding techniques to link items in FileListBox and DataListBox,
+	so that when an item is added/removed in one ListBox, so is the 
+	corresponding item in the other. Or leave it, because the current method 
+	works.
+- Add a SettingsForm to allow changing of settings. 
+- Add option to save file in PreviewFileForm.
+- Find a different cat image api... maybe a gif-only api. There are occasional
+	questionable images (nothing obscene, just a bit odd) that pop up in the 
+	current database.
+- Add a terminal (command prompt) mode as an alternative to the gui. 
+- Implement a function output the source of an exception and its message to the 
+	VS console. Throw this in several functions?
+- Write/train a neural net to find data in files, rather than explicitly looking
+	for delimiters and other patterns. This would be reallly ambitious. But a 
+	good opportunity to learn more about NN's.
+
+--------------------------------------------------------------------------------
 Dailyish Notes
+9 May, 2018 - 
+	IndexOutOfRangeException thrown when data is viewed after one file added,
+	then data viewed, then another file added. I think the error is occuring
+	in ViewDataForm.GridTabsInit(), and has nothing to do with the way I added 
+	the files, but with the content of DFM_DataTest0b.txt.
+
+	MainForm.WriteNewCSVFile(),WriteNewExcelFile() are return the rows 
+	of data for only the first selected file, but repeated on time for each file
+	selected. I.e., if fileA and fileB are selected, fileA's rows will show up 
+	twice in the exported file, but fileB's will be absent. Fix this!
+
+	MainForm.WriteNewCSVFile() should place columns of all files side-by-side, 
+	not top-down by incrementing in rows. See MainForm.WriteNewExcelFile().
+
 8 May, 2018 -
 	Consider not flagging the header cells. If we want to include the headers in
 	the csv and xlsx outputs, we would have to remove the flags in these methods. 
@@ -134,55 +196,10 @@ Dailyish Notes
 	formats (.csv, .txt, .rtf, and .xlsx for now). 
 
 --------------------------------------------------------------------------------
-To-Do List: (Ranked by priority) Need things to do Drew (and Nate and Lincoln?)?
-
-- Implement merge columns to excel spreadsheet output processing option. 
-	http://csharp.net-informations.com/excel/csharp-create-excel.htm
-- Expand pattern recognition in DataObject methods to search check for other 
-	delimiters (e.g. whitespace or \tab)
-- Modify DataObject class to be able to handle XLSX (spreadsheet) files. See:
-	http://csharp.net-informations.com/excel/csharp-open-excel.htm
-	http://csharp.net-informations.com/excel/csharp-read-excel.htm
-	http://csharp.net-informations.com/excel/csharp-read-excel.htm
-- Fill in DataObject.FlagHeaders method
-- Modify ViewDataForm.GridTabInit to look for flagged headers (see 
-	DataObject.FlagHeaders)s
-- Add option to omit data rows for which at least one cell is empty. E.g. the 
-	row (Milk,2.50,,Target) would be omitted from your shopping list table. This
-	way, there will be no vacant cells.
-- If initial directory is not found when attempting to browse files, pop open a
-	dialogue asking for a new default directory (could store this in an settings
-	file eventually).
-- Allow multiple-file selection in file dialog (would set this in 
-	AddButton_click()).
-
-* As soon as a rudimentary version is working with some fundamental capabilities
-(e.g. able to pull data from XRF data files and output to spreadsheet?), pull
-the .exe from DFM>DFM>bin>Debug and install it on the PCs in the XRF lab. And,
-tell David! If David starts using it, then maybe the knowledge/use of this code
-will passed on... an MTLegacy.
-
---------------------------------------------------------------------------------
-Maybe-Do List:
-- Add method prototypes to the DataObject class to add to the skeleton of 
-	potential features.
-- Use databinding techniques to link items in FileListBox and DataListBox,
-	so that when an item is added/removed in one ListBox, so is the 
-	corresponding item in the other. Or leave it, because the current method 
-	works.
-- Add a SettingsForm to allow changing of settings. 
-- Add option to save file in PreviewFileForm.
-- Find a different cat image api... maybe a gif-only api. There are occasional
-	questionable images (nothing obscene, just a bit odd) that pop up in the 
-	current database.
-- Add a terminal (command prompt) mode as an alternative to the gui. 
-- Implement a function output the source of an exception and its message to the 
-	VS console. Throw this in several functions?
-- Write/train a neural net to find data in files, rather than explicitly looking
-	for delimiters and other patterns. This would be reallly ambitious.
-
---------------------------------------------------------------------------------
 Did List:
+3 May, 2018 - 
+	- Implement merge columns to excel spreadsheet output processing option. 
+	http://csharp.net-informations.com/excel/csharp-create-excel.htm
 18 April, 2018 - Added TableForm for previewing data columns
 	- Add a MenuStrip at the top of MainForm to allow selection of 
 	options like 'help' and 'settings'.

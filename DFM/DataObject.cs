@@ -32,11 +32,38 @@ namespace DFM
         /* Class Variables - Public */
 
         // Use two-hump CamelFont by convention for public variables
+
+        /// <summary>
+        /// True if data columns were found.
+        /// </summary>
         public bool HasData = false;
-        public string FileString; // The verbatim contents of the file
-        public string DataString; // The processed data in string format
-        public int MaxColumnCount; // The largest number of rows/group
-        public int MaxRowCount; // The largest number of rows/group
+
+        /// <summary>
+        /// True if a header was found.
+        /// </summary>
+        public bool HasHeader = false;
+
+        /// <summary>
+        /// The verbatim contents of the file.
+        /// </summary>
+        public string FileString;
+
+        /// <summary>
+        /// The extracted data in string format.
+        /// </summary>
+        public string DataString;
+
+        /// <summary>
+        /// The largest number of columns/group where groups are sorted by row
+        /// count.
+        /// </summary>
+        public int MaxColumnCount;
+
+        /// <summary>
+        /// The largest number of rows/group where groups are sorted by row
+        /// count.
+        /// </summary>
+        public int MaxRowCount;
 
         /// <summary>
         /// Largest group of data columns by row count, unless dataOption=true.
@@ -87,6 +114,7 @@ namespace DFM
             DataRows = rowsNcols[0];
             DataColumns = rowsNcols[1];
             HasData = (DataColumns.Count > 0);
+            HasHeader = CheckForHeader(DataRows);
 
             // Add this instance to our running list
             ObjectList.Add(fnameStr, this);
@@ -154,7 +182,7 @@ namespace DFM
             int previousDelimiters = 0; // Current delimiter/line for group
             int delimiters = 0; // Counts delimiters in a line
             int maxColumns = 0; // Stores the maximum columns/row
-            bool skipLine;
+            bool skipLine; // determines whether we add a line to the group
 
             // Build the 3D matrix from lines in the file
             while ((line = streamer.ReadLine()) != null)
@@ -471,7 +499,7 @@ namespace DFM
         /// </summary>
         /// <param name="dataRows"></param>
         /// <returns></returns>
-        private bool HasHeader(List<List<string>> dataRows)
+        private bool CheckForHeader(List<List<string>> dataRows)
         {
             bool hasHeader = false;
             // Try to parse the (0,0)th cell as a double

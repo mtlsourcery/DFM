@@ -22,8 +22,8 @@ namespace DFM
     {
         /* Class Constants */
         const bool DEBUG = true;
-        const string DEFAULT_BROWSE_DIR = @"C:\";
-        const string DEFAULT_SAVE_DIR = @"C:\";
+        const string DEFAULT_BROWSE_DIR = @"C:";
+        const string DEFAULT_SAVE_DIR = @"C:";
 
         /* Class Variables - Private */
 
@@ -37,8 +37,6 @@ namespace DFM
         // The message handler
         MessageHandler msgHandler = new MessageHandler();
 
-        /* Class Methods */
-
         /* Class Methods - Miscellaneous */ 
         
         /// <summary>
@@ -47,15 +45,11 @@ namespace DFM
         public MainForm()
         {
             InitializeComponent();
-            this.FilenameBox.Text = "MTLX_LabFile" +
-                DateTime.Now.ToString().Replace('/', '_').Replace(' ', '_').Replace(':','-');
-            this.SaveDirTextBox.Text = saveDir + '/';
+            this.FilenameBox.Text = "MTLX_LabFile_" + DateTime.Now.ToString(
+                ).Replace('/', '_').Replace(' ', '_').Replace(':','.');
+            this.SaveDirTextBox.Text = saveDir + @"\";
             this.Icon = Icon.FromHandle(Properties.Resources.mtlapplogo.GetHicon());
         }
-
-        // REMOVE LATER; PEDANTIC ONLY
-        ColorsClass newColor = new ColorsClass(0, 255, 0, 100);
-        List<string> rgbVals = ColorsClass.GetMaxRGB();
 
         /// <summary>
         /// Prints the keys in myFiles to the Output Console. Used for debugging
@@ -271,7 +265,7 @@ namespace DFM
         }
 
 
-        /* Class Event Handlers */
+        /* Class Methods - Event Handlers */
 
         /// <summary>
         /// Handles AddFileButton click event.
@@ -288,10 +282,7 @@ namespace DFM
             OpenFileDialog openFileDialog = new OpenFileDialog()
             {
                 // The @'s force the compiler to ignore escape sequences, e.g. 
-                // '\' does not have to be typed '\\'
-
-                //Allow for multiple file selections
-             
+                // '\' does not have to be typed '\\'             
                 
                 //InitialDirectory = @"C:\Users\Preston Huft\Documents\Visual " +
                 //@"Studio 2017\Projects\DFM\DFM",
@@ -311,19 +302,17 @@ namespace DFM
                     // Check if the selected file is null
                     if ((fileStream = openFileDialog.OpenFile()) != null)
                     {
-                        // Get the filename
                         string[] filenames = openFileDialog.SafeFileNames;
-
-                        // Create new dataObject. Notice that we don't have to
-                        // assign new objects to a variables. We can access this
-                        // by its filename: DataObject.ObjectList[filename
+                        // Populate the ListBoxes and create DataObjects
                         foreach (var entry in filenames)
                         {
                             try
                             {
-
                                 filename = entry;
 
+                                // Create new dataObject. Notice that we don't have to
+                                // assign new objects to variables. We can access this
+                                // by its filename: DataObject.ObjectList[filename]
                                 new DataObject(filename, fileStream, allColumns);
 
                                 // List the file's data in DataListBox
@@ -488,7 +477,8 @@ namespace DFM
             {
                 if (DataObject.ObjectList.Count > 0)
                 {
-                    ViewDataForm viewDataForm = new ViewDataForm(DataObject.ObjectList);
+                    ViewDataForm viewDataForm = new ViewDataForm(
+                        DataObject.ObjectList);
                     viewDataForm.Show();
                 }
                 else
@@ -635,9 +625,14 @@ namespace DFM
                 Console.WriteLine("Why is the file null?");
         }
 
-        private void MainForm_Load(object sender, EventArgs e)
+        /// <summary>
+        /// Update the saveDir property on SaveDirTextBox TextChanged event.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SaveDirTextBox_TextChanged(object sender, EventArgs e)
         {
-
+            saveDir = (sender as TextBox).Text;
         }
     }
 }

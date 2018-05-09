@@ -54,10 +54,11 @@ namespace DFM
                 for (int i = 0; i < maxColNum; i++)
                 {
                     string header = i.ToString();
-                    if (columns[i][0].Contains(FLAG))
+                    if (entry.Value.HasHeader)
                     {
                         // Get the header text
-                        header = columns[i][0].Remove(0, FLAG.Length);
+                        //header = columns[i][0].Remove(0, FLAG.Length);
+                        header = columns[i][0];
                         rowStart = 1;
                     }
                     dataGridView.Columns.Add("col" + i.ToString(),
@@ -71,7 +72,6 @@ namespace DFM
                 {
                     dataGridView.Rows.Add(dataRows[i].ToArray());
                 }
-
                 DataTabs.TabPages.Add(new TabPage(entry.Key));
                 DataTabs.TabPages[tab].Controls.Add(dataGridView);
                 tab++;
