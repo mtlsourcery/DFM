@@ -1,0 +1,52 @@
+Using GitHub w/ Visual Studio:
+
+0) On github.com, log in (or create account), and create a repository without a 
+	README file. 
+1) Click the "Clone or download" button on github, and copy the repository url.
+   (You need to be an admin to download repository -- win+x, A to open admin command window)
+2) In VS, create new project as usual, but check the box "Create new Git 
+	repository"
+3) In VS, go to View > Team Explorer > Sync > Push to Remote Repository.
+4) Click "Publish Git Repo" and paste the repository url that you copied ealier 
+	into the blank that appears. This will only work if the repository to
+	which the url refers to is empty, which at this point, it should be. 
+5) Click "Publish". If this results in an http error, 
+	a) Go to Team Explorer > Repository Settings, and make sure the username
+		and email match those of the GitHub account being used. For 
+		example, the MTL GitHub has username, password: mtlsourcery, 
+		mtlsourcecode@gmail.com
+	b) Go to Team-Explorer > Sync or Branches > Actions > Open Command Prompt.
+		In the terminal, enter "git push -u origin --all" without the 
+		quotation marks. This should then prompt you for the username and
+		password for the GitHub account. These can be found in the MTL 
+		Evernote in "New Employee Email and Software Setup Information".
+		Any of the engineers, IT person, or administrative people should
+		be able to supply you the login information for Evernote. 
+	c) If (a,b) failed, as a last resort, launch the Visual Studio installer 
+		and update Visual Studio and cross your fingers. 
+	d) If (c) failed, then Stackoverflow is your only friend. 
+6) After you have successfully published the project to the remote repository,
+	you can now actually use GitHub for its sole purpose: tracking local 
+	changes you (and others) make in the cloud.
+
+	a) Whenever you've made substantial changes to your code, head over to 
+		Team Explorer > Changes. Enter a short message describing the 
+		changes you've made, then click "Commit All". 
+	b) After this, go to Team Explorer > Sync > Outgoing Commits and click
+		"Push". Now your recent changes have been uploaded to GitHub.
+
+	ALTERNATIVE STEPS: THE COMMAND PROMPT METHOD
+	** This is the method I use, as I find it to be much faster than using
+	the graphical Git controls in VS. **
+
+	a) Open a command prompt in the directory that houses your project. This 
+		can easily be done as described in 5b. Leave this command prompt 
+		open throughout your whole coding session. 
+	b) If you've added files, type "git add ." without the quotation marks. 
+		The period essentially specifies that you want to all new files. 
+	c) When you want to note changes, type "git commit -m "your message here""
+	d) Finally, type "git push". You will be prompted for your GitHub login
+		credentials, which you can find in Evernote as described earlier.
+
+7) Repeat step 6 as often as you feel necessary, and most importantly, whenever
+	you're going to take a break or are done writing code for the day.
