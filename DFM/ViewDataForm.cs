@@ -1,4 +1,25 @@
-﻿using System;
+﻿/*
+ * Data File Manager (DFM)
+ * 
+ * Written by Preston Huft and Drew Schwarz for MTL-X for internal use only.
+ * 
+ * Spring/Summer 2018.
+ * 
+ * /////////////////////////////////////////////////////////////////////////////
+ * 
+ *                ||\    //||  ||||||||||  ||            \\   //
+ *                ||\\  // ||      ||      ||             \\ //
+ *                || \\//  ||      ||      ||        ==    | |
+ *                ||       ||      ||      ||             // \\
+ *                ||       ||      ||      |||||||||     //   \\ 
+ *                
+ *                         DOING WELL BY DOING GOOD. X.
+ * 
+ * /////////////////////////////////////////////////////////////////////////////
+ * 
+ */
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -37,23 +58,31 @@ namespace DFM
         void GridTabsInit(Dictionary<string,DataObject> objectDict)
         {
             int tab = 0;
+            int rowStart;
+            int colNum;
+            string header; 
+            List<List<string>> columns = new List<List<string>>();
+            List<List<string>> rows = new List<List<string>>();
+
             foreach (var entry in objectDict)
             {
-                //int row = 0;
-                //int col = 0;
                 DataGridView dataGridView = new DataGridView()
                 {
                     AutoGenerateColumns = true,
                     Dock = DockStyle.Fill
                 };
-                var columns = entry.Value.DataColumns;
-                int maxColNum = entry.Value.MaxColumnCount;
-                List<List<string>> dataRows = entry.Value.DataRows;
-                int rowStart = 0; // Where to start the iteration over rows
+                columns = entry.Value.DataColumns;
+                colNum = columns.Count;
+                rows = entry.Value.DataRows;
+                rowStart = 0; // Where to start the iteration over rows
 
-                for (int i = 0; i < maxColNum; i++)
+                //Console.WriteLine("DataColumns.Count: " +
+                //            entry.Value.DataColumns.Count +
+                //            Environment.NewLine + "colNum: " +
+                //            colNum);
+
+                for (int i = 0; i < colNum; i++)
                 {
-                    string header = i.ToString();
                     if (entry.Value.HasHeader)
                     {
                         // Get the header text
@@ -61,16 +90,18 @@ namespace DFM
                         header = columns[i][0];
                         rowStart = 1;
                     }
+                    else
+                        header = i.ToString();
                     dataGridView.Columns.Add("col" + i.ToString(),
                         header);
                     Console.WriteLine("Column number: " + i.ToString());
                 }
 
-                // Add the data rows to the DataGridView. if we added column 
+                // Add the data rows to the DataGridView. If we added column 
                 // headers above, then start at the 1st row, not 0th row.
-                for (int i = rowStart; i < dataRows.Count; i++)
+                for (int i = rowStart; i < rows.Count; i++)
                 {
-                    dataGridView.Rows.Add(dataRows[i].ToArray());
+                    dataGridView.Rows.Add(rows[i].ToArray());
                 }
                 DataTabs.TabPages.Add(new TabPage(entry.Key));
                 DataTabs.TabPages[tab].Controls.Add(dataGridView);

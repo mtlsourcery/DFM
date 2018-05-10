@@ -1,4 +1,25 @@
-﻿using System;
+﻿/*
+ * Data File Manager (DFM)
+ * 
+ * Written by Preston Huft and Drew Schwarz for MTL-X for internal use only.
+ * 
+ * Spring/Summer 2018.
+ * 
+ * /////////////////////////////////////////////////////////////////////////////
+ * 
+ *                ||\    //||  ||||||||||  ||            \\   //
+ *                ||\\  // ||      ||      ||             \\ //
+ *                || \\//  ||      ||      ||        ==    | |
+ *                ||       ||      ||      ||             // \\
+ *                ||       ||      ||      |||||||||     //   \\ 
+ *                
+ *                         DOING WELL BY DOING GOOD. X.
+ * 
+ * /////////////////////////////////////////////////////////////////////////////
+ * 
+ */
+
+using System;
 using System.IO;
 using System.Reflection;
 using System.Collections.Generic;
@@ -276,7 +297,7 @@ namespace DFM
         {
             // Initialize a Stream to read in data from files
             Stream fileStream;
-            string filename;
+            //string filename;
 
             // Displays the file selection window and stores the result
             OpenFileDialog openFileDialog = new OpenFileDialog()
@@ -304,33 +325,22 @@ namespace DFM
                     {
                         string[] filenames = openFileDialog.SafeFileNames;
                         // Populate the ListBoxes and create DataObjects
-                        foreach (var entry in filenames)
+                        foreach (var filename in filenames)
                         {
-                            try
-                            {
-                                filename = entry;
+                            // Create new dataObject. Notice that we don't have to
+                            // assign new objects to variables. We can access this
+                            // by its filename: DataObject.ObjectList[filename]
+                            new DataObject(filename, fileStream, allColumns);
+                            // List the file's data in DataListBox
+                            var dataObj = DataObject.ObjectList[filename];
+                            string item = filename + " (" +
+                                dataObj.DataColumns.Count.ToString() +
+                                " Columns)";
+                            DataListBox.Items.Add(item);
+                            // Add filename to FileListBox
+                            FileListBox.Items.Add(filename);
 
-                                // Create new dataObject. Notice that we don't have to
-                                // assign new objects to variables. We can access this
-                                // by its filename: DataObject.ObjectList[filename]
-                                new DataObject(filename, fileStream, allColumns);
-
-                                // List the file's data in DataListBox
-                                var dataObj = DataObject.ObjectList[filename];
-                                string item = filename + " (" +
-                                    dataObj.DataColumns.Count.ToString() +
-                                    " Columns)";
-                                DataListBox.Items.Add(item);
-
-                                // Add filename to FileListBox
-                                FileListBox.Items.Add(filename);
-
-                                if (DEBUG) { PrintDictionary(); }
-                            }
-                            catch (Exception ex)
-                            {
-                                msgHandler.ShowException(ex);
-                            }
+                            if (DEBUG) { PrintDictionary(); }
                         }
                     }
                 }
@@ -406,10 +416,9 @@ namespace DFM
                         // True if ith item in FileListBox is selected
                         if (FileListBox.GetSelected(i))
                         {
-                            // The selection indices are not the same as the
-                            // ListBox indices; just pop off the first item
                             DataObject.ObjectList.Remove(
-                                selection[0].ToString());
+                                FileListBox.Items[i].ToString());
+                            var key = FileListBox.Items[i].ToString();
                             FileListBox.Items.RemoveAt(i);
                             DataListBox.Items.RemoveAt(i);
                         }
@@ -565,28 +574,11 @@ namespace DFM
         /// <param name="e"></param>
         private void ClearAllFilesButton_Click(object sender, EventArgs e)
         {
-            // Clear all of the items in the file list box and the objects they
+            // Remove all of the items in the ListBoxes and the objects they
             // Represent in DataObjects.ObjectList
-
-            var items = FileListBox.Items;
-            if (items.Count > 0)
-            {
-                try
-                {
-                    int count = items.Count;
-                    for (int i = 0; i < count; i++)
-                    {
-                        DataObject.ObjectList.Remove(items[0].ToString());
-                        items.RemoveAt(0);
-                        DataListBox.Items.RemoveAt(0);
-                    }
-                    if (DEBUG) { PrintDictionary(); }
-                }
-                catch (Exception ex)
-                {
-                    msgHandler.ShowException(ex);
-                }
-            }
+            FileListBox.Items.Clear();
+            DataListBox.Items.Clear();
+            DataObject.ObjectList.Clear();
         }
 
         /// <summary>

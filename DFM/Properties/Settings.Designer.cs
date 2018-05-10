@@ -25,7 +25,7 @@ namespace DFM.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("@\"C:\\\"")]
+        [global::System.Configuration.DefaultSettingValueAttribute("@\"C:\"")]
         public string BrowseDirectory {
             get {
                 return ((string)(this["BrowseDirectory"]));
@@ -37,7 +37,7 @@ namespace DFM.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("@\"C:\\\"")]
+        [global::System.Configuration.DefaultSettingValueAttribute("@\"C:\"")]
         public string SaveDirectory {
             get {
                 return ((string)(this["SaveDirectory"]));

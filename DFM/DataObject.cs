@@ -1,4 +1,25 @@
-﻿using System;
+﻿/*
+ * Data File Manager (DFM)
+ * 
+ * Written by Preston Huft and Drew Schwarz for MTL-X for internal use only.
+ * 
+ * Spring/Summer 2018.
+ * 
+ * /////////////////////////////////////////////////////////////////////////////
+ * 
+ *                ||\    //||  ||||||||||  ||            \\   //
+ *                ||\\  // ||      ||      ||             \\ //
+ *                || \\//  ||      ||      ||        ==    | |
+ *                ||       ||      ||      ||             // \\
+ *                ||       ||      ||      |||||||||     //   \\ 
+ *                
+ *                         DOING WELL BY DOING GOOD. X.
+ * 
+ * /////////////////////////////////////////////////////////////////////////////
+ * 
+ */
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -55,13 +76,15 @@ namespace DFM
 
         /// <summary>
         /// The largest number of columns/group where groups are sorted by row
-        /// count.
+        /// count. Note that MaxColumnCount and MaxRowCount refer to different
+        /// groups, in general.
         /// </summary>
         public int MaxColumnCount;
 
         /// <summary>
         /// The largest number of rows/group where groups are sorted by row
-        /// count.
+        /// count. Note that MaxRowCount and MaxColumnCount refer to different
+        /// groups, in general.
         /// </summary>
         public int MaxRowCount;
 
@@ -159,10 +182,9 @@ namespace DFM
             char delimiter,bool removeVacancies)
         {
             /* Could modify this method to:
-             * - omit lines with spaces between any pair of delimiters 
              * - search for other delimiters; pass in the whole delimiter array?
              * - add overload method for .xlsx files; this will only work w/ .txt
-             *      and maybe .csv files.
+             *      .csv,.rtf and other files which can be read in as text.
              */
 
             // CellMatrix3D[i][j][k] specifies a cell k in line j in group i
@@ -258,10 +280,10 @@ namespace DFM
                 {   if (!skipLine)
                     {   // add row if no cells were whitespace
                         CellMatrix2D.Add(cellRow); 
-                        if (cellRow.Count > maxColumns)
-                        { maxColumns = cellRow.Count; }
                     }
                 }
+                if (cellRow.Count > maxColumns)
+                { maxColumns = cellRow.Count; }
                 lineIter++;
             }
             // The last 2D matrix has to be added to the 3D matrix here:
@@ -462,34 +484,6 @@ namespace DFM
             // An array of type List<List<string>> containing the rows and cols
             return new List<List<string>>[] { dataRows, dataColumns };
         }
-
-        ///// <summary>
-        ///// Check for non-numeric strings in the first row of each group, and 
-        ///// "flag" those strings. Flag could be appending some rarely used char
-        ///// or group of chars (e.g. '&^') onto the front of the alphabetic 
-        ///// string. Then, when populating DataGridViews or spreadsheets, make
-        ///// a header from the flagged string (e.g., 
-        ///// if (rows[0][i].Substring(0,2) == '&^') 
-        /////     header[i] == rows[0][i].Substring(2,rows[0][i].Count-2)
-        ///// </summary>
-        //private List<string> GetHeader(List<string> testRow)
-        //{
-        //    // If the parse to double fails, the cell has alphabetic chars
-        //    if (!double.TryParse(testRow[0], out double number))
-        //    {
-        //        /* If the first cell didn't parse, assume the whole row won't.
-        //         * If we're using the DataRows property, we need only check the
-        //         * first entry of DataRows[0] for a flag. However, if we use the
-        //         * DataColumns, then we'll have to check the first entry of each
-        //         * List for a flag. Hence, flag all entries in row 0. */
-        //        for (int i = 0; i < testRow.Count; i++)
-        //        {   
-        //            testRow[i] = HEADER_FLAG + testRow[i];
-        //        }
-        //    }
-        //    // return testRow, which might now have flagged cells
-        //    return testRow;
-        //}
 
         /// <summary>
         /// Checks the zeroth row of dataRow for non-numeric values, which would 

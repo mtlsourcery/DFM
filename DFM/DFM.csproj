@@ -107,8 +107,8 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="DFM_sample_uPEM.csv" />
-    <None Include="DFM_sample_FWS.csv" />
+    <None Include="Data_sample_uPEM.csv" />
+    <None Include="Data_sample_FWS.csv" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -118,16 +118,15 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="DFM_sample_xrf.rtf" />
+    <None Include="Data_sample_XRF.rtf" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="DEVNOTES.txt" />
-    <Content Include="DFM_DataTest0b.txt" />
-    <Content Include="DFM_DataTest0a.txt" />
-    <Content Include="DFM_DataTest1.txt" />
+    <Content Include="Data_simple_noheader.txt" />
+    <Content Include="Data_simple_header.txt" />
     <EmbeddedResource Include="Text\HelpFile.txt" />
     <Content Include="Images\catbowl1.jpg" />
     <Content Include="Images\catbox1.jpg" />

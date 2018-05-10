@@ -1,4 +1,25 @@
-﻿** DEVELOPER NOTES AND TODO LIST **
+﻿/*
+ * Data File Manager (DFM)
+ * 
+ * Written by Preston Huft and Drew Schwarz for MTL-X for internal use only.
+ * 
+ * Spring/Summer 2018.
+ * 
+ * /////////////////////////////////////////////////////////////////////////////
+ * 
+ *                ||\    //||  ||||||||||  ||            \\   //
+ *                ||\\  // ||      ||      ||             \\ //
+ *                || \\//  ||      ||      ||        ==    | |
+ *                ||       ||      ||      ||             // \\
+ *                ||       ||      ||      |||||||||     //   \\ 
+ *                
+ *                         DOING WELL BY DOING GOOD. X.
+ * 
+ * /////////////////////////////////////////////////////////////////////////////
+ * 
+ */
+
+** DEVELOPER NOTES AND TODO LIST **
 
 --------------------------------------------------------------------------------
 Intended code structure summary (as of 14 March, 2018): 
@@ -51,10 +72,8 @@ will passed on... an MTLegacy.
 	row (Milk,2.50,,Target) would be omitted from your shopping list table. This
 	way, there will be no vacant cells.
 - If initial directory is not found when attempting to browse files, pop open a
-	dialogue asking for a new default directory (could store this in an settings
+	dialogue asking for a new default directory (could store this in a settings
 	file eventually).
-- Allow multiple-file selection in file dialog (would set this in 
-	AddButton_click()).
 
 --------------------------------------------------------------------------------
 Maybe-Do List:
@@ -78,13 +97,14 @@ Maybe-Do List:
 
 --------------------------------------------------------------------------------
 Dailyish Notes
+11 May, 2018 -
+	Bug in RemoveFilesButton_click: even if all files are removed, the last one
+	remains in DataObject.ObjectList.
 9 May, 2018 - 
-	IndexOutOfRangeException thrown when data is viewed after one file added,
-	then data viewed, then another file added. I think the error is occuring
-	in ViewDataForm.GridTabsInit(), and has nothing to do with the way I added 
-	the files, but with the content of DFM_DataTest0b.txt.
+	IndexOutOfRangeException thrown when DFM_DataTest0b.txt data is viewed. I 
+	think the error is occuring in ViewDataForm.GridTabsInit().
 
-	MainForm.WriteNewCSVFile(),WriteNewExcelFile() are return the rows 
+	MainForm.WriteNewCSVFile(),WriteNewExcelFile() are returning the rows 
 	of data for only the first selected file, but repeated on time for each file
 	selected. I.e., if fileA and fileB are selected, fileA's rows will show up 
 	twice in the exported file, but fileB's will be absent. Fix this!
