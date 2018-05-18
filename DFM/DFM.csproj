@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="ColorsClass.cs" />
     <Compile Include="DataObject.cs" />
+    <Compile Include="FormThemes.cs" />
     <Compile Include="MessageHandler.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

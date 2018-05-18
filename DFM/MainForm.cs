@@ -9,7 +9,7 @@
  * 
  *                ||\    //||  ||||||||||  ||            \\   //
  *                ||\\  // ||      ||      ||             \\ //
- *                || \\//  ||      ||      ||        ==    | |
+ *                || \\//  ||      ||      ||        ==    |||
  *                ||       ||      ||      ||             // \\
  *                ||       ||      ||      |||||||||     //   \\ 
  *                
@@ -586,7 +586,7 @@ namespace DFM
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void MenuSettings_Click(object sender, EventArgs e)
+        private void SettingsMenuItem_Click(object sender, EventArgs e)
         {
             // Do something here, e.g. open a settings Form that allows the user
             // to change things like default save directory or background color.
@@ -598,7 +598,7 @@ namespace DFM
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void MenuHelp_Click(object sender, EventArgs e)
+        private void HelpMenuItem_Click(object sender, EventArgs e)
         {
             // Do something here, e.g. open a help file (in a Form functionally
             // identical to FilePreviewForm?)
@@ -626,6 +626,79 @@ namespace DFM
         {
             saveDir = (sender as TextBox).Text;
         }
+
+        /* THEMES */
+
+        /* the format: formFillColor, formBorderColor, 
+         * rTextColor, rwTextColor, buttonFillColor,
+         * buttonBorderColor
+         */
+
+        public FormThemes StealthMint = new FormThemes(Color.SlateGray,
+            Color.DimGray,Color.MediumSpringGreen,Color.White,Color.LightSlateGray,
+            Color.Black);
+
+        //public FormThemes Chipotle = new FormThemes();
+        //public FormThemes LinuxMintCinnamon = new FormThemes();
+        //public FormThemes ClassicHacker = new FormThemes();
+        //public FormThemes TronLegacy = new FormThemes();
+
+        /* METHODS - THEME CHANGE */
+
+        //private void ThemeToolStripMenuItem_Click(object sender, EventArgs e)
+        //{
+        //    // Apply layout change
+        //    LoadTheme();
+        //}
+
+        private void SMintToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // Apply layout change
+            LoadTheme(this,StealthMint);
+        }
+
+        private void ChipotleToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // Apply layout change
+            //LoadTheme(Chipotle);
+        }
+
+        private void LMCinnamonToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // Apply layout change
+            //LoadTheme(LinuxMintCinnamon);
+        }
+
+        private void CHackerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // Apply layout change
+            //LoadTheme(ClassicHacker);
+        }
+
+        private void TronToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // Apply layout change
+            //LoadTheme(TronLegacy);
+        }
+
+        public void LoadTheme(Form form, FormThemes formTheme)
+        {
+            foreach (var control in form.Controls)
+            {
+                // Switch for type of control
+                var type = control.GetType().ToString();
+                switch (type)
+                {
+                    case "Button":
+                        var button = control as Button;
+                        button.ForeColor = formTheme.ReadOnlyTextColor;
+                        button.BackColor = formTheme.ButtonFillColor;
+                        break;
+                    default:
+                        // control type not accomodated; nothing changes
+                        break;
+                }
+            }
+        }
     }
 }
-    

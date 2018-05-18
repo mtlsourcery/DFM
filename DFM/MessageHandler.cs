@@ -9,7 +9,7 @@
  * 
  *                ||\    //||  ||||||||||  ||            \\   //
  *                ||\\  // ||      ||      ||             \\ //
- *                || \\//  ||      ||      ||        ==    | |
+ *                || \\//  ||      ||      ||        ==    |||
  *                ||       ||      ||      ||             // \\
  *                ||       ||      ||      |||||||||     //   \\ 
  *                
@@ -104,7 +104,7 @@ namespace DFM
                             if (DEBUG)
                             {
                                 Console.WriteLine("url:" +
-                       reader.Value);
+                                 reader.Value);
                             }
                             urlList.Add(reader.Value);
                             isURL = false;

@@ -52,6 +52,15 @@
             this.MenuSettings = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.menuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.HelpMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.SettingsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.themeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.stealthMintToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.chipotleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.linuxMintCinnamonToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.hackerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tronLegacyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -272,23 +281,94 @@
             this.MenuSettings.Name = "MenuSettings";
             this.MenuSettings.Size = new System.Drawing.Size(116, 22);
             this.MenuSettings.Text = "Settings";
-            this.MenuSettings.Click += new System.EventHandler(this.MenuSettings_Click);
+            this.MenuSettings.Click += new System.EventHandler(this.SettingsMenuItem_Click);
             // 
             // MenuHelp
             // 
             this.MenuHelp.Name = "MenuHelp";
             this.MenuHelp.Size = new System.Drawing.Size(116, 22);
             this.MenuHelp.Text = "Help";
-            this.MenuHelp.Click += new System.EventHandler(this.MenuHelp_Click);
+            this.MenuHelp.Click += new System.EventHandler(this.HelpMenuItem_Click);
             // 
             // menuStrip1
             // 
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(397, 24);
             this.menuStrip1.TabIndex = 19;
             this.menuStrip1.Text = "menuStrip1";
+            // 
+            // menuToolStripMenuItem
+            // 
+            this.menuToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.HelpMenuItem,
+            this.SettingsMenuItem,
+            this.themeToolStripMenuItem});
+            this.menuToolStripMenuItem.Name = "menuToolStripMenuItem";
+            this.menuToolStripMenuItem.Size = new System.Drawing.Size(50, 20);
+            this.menuToolStripMenuItem.Text = "Menu";
+            // 
+            // HelpMenuItem
+            // 
+            this.HelpMenuItem.Name = "HelpMenuItem";
+            this.HelpMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.HelpMenuItem.Text = "Help";
+            // 
+            // SettingsMenuItem
+            // 
+            this.SettingsMenuItem.Name = "SettingsMenuItem";
+            this.SettingsMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.SettingsMenuItem.Text = "Settings";
+            // 
+            // themeToolStripMenuItem
+            // 
+            this.themeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.stealthMintToolStripMenuItem,
+            this.chipotleToolStripMenuItem,
+            this.linuxMintCinnamonToolStripMenuItem,
+            this.hackerToolStripMenuItem,
+            this.tronLegacyToolStripMenuItem});
+            this.themeToolStripMenuItem.Name = "themeToolStripMenuItem";
+            this.themeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.themeToolStripMenuItem.Text = "Theme";
+            // 
+            // stealthMintToolStripMenuItem
+            // 
+            this.stealthMintToolStripMenuItem.Name = "stealthMintToolStripMenuItem";
+            this.stealthMintToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+            this.stealthMintToolStripMenuItem.Text = "Stealth Mint";
+            this.stealthMintToolStripMenuItem.Click += new System.EventHandler(this.SMintToolStripMenuItem_Click);
+            // 
+            // chipotleToolStripMenuItem
+            // 
+            this.chipotleToolStripMenuItem.Name = "chipotleToolStripMenuItem";
+            this.chipotleToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+            this.chipotleToolStripMenuItem.Text = "Chipotle";
+            this.chipotleToolStripMenuItem.Click += new System.EventHandler(this.ChipotleToolStripMenuItem_Click);
+            // 
+            // linuxMintCinnamonToolStripMenuItem
+            // 
+            this.linuxMintCinnamonToolStripMenuItem.Name = "linuxMintCinnamonToolStripMenuItem";
+            this.linuxMintCinnamonToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+            this.linuxMintCinnamonToolStripMenuItem.Text = "Linux Mint Cinnamon";
+            this.linuxMintCinnamonToolStripMenuItem.Click += new System.EventHandler(this.LMCinnamonToolStripMenuItem_Click);
+            // 
+            // hackerToolStripMenuItem
+            // 
+            this.hackerToolStripMenuItem.Name = "hackerToolStripMenuItem";
+            this.hackerToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+            this.hackerToolStripMenuItem.Text = "Classic Hacker";
+            this.hackerToolStripMenuItem.Click += new System.EventHandler(this.CHackerToolStripMenuItem_Click);
+            // 
+            // tronLegacyToolStripMenuItem
+            // 
+            this.tronLegacyToolStripMenuItem.Name = "tronLegacyToolStripMenuItem";
+            this.tronLegacyToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+            this.tronLegacyToolStripMenuItem.Text = "Tron Legacy";
+            this.tronLegacyToolStripMenuItem.Click += new System.EventHandler(this.TronToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -353,6 +433,15 @@
         private System.Windows.Forms.ToolStripMenuItem MenuSettings;
         private System.Windows.Forms.ToolStripMenuItem MenuHelp;
         private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem menuToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem HelpMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem SettingsMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem themeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem stealthMintToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem chipotleToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem linuxMintCinnamonToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem hackerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tronLegacyToolStripMenuItem;
     }
 }
 
