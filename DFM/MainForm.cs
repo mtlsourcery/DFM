@@ -70,6 +70,10 @@ namespace DFM
                 ).Replace('/', '_').Replace(' ', '_').Replace(':','.');
             this.SaveDirTextBox.Text = saveDir + @"\";
             this.Icon = Icon.FromHandle(Properties.Resources.mtlapplogo.GetHicon());
+
+            //Set the theme. Later replace with something like:
+            // LoadTheme(settings.properties.theme)
+            LoadTheme(this,StealthMint);
         }
 
         /// <summary>
