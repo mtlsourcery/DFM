@@ -1,4 +1,25 @@
-﻿using System;
+﻿/*
+ * Data File Manager (DFM)
+ * 
+ * Written by Preston Huft and Drew Schwarz for MTL-X for internal use only.
+ * 
+ * Spring/Summer 2018.
+ * 
+ * /////////////////////////////////////////////////////////////////////////////
+ * 
+ *                ||\    //||  ||||||||||  ||            \\   //
+ *                ||\\  // ||      ||      ||             \\ //
+ *                || \\//  ||      ||      ||        ==    |||
+ *                ||       ||      ||      ||             // \\
+ *                ||       ||      ||      |||||||||     //   \\ 
+ *                
+ *                         DOING WELL BY DOING GOOD. X.
+ * 
+ * /////////////////////////////////////////////////////////////////////////////
+ * 
+ */
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
