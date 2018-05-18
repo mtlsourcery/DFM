@@ -629,19 +629,23 @@ namespace DFM
 
         /* THEMES */
 
-        /* the format: formFillColor, formBorderColor, 
+        /* the theme argument format: formFillColor, formBorderColor, 
          * rTextColor, rwTextColor, buttonFillColor,
          * buttonBorderColor
          */
 
         public FormThemes StealthMint = new FormThemes(Color.SlateGray,
-            Color.DimGray,Color.MediumSpringGreen,Color.White,Color.LightSlateGray,
+            Color.Black,Color.MediumSpringGreen,Color.White,Color.SlateGray,
             Color.Black);
-
-        //public FormThemes Chipotle = new FormThemes();
-        //public FormThemes LinuxMintCinnamon = new FormThemes();
-        //public FormThemes ClassicHacker = new FormThemes();
-        //public FormThemes TronLegacy = new FormThemes();
+        public FormThemes Chipotle = new FormThemes(Color.Bisque,Color.DarkGray,
+            Color.Brown,Color.Black,Color.BurlyWood,Color.DarkGray);
+        public FormThemes LinuxMintCinnamon = new FormThemes(Color.White,
+            Color.Black, Color.DarkGray, Color.White, Color.Black, Color.Black);
+        public FormThemes ClassicHacker = new FormThemes(Color.White,
+            Color.Black, Color.Lime, Color.White, Color.Black, Color.Black);
+        public FormThemes TronLegacy = new FormThemes(Color.Yellow,
+            Color.MidnightBlue, Color.Orange, Color.DodgerBlue, 
+            Color.MidnightBlue, Color.White);
 
         /* METHODS - THEME CHANGE */
 
@@ -660,39 +664,76 @@ namespace DFM
         private void ChipotleToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // Apply layout change
-            //LoadTheme(Chipotle);
+            LoadTheme(this,Chipotle);
         }
 
         private void LMCinnamonToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // Apply layout change
-            //LoadTheme(LinuxMintCinnamon);
+            LoadTheme(this,LinuxMintCinnamon);
         }
 
         private void CHackerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // Apply layout change
-            //LoadTheme(ClassicHacker);
+            LoadTheme(this,ClassicHacker);
         }
 
         private void TronToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // Apply layout change
-            //LoadTheme(TronLegacy);
+            LoadTheme(this,TronLegacy);
         }
 
+        /// <summary>
+        /// Applies the Theme formTheme to the Form form. This method is public
+        /// and therefore can be called in other forms. Could save the themes
+        /// as settings properties in settings.settings maybe, then update the
+        /// settings each time this is called (something like:
+        /// settings.properties.theme = formTheme; settings.properties.save();
+        /// then in other forms just call: 
+        /// MainForm.LoadThem(settings.properties.theme) in the constructor.
+        /// </summary>
+        /// <param name="form"></param>
+        /// <param name="formTheme"></param>
         public void LoadTheme(Form form, FormThemes formTheme)
         {
+            form.ForeColor = formTheme.FormFillColor;
+            form.BackColor = formTheme.FormBorderColor;
             foreach (var control in form.Controls)
             {
                 // Switch for type of control
                 var type = control.GetType().ToString();
+                if (DEBUG)
+                { Console.WriteLine(type); }
                 switch (type)
                 {
-                    case "Button":
+                    case "System.Windows.Forms.Button":
                         var button = control as Button;
                         button.ForeColor = formTheme.ReadOnlyTextColor;
                         button.BackColor = formTheme.ButtonFillColor;
+                        break;
+                    case "System.Windows.Forms.TextBox":
+                        var textBox = control as TextBox;
+                        if (textBox.ReadOnly)
+                            textBox.ForeColor = formTheme.ReadOnlyTextColor;
+                        else
+                            textBox.ForeColor = formTheme.EditableTextColor;
+                        textBox.BackColor = formTheme.ButtonFillColor;
+                        break;
+                    case "System.Windows.Forms.ListBox":
+                        var listBox = control as ListBox;
+                        listBox.ForeColor = formTheme.ReadOnlyTextColor;
+                        listBox.BackColor = formTheme.ButtonFillColor;
+                        break;
+                    case "System.Windows.Forms.Label":
+                        var label = control as Label;
+                        label.ForeColor = formTheme.ReadOnlyTextColor;
+                        break;
+                    case "System.Windows.Forms.MenuStrip":
+                        var menuStrip = control as MenuStrip;
+                        menuStrip.ForeColor = formTheme.FormFillColor;
+                        menuStrip.BackColor = formTheme.FormBorderColor;
                         break;
                     default:
                         // control type not accomodated; nothing changes
